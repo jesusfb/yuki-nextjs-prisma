@@ -11,6 +11,7 @@ export const getBaseUrl = () => {
 interface SiteConfig {
   meta: Metadata
   viewport: Viewport
+  email: string
 }
 
 export const siteConfig: SiteConfig = {
@@ -20,7 +21,7 @@ export const siteConfig: SiteConfig = {
     applicationName: 'Yuki',
     category: 'E-commerce',
     keywords: ['E-commerce', 'Digital', 'Products'],
-    authors: { name: 'Tiesen', url: 'https://tiesen.id.vn' },
+    authors: [{ name: 'Tiesen', url: 'https://tiesen.id.vn' }],
     description: 'A ecommerce website for selling digital products',
     icons: { icon: '/favicon.ico', shortcut: '/favicon-16x16.png', apple: '/apple-touch-icon.png' },
     twitter: { creatorId: '@tiesen243', card: 'summary_large_image' },
@@ -38,4 +39,5 @@ export const siteConfig: SiteConfig = {
       { media: '(prefers-color-scheme: dark)', color: 'hsl(240 10% 3.9%)' },
     ],
   },
+  email: 'ttien56906@gmail.com',
 }

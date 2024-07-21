@@ -1,8 +1,9 @@
 import './globals.css'
 
-import { Inter } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
+import { Inter } from 'next/font/google'
 
+import { Toaster } from '@/components/ui/sonner'
 import { siteConfig } from '@/lib/site'
 import { TRPCReactProvider } from '@/lib/trpc/react'
 
@@ -16,6 +17,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => (
     <body className={`${inter.variable} font-sans`}>
       <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
         <TRPCReactProvider>{children}</TRPCReactProvider>
+        <Toaster richColors />
       </ThemeProvider>
     </body>
   </html>
