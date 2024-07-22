@@ -8,6 +8,12 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/
 import { lucia } from '@/server/auth/lucia'
 
 export const authRouter = createTRPCRouter({
+  // [GET] /api/trpc/auth.me
+  me: publicProcedure.query(async ({ ctx }) => {
+    return { user: ctx.user, session: ctx.session }
+  }),
+
+  // [POST] /api/trpc/auth.signUp
   signUp: publicProcedure.input(authSchema.signUp).mutation(async ({ ctx, input }) => {
     const isEmailExist = await ctx.db.user.findUnique({ where: { email: input.email } })
     if (isEmailExist) throw new TRPCError({ code: 'CONFLICT', message: 'Email already exists' })
@@ -32,6 +38,7 @@ export const authRouter = createTRPCRouter({
     return { success: true }
   }),
 
+  // [POST] /api/trpc/auth.signIn
   signIn: publicProcedure.input(authSchema.signIn).mutation(async ({ ctx, input }) => {
     const user = await ctx.db.user.findUnique({ where: { email: input.email } })
     if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' })
@@ -52,6 +59,7 @@ export const authRouter = createTRPCRouter({
     return { sessionCookie }
   }),
 
+  // [POST] /api/trpc/auth.signOut
   signOut: protectedProcedure.mutation(async ({ ctx }) => {
     await lucia.invalidateSession(ctx.session.id)
 
