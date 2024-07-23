@@ -19,4 +19,20 @@ export const authSchema = {
     email: z.string().email('Invalid email'),
     password: passwordValidator,
   }),
+
+  forgotPassword: z.object({
+    email: z.string().email('Invalid email'),
+  }),
+
+  resetPassword: z
+    .object({
+      token: z.string(),
+      email: z.string().email('Invalid email'),
+      password: passwordValidator,
+      confirmPassword: passwordValidator,
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      path: ['confirmPassword'],
+      message: 'Passwords do not match',
+    }),
 }

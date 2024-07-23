@@ -30,7 +30,7 @@ const Page: NextPage = () => {
 
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center gap-8">
-      <p className="text-2xl">Welcome back, {user.name}</p>
+      <pre>{JSON.stringify({ ...user, image: undefined }, null, 2)}</pre>
       <Button onClick={() => mutate()}>log out</Button>
     </div>
   )

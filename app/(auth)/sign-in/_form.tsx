@@ -44,17 +44,13 @@ export const Form: React.FC = () => {
         <button
           type="button"
           onClick={() => router.push('/forgot-password')}
-          className="text-sm text-blue-500 hover:underline"
+          className="text-sm hover:underline"
         >
           Forgot password?
         </button>
 
-        <button
-          type="button"
-          onClick={() => router.push('/sign-up')}
-          className="text-sm text-blue-500 hover:underline"
-        >
-          Sign up
+        <button type="button" onClick={() => router.push('/sign-up')} className="text-sm">
+          Don&apos;t have an account? <span className="hover:underline">Sign up</span>
         </button>
       </div>
 

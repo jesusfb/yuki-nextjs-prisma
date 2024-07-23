@@ -10,7 +10,8 @@ import { lucia } from '@/server/auth/lucia'
 export const authRouter = createTRPCRouter({
   // [GET] /api/trpc/auth.me
   me: publicProcedure.query(async ({ ctx }) => {
-    return { user: ctx.user, session: ctx.session }
+    const user = { ...ctx.user, password: undefined }
+    return { user, session: ctx.session }
   }),
 
   // [POST] /api/trpc/auth.signUp
@@ -68,4 +69,43 @@ export const authRouter = createTRPCRouter({
 
     return { success: true }
   }),
+
+  // [POST] /api/trpc/auth.forgotPassword
+  forgotPassword: publicProcedure
+    .input(authSchema.forgotPassword)
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.db.user.findUnique({ where: { email: input.email } })
+      if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' })
+
+      const token = await new Scrypt().hash(user.id)
+
+      await sendEmail({
+        subject: `Reset your password`,
+        to: user.email,
+        type: 'reset-password',
+        data: { name: user.name, token },
+      })
+
+      return { success: true }
+    }),
+
+  // [POST] /api/trpc/auth.resetPassword
+  resetPassword: publicProcedure
+    .input(authSchema.resetPassword)
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.db.user.findUnique({ where: { email: input.email } })
+      if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' })
+
+      const isVerified = await new Scrypt().verify(input.token, user.id)
+      if (!isVerified) throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Invalid token' })
+
+      await ctx.db.user.update({
+        where: { id: user.id },
+        data: { password: await new Scrypt().hash(input.password) },
+      })
+
+      await ctx.db.session.deleteMany({ where: { userId: user.id } })
+
+      return { success: true }
+    }),
 })

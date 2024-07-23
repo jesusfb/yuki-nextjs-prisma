@@ -1,15 +1,18 @@
+'use server'
+
 import { env } from '@/env'
-import { siteConfig } from '@/lib/site'
+import { getBaseUrl, siteConfig } from '@/lib/site'
 
 interface Args {
   to: string
   name?: string
   subject: string
   type: keyof typeof template
+  data?: Record<string, string>
 }
 
 export const sendEmail = async (args: Args) => {
-  const message = template[args.type]({ name: args.name })
+  const message = template[args.type]({ name: args.name, email: args.to, data: args.data })
 
   if (env.EMAIL_API)
     await fetch(env.EMAIL_API, {
@@ -34,5 +37,15 @@ const template = {
   If you have any questions or need help, feel free to reach out to us at ${siteConfig.email}.
 
   Thanks for joining us! 🚀
+`,
+
+  'reset-password': ({ email, data }: { email: string; data?: Record<string, string> }) => `
+  ## Hi ${data?.name}! 👋
+
+  You're receiving this email because you requested a password reset for your account.
+
+  Click the link below to reset your password: ${getBaseUrl()}/forgot-password/reset?email=${email}&token=${data?.token}
+
+  If you didn't request a password reset, you can safely ignore this email.
 `,
 }
