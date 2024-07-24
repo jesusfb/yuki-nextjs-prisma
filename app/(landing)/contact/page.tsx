@@ -40,7 +40,7 @@ const Page: NextPage = () => (
         </div>
       </div>
 
-      <div className="container space-y-6">
+      <div className="space-y-6">
         <div>
           <h2 className="text-2xl font-bold">Send Us a Message</h2>
           <p className="text-muted-foreground">
