@@ -5,6 +5,7 @@ import { CardDescription, CardTitle } from '@/components/ui/card'
 import { api } from '@/lib/trpc/server'
 import { auth } from '@/server/auth'
 import { Buttons } from './_buttons'
+import { FollowBtn } from './_follow-btn'
 
 interface Props {
   params: { id: string }
@@ -45,7 +46,12 @@ const Page: NextPage<Props> = async ({ params: { id } }) => {
           <CardDescription>Followers: {user.followers}</CardDescription>
         </article>
 
-        {Boolean(authUser) && <Buttons isSelf={isSelf} userId={user.id} />}
+        {Boolean(authUser) &&
+          (isSelf ? (
+            <Buttons userId={user.id} />
+          ) : (
+            <FollowBtn userID={user.id} isFollowed={user.isFollowed} />
+          ))}
       </section>
 
       <hr className="my-4" />

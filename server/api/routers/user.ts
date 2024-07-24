@@ -1,6 +1,6 @@
 import { TRPCError } from '@trpc/server'
 
-import { createTRPCRouter, publicProcedure } from '@/server/api/trpc'
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/api/trpc'
 import { userSchema } from '@/server/api/schemas/user'
 
 export const userRouter = createTRPCRouter({
@@ -16,7 +16,16 @@ export const userRouter = createTRPCRouter({
     })
     if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' })
 
+    const isFollowed = ctx.user
+      ? (await ctx.db.user.findFirst({
+          where: { id: ctx.user.id, following: { some: { id } } },
+        })) !== null
+        ? true
+        : false
+      : false
+
     return {
+      isFollowed,
       id: user.id,
       name: user.name,
       role: user.role,
@@ -28,5 +37,25 @@ export const userRouter = createTRPCRouter({
       following: user._count.following,
       createdAt: new Date(user.createdAt).toDateString(),
     }
+  }),
+
+  toggleFollow: protectedProcedure.input(userSchema.id).mutation(async ({ ctx, input: { id } }) => {
+    const isFollowing = await ctx.db.user.findFirst({
+      where: { id: ctx.user.id, following: { some: { id } } },
+    })
+
+    if (isFollowing) {
+      await ctx.db.user.update({
+        where: { id: ctx.user.id },
+        data: { following: { disconnect: { id } } },
+      })
+    } else {
+      await ctx.db.user.update({
+        where: { id: ctx.user.id },
+        data: { following: { connect: { id } } },
+      })
+    }
+
+    return { isFollowed: !isFollowing }
   }),
 })
