@@ -27,14 +27,14 @@ export const Auth: React.FC = () => {
   return (
     <Link href={`/u/${user.id}`} className="group">
       <Image
-        src={user.image ?? ''}
+        src={user.image ?? '/default.jpg'}
         alt={user.name}
         width={28}
         height={28}
-        className="rounded-full ring-2 hover:ring-ring"
+        className={`rounded-full ring-2 ring-transparent hover:ring-ring ${user.image ? '' : 'dark:invert'}`}
       />
 
-      <p className="absolute -ml-4 mt-4 hidden rounded bg-muted px-2 py-1 text-center group-hover:block">
+      <p className="absolute right-0 mt-4 hidden whitespace-nowrap rounded bg-muted px-2 py-1 text-center shadow-lg group-hover:block">
         {user.name}
       </p>
     </Link>

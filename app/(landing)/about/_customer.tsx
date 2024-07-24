@@ -44,7 +44,7 @@ export const Customer: React.FC = () => {
           {customers.map((customer, idx) => (
             <div key={idx} className="flex gap-4">
               <Image
-                src="/placeholder-user.jpg"
+                src="/default.jpg"
                 alt="customer"
                 width={40}
                 height={40}
