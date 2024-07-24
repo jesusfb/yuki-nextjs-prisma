@@ -24,7 +24,13 @@ type SessionContext =
 const sessionContext = createContext<SessionContext>({} as SessionContext)
 
 export const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const { data, isLoading, refetch } = api.auth.me.useQuery()
+  const { data, isLoading, refetch } = api.auth.me.useQuery(undefined, {
+    retryOnMount: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    refetchIntervalInBackground: false,
+  })
 
   const refresh = async () => {
     await refetch()

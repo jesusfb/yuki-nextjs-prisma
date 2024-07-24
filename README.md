@@ -2,27 +2,7 @@
 
 A E-commerce website for selling digital products.
 
-## Features
-
-- User can view all products
-- User can view product details
-- User can add product to cart
-- User can view cart
-- User can remove product from cart
-- User can checkout
-- User can view order history
-- User can view order details
-
-- Admin can add products
-- Admin can view all products
-- Admin can view product details
-- Admin can edit product
-- Admin can delete product
-- Admin can view all orders
-- Admin can view order details
-- Admin can view order history
-
-## Technologies
+## Tech Stack
 
 - [Next.js](https://nextjs.org/)
 - [tRPC](https://trpc.io/)
@@ -32,6 +12,28 @@ A E-commerce website for selling digital products.
 - [React Query](https://react-query.tanstack.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Shadcn/ui](https://ui.shadcn.com/)
+
+## Features
+
+- [x] User authentication [Lucia](https://lucia-auth.com/)
+  - [x] Sign up
+  - [x] Sign in
+  - [x] Sign out
+  - [x] Forgot password
+  - [x] Reset password
+- [x] Upload image feature [Uploadthing](https://uploadthing.com/)
+- [ ] Admin dashboard
+  - [ ] Add product
+  - [ ] Edit product
+  - [ ] Delete product
+  - [ ] View all users
+  - [ ] View all orders
+- [ ] User dashboard
+  - [ ] Change password
+  - [ ] Change information
+  - [ ] View orders
+- [ ] Add to cart
+- [ ] Checkout
 
 ## Getting Started
 
@@ -91,23 +93,6 @@ To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the fo
 ## How do I deploy this?
 
 Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
-
-## Todos
-
-- [ ] Add user authentication [Lucia](https://lucia-auth.com/)
-- [ ] Add upload image feature [Uploadthing](https://uploadthing.com/)
-- [ ] Add admin dashboard
-  - [ ] Add product
-  - [ ] Edit product
-  - [ ] Delete product
-  - [ ] View all orders
-  - [ ] View order details
-- [ ] Add home page and landing page
-- [ ] Add product page
-- [ ] Add cart page
-- [ ] Add checkout page
-- [ ] Add order history page
-- [ ] Add order details page
 
 ## License
 
