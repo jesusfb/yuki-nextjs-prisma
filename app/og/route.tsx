@@ -25,7 +25,7 @@ export const GET = async (_: NextRequest, { params }: Props): Promise<ImageRespo
         {/*  eslint-disable-next-line @next/next/no-img-element */}
         <img src={image} alt="logo" tw="w-80 h-80 rounded-xl" />
 
-        <div tw="ml-12 flex flex-col justify-start">
+        <div tw="ml-12 min-w-1/2 flex flex-col justify-start">
           <h2 tw="text-6xl text-center capitalize">{title}</h2>
           <p tw="text-2xl text-center">{description}</p>
         </div>
