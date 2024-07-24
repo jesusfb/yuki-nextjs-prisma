@@ -33,7 +33,7 @@ export const Form: React.FC = () => {
         success: 'Message sent successfully!',
         error: 'Failed to send message',
         description: (data) =>
-          data instanceof Error && <pre>{JSON.stringify(data.cause, null, 2)}</pre>,
+          data instanceof Error && "Message must have at least 10 characters",
       })
     })
 
