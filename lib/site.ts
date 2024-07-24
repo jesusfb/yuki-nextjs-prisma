@@ -1,3 +1,4 @@
+import { FacebookIcon, GithubIcon, type LucideIcon, TwitchIcon, TwitterIcon } from 'lucide-react'
 import type { Metadata, Viewport } from 'next'
 
 export const getBaseUrl = () => {
@@ -12,6 +13,8 @@ interface SiteConfig {
   meta: Metadata
   viewport: Viewport
   email: string
+  socials: { label: string; url: string; icon: LucideIcon }[]
+  navs: { label: string; url: string }[]
 }
 
 export const siteConfig: SiteConfig = {
@@ -40,4 +43,15 @@ export const siteConfig: SiteConfig = {
     ],
   },
   email: 'ttien56906@gmail.com',
+  socials: [
+    { label: 'Facebook', url: 'https://facebook.com/tiesen243', icon: FacebookIcon },
+    { label: 'Twitter', url: 'https://twitter.com/tiesen243', icon: TwitterIcon },
+    { label: 'Github', url: 'https://github.com/tiesen243', icon: GithubIcon },
+  ],
+  navs: [
+    { label: 'Home', url: '/' },
+    { label: 'Shop', url: '/shop' },
+    { label: 'About', url: '/about' },
+    { label: 'Contact', url: '/contact' },
+  ],
 }

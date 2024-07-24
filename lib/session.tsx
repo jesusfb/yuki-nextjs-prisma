@@ -17,7 +17,7 @@ type SessionContext =
       isAuth: true
       isLoading: boolean
       session: Session
-      user: User
+      user: Omit<User, 'password'>
       refresh: () => Promise<void>
     }
 
@@ -26,20 +26,27 @@ const sessionContext = createContext<SessionContext>({} as SessionContext)
 export const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { data, isLoading, refetch } = api.auth.me.useQuery()
 
-  const user = data?.user ?? null
-  const session = data?.session ?? null
-
   const refresh = async () => {
     await refetch()
   }
 
+  const user = data?.user ?? null,
+    session = data?.session ?? null
+
   const isAuth = !!user && !!session
 
-  const value: SessionContext = isAuth
-    ? { isAuth, isLoading, user: user, session: session, refresh }
-    : { isAuth, isLoading, user: null, session: null, refresh }
-
-  return <sessionContext.Provider value={value}>{children}</sessionContext.Provider>
+  return (
+    <sessionContext.Provider
+      // @ts-expect-error This is a valid value
+      value={
+        isAuth
+          ? { isAuth, isLoading, user, session, refresh }
+          : { isAuth, isLoading, user: null, session: null, refresh }
+      }
+    >
+      {children}
+    </sessionContext.Provider>
+  )
 }
 
 export const useSession = () => {

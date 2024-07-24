@@ -14,18 +14,25 @@ interface Args {
 export const sendEmail = async (args: Args) => {
   const message = template[args.type]({ name: args.name, email: args.to, data: args.data })
 
-  if (env.EMAIL_API)
-    await fetch(env.EMAIL_API, {
-      method: 'POST',
-      body: JSON.stringify({
-        from: siteConfig.meta.applicationName,
-        to: args.to,
-        reply_to: siteConfig.email,
-        subject: args.subject,
-        message,
-        api_key: env.API_KEY!,
-      }),
-    })
+  if (!env.EMAIL_API) return
+
+  const res = await fetch(env.EMAIL_API, {
+    method: 'POST',
+    body: JSON.stringify({
+      from: siteConfig.meta.applicationName,
+      to: args.to,
+      reply_to: siteConfig.email,
+      subject: args.subject,
+      message,
+      api_key: env.API_KEY!,
+    }),
+  })
+  const json = (await res.json()) as {
+    message: string
+    error: Record<string, string>
+  }
+
+  return json
 }
 
 const template = {
@@ -48,4 +55,5 @@ const template = {
 
   If you didn't request a password reset, you can safely ignore this email.
 `,
+  contact: ({ data }: { data?: Record<string, string> }) => data?.message ?? '',
 }

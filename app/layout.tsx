@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => (
   <html lang="en" suppressHydrationWarning>
-    <body className={`${inter.variable} font-sans`}>
+    <body className={`${inter.variable} flex flex-col font-sans`}>
       <Provider>{children}</Provider>
     </body>
   </html>

@@ -25,7 +25,7 @@ export const Auth: React.FC = () => {
     )
 
   return (
-    <div className="group">
+    <Link href={`/u/${user.id}`} className="group">
       <Image
         src={user.image ?? ''}
         alt={user.name}
@@ -37,6 +37,6 @@ export const Auth: React.FC = () => {
       <p className="absolute -ml-4 mt-4 hidden rounded bg-muted px-2 py-1 text-center group-hover:block">
         {user.name}
       </p>
-    </div>
+    </Link>
   )
 }
