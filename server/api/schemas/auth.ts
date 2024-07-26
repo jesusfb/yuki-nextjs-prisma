@@ -1,6 +1,11 @@
 import { z } from 'zod'
 
-const passwordValidator = z.string()
+const passwordValidator = z
+  .string()
+  .regex(
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+    'Password must contain at least 8 characters, one letter, one number and one special character',
+  )
 
 export const authSchema = {
   signUp: z

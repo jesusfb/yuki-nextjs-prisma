@@ -1,29 +1,30 @@
-import { redirect } from 'next/navigation'
+'use client'
+
+import { useRouter } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
-import { api } from '@/lib/trpc/server'
+import { api } from '@/lib/trpc/react'
 
 export const Buttons: React.FC<{ userId: string }> = ({ userId }) => {
-  const logout = async () => {
-    'use server'
-    await api.auth.signOut()
-    redirect('/')
-  }
+  const router = useRouter()
+  const utils = api.useUtils()
 
-  const redirectToEdit = async () => {
-    'use server'
-    redirect(`/u/${userId}/edit`)
-  }
+  const { mutate: logout, isPending } = api.auth.signOut.useMutation({
+    onSuccess: async () => {
+      await utils.auth.me.invalidate()
+      router.push('/')
+    },
+  })
 
   return (
     <div className="grid grid-cols-1 gap-2 md:col-span-2 md:col-start-5 md:grid-cols-2">
-      <form action={redirectToEdit}>
-        <Button className="w-full">Edit profile</Button>
-      </form>
+      <Button onClick={() => router.push(`/u/${userId}/edit`)} className="w-full">
+        Edit profile
+      </Button>
 
-      <form action={logout}>
-        <Button className="w-full">Logout</Button>
-      </form>
+      <Button onClick={() => logout()} className="w-full" isLoading={isPending}>
+        Logout
+      </Button>
     </div>
   )
 }
