@@ -108,4 +108,25 @@ export const authRouter = createTRPCRouter({
 
       return { success: true }
     }),
+
+  // [POST] /api/trpc/auth.changePassword
+  changePassword: protectedProcedure
+    .input(authSchema.changePassword)
+    .mutation(async ({ ctx, input }) => {
+      const isPasswordCorrect = await new Scrypt().verify(ctx.user.password, input.currentPassword)
+      if (!isPasswordCorrect)
+        throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Current password is incorrect' })
+
+      const newUser = await ctx.db.user.update({
+        where: { id: ctx.user.id },
+        data: { password: await new Scrypt().hash(input.newPassword) },
+      })
+      if (!newUser)
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to update password' })
+
+      if (input.isLogout === 'on')
+        await ctx.db.session.deleteMany({ where: { userId: ctx.user.id } })
+
+      return { success: true }
+    }),
 })

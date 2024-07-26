@@ -1,7 +1,11 @@
 import type { NextPage } from 'next'
 
-const Page: NextPage = () => {
-  return <div>Page</div>
-}
+import { Form } from './_form'
+
+const Page: NextPage = () => (
+  <>
+    <Form />
+  </>
+)
 
 export default Page

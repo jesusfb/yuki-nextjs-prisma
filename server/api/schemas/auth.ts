@@ -43,7 +43,8 @@ export const authSchema = {
 
   changePassword: z
     .object({
-      currentPassword: z.string(),
+      isLogout: z.enum(['off', 'on']).default('off'),
+      currentPassword: passwordValidator,
       newPassword: passwordValidator,
       confirmNewPassword: passwordValidator,
     })

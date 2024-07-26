@@ -3,7 +3,6 @@ import { TRPCError } from '@trpc/server'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/api/trpc'
 import { userSchema } from '@/server/api/schemas/user'
 import { utapi } from '@/server/uploadthing'
-import { Console } from 'console'
 
 export const userRouter = createTRPCRouter({
   // [GET] /api/trpc/user.getUser
@@ -34,6 +33,7 @@ export const userRouter = createTRPCRouter({
       role: user.role,
       email: user.email,
       image: user.image,
+      address: user.address,
       products: user.products,
       numProducts: user._count.products,
       followers: user._count.followers,
