@@ -31,7 +31,7 @@ export const Auth: React.FC = () => {
         alt={user.name}
         width={28}
         height={28}
-        className={`rounded-full ring-2 ring-transparent hover:ring-ring ${user.image ? '' : 'dark:invert'}`}
+        className={`aspect-square rounded-full object-cover ring-2 ring-transparent hover:ring-ring ${user.image ? '' : 'dark:invert'}`}
       />
 
       <p className="absolute right-0 mt-4 hidden whitespace-nowrap rounded bg-muted px-2 py-1 text-center shadow-lg group-hover:block">

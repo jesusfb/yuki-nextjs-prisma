@@ -32,8 +32,7 @@ export const Form: React.FC = () => {
         loading: 'Sending message...',
         success: 'Message sent successfully!',
         error: 'Failed to send message',
-        description: (data) =>
-          data instanceof Error && "Message must have at least 10 characters",
+        description: (data) => data instanceof Error && 'Message must have at least 10 characters',
       })
     })
 

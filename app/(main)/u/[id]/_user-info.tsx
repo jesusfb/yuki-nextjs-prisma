@@ -22,7 +22,7 @@ export const UserInfo: React.FC<Props> = ({ user }) => (
       width={200}
       height={200}
       alt={user.name}
-      className={`rounded-md shadow-lg ${user.image ? '' : 'dark:invert'}`}
+      className={`aspect-square rounded-md object-cover shadow-lg ${user.image ? '' : 'dark:invert'}`}
     />
     <article className="flex flex-col gap-2 md:col-span-3">
       <div className="flex items-center gap-4">

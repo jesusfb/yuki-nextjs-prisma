@@ -40,4 +40,15 @@ export const authSchema = {
       path: ['confirmPassword'],
       message: 'Passwords do not match',
     }),
+
+  changePassword: z
+    .object({
+      currentPassword: z.string(),
+      newPassword: passwordValidator,
+      confirmNewPassword: passwordValidator,
+    })
+    .refine((data) => data.newPassword === data.confirmNewPassword, {
+      path: ['confirmNewPassword'],
+      message: 'Passwords do not match',
+    }),
 }
