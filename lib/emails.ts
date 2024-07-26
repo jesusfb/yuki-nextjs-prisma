@@ -56,4 +56,13 @@ const template = {
   If you didn't request a password reset, you can safely ignore this email.
 `,
   contact: ({ data }: { data?: Record<string, string> }) => data?.message ?? '',
+  deleteAccount: ({ name }: { name?: string }) => `
+  ## Hi ${name}! 👋
+
+  Your account has been successfully deleted.
+
+  Sorry to see you go! If you have any feedback, feel free to reach out to us at ${siteConfig.email}.
+
+  Thanks for being with us! 🙏
+`,
 }
