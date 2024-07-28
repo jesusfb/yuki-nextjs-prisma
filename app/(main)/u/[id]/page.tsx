@@ -18,7 +18,7 @@ const Page: NextPage<Props> = async ({ params: { id } }) => {
 
   return (
     <>
-      <section className="grid grid-cols-2 gap-4 rounded-lg bg-secondary p-4 text-secondary-foreground md:grid-cols-6">
+      <section className="grid grid-cols-2 gap-4 rounded-lg bg-secondary p-4 text-secondary-foreground shadow-lg md:grid-cols-6">
         <Image
           src={user.image ?? '/default.jpg'}
           width={200}
