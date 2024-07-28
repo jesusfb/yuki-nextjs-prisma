@@ -1,9 +1,9 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import dynamic from 'next/dynamic'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
@@ -78,7 +78,8 @@ export const Form: React.FC<Props> = (props) => {
         />
       </div>
 
-      <fieldset className="flex flex-col items-center gap-4">
+      <fieldset className="flex flex-col items-center justify-center gap-4">
+        <legend className="w-full text-center">Profile Image</legend>
         <Image
           src={img}
           alt="profile"
@@ -89,7 +90,11 @@ export const Form: React.FC<Props> = (props) => {
         <UploadButton setImg={setImg} setUploading={setUploading} disabled={isLoading} />
       </fieldset>
 
-      <Button className="w-full md:col-span-2" disabled={isUploading} isLoading={isPending}>
+      <Button
+        className="w-full md:col-span-2"
+        disabled={isUploading || isPending}
+        isLoading={isPending}
+      >
         Save Changes
       </Button>
     </form>

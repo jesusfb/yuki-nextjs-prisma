@@ -1,31 +1,13 @@
-import type { Metadata, NextPage, ResolvingMetadata } from 'next'
+import type { NextPage } from 'next'
+import Image from 'next/image'
 
+import { CardDescription, CardTitle } from '@/components/ui/card'
 import { api } from '@/lib/trpc/server'
 import { auth } from '@/server/auth'
-import { Buttons } from './_buttons'
-import { FollowBtn } from './_follow-btn'
-import { UserInfo } from './_user-info'
+import { ActionBtn, FollowBtn } from './_buttons'
 
 interface Props {
   params: { id: string }
-}
-
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
-  const user = await api.user.getUser({ id: params.id })
-  const previousImages = (await parent).openGraph?.images ?? []
-  const description = `User profile for ${user.name} (${user.email})`
-  const images = user.image
-    ? `/og?title=${user.name}&desc=${description}&image=${user.image}`
-    : [...previousImages]
-
-  return {
-    title: user.name,
-    description,
-    openGraph: { images },
-  }
 }
 
 const Page: NextPage<Props> = async ({ params: { id } }) => {
@@ -37,11 +19,35 @@ const Page: NextPage<Props> = async ({ params: { id } }) => {
   return (
     <>
       <section className="grid grid-cols-2 gap-4 rounded-lg bg-secondary p-4 text-secondary-foreground md:grid-cols-6">
-        <UserInfo user={user} />
+        <Image
+          src={user.image ?? '/default.jpg'}
+          width={200}
+          height={200}
+          alt={user.name}
+          className={`aspect-square w-full rounded-md object-cover shadow-lg ${user.image ? '' : 'dark:invert'}`}
+        />
+
+        <article className="flex flex-col gap-2 md:col-span-3">
+          <div className="flex items-center gap-4">
+            <CardDescription className="rounded bg-background px-2 py-1 text-foreground shadow-md">
+              {user.role}
+            </CardDescription>
+            <CardTitle>{user.name}</CardTitle>
+          </div>
+
+          <CardDescription>{user.email}</CardDescription>
+          <CardDescription>Joined: {user.createdAt}</CardDescription>
+        </article>
+
+        <article className="col-span-1 flex flex-col gap-2 md:col-span-2">
+          <CardDescription>Number of products: {user.numProducts}</CardDescription>
+          <CardDescription>Following: {user.following}</CardDescription>
+          <CardDescription>Followers: {user.followers}</CardDescription>
+        </article>
 
         {Boolean(authUser) &&
           (isSelf ? (
-            <Buttons userId={user.id} />
+            <ActionBtn userId={user.id} />
           ) : (
             <FollowBtn userID={user.id} isFollowed={user.isFollowed} />
           ))}

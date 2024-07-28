@@ -1,7 +1,7 @@
 import 'server-only'
 
-import { cookies } from 'next/headers'
 import type { Session, User } from '@prisma/client'
+import { cookies } from 'next/headers'
 
 import { lucia } from '@/server/auth/lucia'
 

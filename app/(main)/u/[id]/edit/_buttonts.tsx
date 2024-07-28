@@ -1,8 +1,8 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
-import { Button } from '@/components/ui/button'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,8 +14,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
+import { Button } from '@/components/ui/button'
 import { api } from '@/lib/trpc/react'
-import { toast } from 'sonner'
 
 export const Buttons: React.FC<{ id: string }> = ({ id }) => {
   const router = useRouter()
@@ -30,7 +30,7 @@ export const Buttons: React.FC<{ id: string }> = ({ id }) => {
   })
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <Button variant="secondary" onClick={() => router.push(`/u/${id}/edit/change-password`)}>
         Change Password
       </Button>
