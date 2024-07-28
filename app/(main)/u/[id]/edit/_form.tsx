@@ -3,11 +3,26 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import dynamic from 'next/dynamic'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/trpc/react'
-import { UploadButton } from '@/components/uploadthing'
+
+const UploadButton = dynamic(
+  () => import('@/components/uploadthing').then((mod) => mod.UploadButton),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="col-span-3 flex flex-col items-center justify-center gap-1">
+        <Button size="lg" isLoading>
+          Choose File
+        </Button>
+        <label className="text-xs text-muted-foreground">Image (4MB)</label>
+      </div>
+    ),
+  },
+)
 
 interface Props {
   name: string
@@ -18,6 +33,8 @@ interface Props {
 export const Form: React.FC<Props> = (props) => {
   const utils = api.useUtils()
   const [img, setImg] = useState<string>(props.image)
+  const [isUploading, setUploading] = useState<boolean>(false)
+
   const { mutate, isPending, error } = api.user.edit.useMutation({
     onSuccess: async () => {
       await utils.user.getUser.invalidate()
@@ -37,49 +54,42 @@ export const Form: React.FC<Props> = (props) => {
     })
   }
 
+  const isLoading = isPending || isUploading
+
   return (
-    <form action={action} className="space-y-4">
-      <FormField
-        label="Name"
-        name="name"
-        placeholder="Enter your name"
-        defaultValue={props.name}
-        message={error?.data?.zodError?.name?.at(0)}
-        disabled={isPending}
-      />
-
-      <FormField
-        label="Address"
-        name="address"
-        placeholder="Enter your address"
-        defaultValue={props.address}
-        message={error?.data?.zodError?.address?.at(0)}
-        disabled={isPending}
-      />
-
-      <fieldset className="grid grid-cols-4">
-        <UploadButton
-          endpoint="imageUploader"
-          className="col-span-3"
-          onClientUploadComplete={(file) => {
-            setImg(file.at(0)?.url ?? '')
-            toast.success('Image uploaded')
-          }}
-          onUploadError={(error) => {
-            toast.error(error.message)
-          }}
-          disabled={isPending}
+    <form action={action} className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="md:col-span-2">
+        <FormField
+          label="Name"
+          name="name"
+          placeholder="Enter your name"
+          defaultValue={props.name}
+          message={error?.data?.zodError?.name?.at(0)}
+          disabled={isLoading}
         />
+
+        <FormField
+          label="Address"
+          name="address"
+          placeholder="Enter your address"
+          defaultValue={props.address}
+          message={error?.data?.zodError?.address?.at(0)}
+          disabled={isLoading}
+        />
+      </div>
+
+      <fieldset className="flex flex-col items-center gap-4">
         <Image
           src={img}
           alt="profile"
-          width={100}
-          height={100}
-          className="aspect-square object-cover"
+          width={200}
+          height={200}
+          className="aspect-square rounded-lg object-cover"
         />
+        <UploadButton setImg={setImg} setUploading={setUploading} disabled={isLoading} />
       </fieldset>
 
-      <Button className="w-full" isLoading={isPending}>
+      <Button className="w-full md:col-span-2" disabled={isUploading} isLoading={isPending}>
         Save Changes
       </Button>
     </form>
