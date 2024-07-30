@@ -8,9 +8,9 @@ export const About: React.FC = () => (
           Empowering Sustainable Living
         </h1>
         <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-          At Yuki Ecommerce, we&apos;re passionate about providing high-quality, eco-friendly
-          products that help our customers live more sustainable lifestyles. Our mission is to make
-          it easy for everyone to reduce their environmental impact.
+          At Yuki Store, we&apos;re passionate about providing high-quality, eco-friendly products
+          that help our customers live more sustainable lifestyles. Our mission is to make it easy
+          for everyone to reduce their environmental impact.
         </p>
       </div>
 

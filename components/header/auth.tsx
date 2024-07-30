@@ -25,18 +25,22 @@ export const Auth: React.FC = () => {
     )
 
   return (
-    <Link href={`/u/${user.id}`} className="group">
-      <Image
-        src={user.image ?? '/default.jpg'}
-        alt={user.name}
-        width={28}
-        height={28}
-        className={`aspect-square rounded-full object-cover ring-2 ring-transparent hover:ring-ring ${user.image ? '' : 'dark:invert'}`}
-      />
+    <div className="flex items-center gap-2">
+      {user.role === 'ADMIN' && (
+        <Link className="hidden hover:underline md:block" href="/dashboard">
+          Dashboard
+        </Link>
+      )}
 
-      <p className="absolute right-0 mt-4 hidden whitespace-nowrap rounded bg-muted px-2 py-1 text-center shadow-lg group-hover:block">
-        {user.name}
-      </p>
-    </Link>
+      <Link href={`/u/${user.id}`} passHref>
+        <Image
+          src={user.image ?? '/default.jpg'}
+          alt={user.name}
+          width={28}
+          height={28}
+          className={`aspect-square rounded-full object-cover ring-2 ring-transparent hover:ring-ring ${user.image ? '' : 'dark:invert'}`}
+        />
+      </Link>
+    </div>
   )
 }
