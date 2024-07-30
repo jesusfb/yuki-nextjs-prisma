@@ -1,8 +1,13 @@
-import { api } from '@/lib/trpc/server'
+'use client'
+
 import Link from 'next/link'
 
-export const Category: React.FC = async () => {
-  const categories = await api.category.getLatestCategories()
+import { api } from '@/lib/trpc/react'
+
+export const Category: React.FC = () => {
+  const { data: categories, isLoading } = api.category.getLatestCategories.useQuery()
+
+  if (isLoading || !categories) return null
 
   return (
     <nav className="hidden gap-2 md:flex">
