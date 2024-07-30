@@ -1,11 +1,29 @@
 'use client'
 
+import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/trpc/react'
+import { useState } from 'react'
+
+const UploadButton = dynamic(
+  () => import('@/components/uploadthing').then((mod) => mod.UploadButton),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="col-span-3 flex flex-col items-center justify-center gap-1">
+        <Button size="lg" isLoading>
+          Choose File
+        </Button>
+        <label className="text-xs text-muted-foreground">Image (4MB)</label>
+      </div>
+    ),
+  },
+)
 
 interface Props {
   category: { id: string; name: string; image: string | null }
@@ -14,6 +32,9 @@ interface Props {
 export const Form: React.FC<Props> = ({ category }) => {
   const router = useRouter()
   const utils = api.useUtils()
+
+  const [img, setImg] = useState<string>(category.image ?? '')
+  const [isLoading, setUploading] = useState<boolean>(false)
 
   const { mutate, isPending, error } = api.category.updateCategory.useMutation({
     onSuccess: async () => {
@@ -28,31 +49,34 @@ export const Form: React.FC<Props> = ({ category }) => {
     mutate({
       id: category.id,
       name: String(formData.get('name')),
-      image: String(formData.get('image')),
+      image: img,
     })
   }
 
   return (
-    <form action={action} className="space-y-4">
+    <form action={action} className="grid grid-cols-2 gap-4">
       <FormField
         label="Name"
         name="name"
         defaultValue={category.name}
-        disabled={isPending}
+        disabled={isPending || isLoading}
         placeholder="Category name"
         message={error?.data?.zodError?.name?.at(0)}
       />
-      <FormField
-        label="Image"
-        name="image"
-        defaultValue={category.image}
-        disabled={isPending}
-        placeholder="Category image"
-        message={error?.data?.zodError?.image?.at(0)}
-      />
 
-      <Button className="w-full" isLoading={isPending}>
-        Create
+      <fieldset className="flex flex-col items-center justify-center gap-4">
+        <Image
+          src={img}
+          alt="CategoryImage"
+          width={200}
+          height={200}
+          className="aspect-square rounded-lg object-cover"
+        />
+        <UploadButton setImg={setImg} setUploading={setUploading} disabled={isLoading} />
+      </fieldset>
+
+      <Button className="w-full" disabled={isLoading || isPending} isLoading={isPending}>
+        Save Changes
       </Button>
     </form>
   )

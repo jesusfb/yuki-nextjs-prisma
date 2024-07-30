@@ -1,18 +1,20 @@
-import { Sidebar } from '@/components/side-bar'
-import { auth } from '@/server/auth'
 import { redirect } from 'next/navigation'
+
+import { Sidebar } from '@/components/side-bar'
+import { SessionProvider } from '@/lib/session'
+import { auth } from '@/server/auth'
 
 export const metadata = {
   title: 'Dashboard',
 }
 
 const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
-  const { user } = await auth()
+  const { user, session } = await auth()
 
   if (!user || user.role !== 'ADMIN') redirect('/')
 
   return (
-    <>
+    <SessionProvider user={user} session={session}>
       <div className="hidden h-screen grid-cols-12 gap-4 md:grid">
         <Sidebar />
 
@@ -22,7 +24,7 @@ const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) 
       <div className="container grid h-screen place-items-center md:hidden">
         <p className="text-xl font-bold">Please use a larger screen to view this page.</p>
       </div>
-    </>
+    </SessionProvider>
   )
 }
 

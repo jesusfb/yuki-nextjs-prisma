@@ -7,12 +7,11 @@ import { api } from '@/lib/trpc/react'
 
 export const ActionBtn: React.FC<{ userId: string }> = ({ userId }) => {
   const router = useRouter()
-  const utils = api.useUtils()
 
   const { mutate: logout, isPending } = api.auth.signOut.useMutation({
     onSuccess: async () => {
-      await utils.auth.me.invalidate()
       router.push('/')
+      router.refresh()
     },
   })
 

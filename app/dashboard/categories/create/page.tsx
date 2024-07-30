@@ -1,16 +1,37 @@
 'use client'
 
 import type { NextPage } from 'next'
+import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/trpc/react'
 
+const UploadButton = dynamic(
+  () => import('@/components/uploadthing').then((mod) => mod.UploadButton),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="col-span-3 flex flex-col items-center justify-center gap-1">
+        <Button size="lg" isLoading>
+          Choose File
+        </Button>
+        <label className="text-xs text-muted-foreground">Image (4MB)</label>
+      </div>
+    ),
+  },
+)
+
 const Page: NextPage = () => {
   const router = useRouter()
   const utils = api.useUtils()
+
+  const [img, setImg] = useState<string>('/default.jpg')
+  const [isLoading, setUploading] = useState<boolean>(false)
 
   const { mutate, isPending, error } = api.category.createCategory.useMutation({
     onSuccess: async () => {
@@ -24,28 +45,32 @@ const Page: NextPage = () => {
   const action = async (formData: FormData) => {
     mutate({
       name: String(formData.get('name')),
-      image: String(formData.get('image')),
+      image: img,
     })
   }
 
   return (
-    <form action={action} className="space-y-4">
+    <form action={action} className="grid grid-cols-2 gap-4">
       <FormField
         label="Name"
         name="name"
-        disabled={isPending}
+        disabled={isPending || isLoading}
         placeholder="Category name"
         message={error?.data?.zodError?.name?.at(0)}
       />
-      <FormField
-        label="Image"
-        name="image"
-        disabled={isPending}
-        placeholder="Category image"
-        message={error?.data?.zodError?.image?.at(0)}
-      />
 
-      <Button className="w-full" isLoading={isPending}>
+      <fieldset className="flex flex-col items-center justify-center gap-4">
+        <Image
+          src={img}
+          alt="CategoryImage"
+          width={200}
+          height={200}
+          className="aspect-square rounded-lg object-cover"
+        />
+        <UploadButton setImg={setImg} setUploading={setUploading} disabled={isLoading} />
+      </fieldset>
+
+      <Button className="w-full" disabled={isLoading || isPending} isLoading={isPending}>
         Create
       </Button>
     </form>

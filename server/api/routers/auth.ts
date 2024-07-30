@@ -8,12 +8,6 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/
 import { lucia } from '@/server/auth/lucia'
 
 export const authRouter = createTRPCRouter({
-  // [GET] /api/trpc/auth.me
-  me: publicProcedure.query(async ({ ctx }) => {
-    const user = { ...ctx.user, password: undefined }
-    return { user, session: ctx.session }
-  }),
-
   // [POST] /api/trpc/auth.signUp
   signUp: publicProcedure.input(authSchema.signUp).mutation(async ({ ctx, input }) => {
     const isEmailExist = await ctx.db.user.findUnique({ where: { email: input.email } })

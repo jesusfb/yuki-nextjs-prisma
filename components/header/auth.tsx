@@ -1,17 +1,9 @@
-'use client'
-
-import { Loader2Icon } from 'lucide-react'
+import type { User } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useSession } from '@/lib/session'
-
-export const Auth: React.FC = () => {
-  const { isLoading, isAuth, user } = useSession()
-
-  if (isLoading) return <Loader2Icon className="size-7 animate-spin" />
-
-  if (!isAuth)
+export const Auth: React.FC<{ user: User | null }> = ({ user }) => {
+  if (!user)
     return (
       <div className="flex items-center gap-2 text-sm">
         <Link href="/sign-up" className="hover:text-muted-foreground">

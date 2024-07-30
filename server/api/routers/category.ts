@@ -1,10 +1,11 @@
 import { TRPCError } from '@trpc/server'
 
-import { adminProcedure, createTRPCRouter, publicProcedure } from '@/server/api/trpc'
 import { categorySchema } from '@/server/api/schemas/category'
+import { adminProcedure, createTRPCRouter, publicProcedure } from '@/server/api/trpc'
 import { utapi } from '@/server/uploadthing'
 
 export const categoryRouter = createTRPCRouter({
+  // [GET] /api/trpc/category.getLatestCategories
   getLatestCategories: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db.category.findMany({
       take: 3,
@@ -17,12 +18,14 @@ export const categoryRouter = createTRPCRouter({
     }))
   }),
 
+  // [GET] /api/trpc/category.getCategories
   getCategories: adminProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db.category.findMany({
       include: {
         _count: { select: { products: true } },
         user: { select: { name: true } },
       },
+      orderBy: { createdAt: 'desc' },
     })
 
     return categories.map((category) => ({
@@ -33,6 +36,7 @@ export const categoryRouter = createTRPCRouter({
     }))
   }),
 
+  // [GET] /api/trpc/category.getCategory
   getCategory: adminProcedure.input(categorySchema.id).query(async ({ ctx, input }) => {
     const category = await ctx.db.category.findUnique({
       where: { id: input.id },
@@ -50,6 +54,7 @@ export const categoryRouter = createTRPCRouter({
     }
   }),
 
+  // [POST] /api/trpc/category.createCategory
   createCategory: adminProcedure.input(categorySchema.create).mutation(async ({ ctx, input }) => {
     const newCategory = await ctx.db.category.create({
       data: {
@@ -64,6 +69,7 @@ export const categoryRouter = createTRPCRouter({
     return { success: true }
   }),
 
+  // [POST] /api/trpc/category.update
   updateCategory: adminProcedure.input(categorySchema.update).mutation(async ({ ctx, input }) => {
     const category = await ctx.db.category.findUnique({ where: { id: input.id } })
     if (!category) throw new TRPCError({ code: 'NOT_FOUND', message: 'Category not found' })
@@ -81,6 +87,7 @@ export const categoryRouter = createTRPCRouter({
     return { success: true }
   }),
 
+  // [POST] /api/trpc/category.deleteCategory
   deleteCategory: adminProcedure.input(categorySchema.id).mutation(async ({ ctx, input }) => {
     const category = await ctx.db.category.findUnique({ where: { id: input.id } })
     if (!category) throw new TRPCError({ code: 'NOT_FOUND', message: 'Category not found' })

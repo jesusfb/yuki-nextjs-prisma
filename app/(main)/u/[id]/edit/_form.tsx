@@ -38,7 +38,6 @@ export const Form: React.FC<Props> = (props) => {
   const { mutate, isPending, error } = api.user.edit.useMutation({
     onSuccess: async () => {
       await utils.user.getUser.invalidate()
-      await utils.auth.me.invalidate()
       toast.success('Profile updated')
     },
     onError: (error) => {

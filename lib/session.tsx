@@ -3,52 +3,30 @@
 import type { Session, User } from '@prisma/client'
 import { createContext, useContext } from 'react'
 
-import { api } from '@/lib/trpc/react'
-
 type SessionContext =
   | {
       isAuth: false
-      isLoading: boolean
       session: null
       user: null
-      refresh: () => Promise<void>
     }
   | {
       isAuth: true
-      isLoading: boolean
       session: Session
       user: Omit<User, 'password'>
-      refresh: () => Promise<void>
     }
 
 const sessionContext = createContext<SessionContext>({} as SessionContext)
 
-export const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const { data, isLoading, refetch } = api.auth.me.useQuery(undefined, {
-    retryOnMount: false,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
-    refetchIntervalInBackground: false,
-  })
-
-  const refresh = async () => {
-    await refetch()
-  }
-
-  const user = data?.user ?? null,
-    session = data?.session ?? null
-
+export const SessionProvider: React.FC<{
+  children: React.ReactNode
+  user: User | null
+  session: Session | null
+}> = ({ children, user, session }) => {
   const isAuth = !!user && !!session
 
   return (
     <sessionContext.Provider
-      // @ts-expect-error This is a valid value
-      value={
-        isAuth
-          ? { isAuth, isLoading, user, session, refresh }
-          : { isAuth, isLoading, user: null, session: null, refresh }
-      }
+      value={isAuth ? { isAuth, user, session } : { isAuth, user: null, session: null }}
     >
       {children}
     </sessionContext.Provider>
