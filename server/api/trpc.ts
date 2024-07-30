@@ -95,9 +95,12 @@ export const publicProcedure = t.procedure
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.user) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' })
-  }
+  if (!ctx.session || !ctx.user)
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+      message: 'You must be logged in to access this resource',
+    })
+
   return next({
     ctx: {
       // infers the `session` as non-nullable
@@ -106,4 +109,21 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
       user: ctx.user,
     },
   })
+})
+
+/**
+ * Admin (authenticated and admin) procedure
+ *
+ * If you want a query or mutation to ONLY be accessible to logged in users with admin role, use this.
+ * It verifies the session is valid and guarantees `ctx.session.user` is not null and `ctx.user.role` is 'admin'.
+ *
+ */
+export const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
+  if (ctx.user.role !== 'ADMIN')
+    throw new TRPCError({
+      code: 'FORBIDDEN',
+      message: 'You do not have permission to access this resource',
+    })
+
+  return next()
 })

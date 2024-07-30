@@ -1,3 +1,6 @@
+'use client'
+
+import { buttonVariants } from '@/components/ui/button'
 import {
   Table,
   TableBody,
@@ -6,12 +9,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { api } from '@/lib/trpc/server'
+import { api } from '@/lib/trpc/react'
+import { DeleteBtn } from './_delete-btn'
+import Link from 'next/link'
 
-const headers = ['ID', 'Name', 'Number of Products', 'Actions']
+const headers = ['ID', 'Name', 'Number of Products', 'Created By', 'Actions']
 
-export const List: React.FC = async () => {
-  const categories = await api.category.getCategories()
+export const List: React.FC = () => {
+  const [categories, { isLoading }] = api.category.getCategories.useSuspenseQuery()
+
   return (
     <Table>
       <TableHeader>
@@ -31,13 +37,28 @@ export const List: React.FC = async () => {
           </TableRow>
         )}
 
+        {isLoading && (
+          <TableRow>
+            <TableCell colSpan={headers.length} className="text-center text-muted-foreground">
+              Loading...
+            </TableCell>
+          </TableRow>
+        )}
+
         {categories.map((category) => (
           <TableRow key={category.id}>
+            <TableCell>{category.id}</TableCell>
             <TableCell>{category.name}</TableCell>
             <TableCell>{category.numberOfProducts}</TableCell>
-            <TableCell>
-              <button>Edit</button>
-              <button>Delete</button>
+            <TableCell>{category.createdBy}</TableCell>
+            <TableCell className="grid grid-cols-2 gap-2">
+              <Link
+                href={`/dashboard/categories/${category.id}`}
+                className={buttonVariants({ size: 'sm' })}
+              >
+                Edit
+              </Link>
+              <DeleteBtn id={category.id} />
             </TableCell>
           </TableRow>
         ))}

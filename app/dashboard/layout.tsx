@@ -10,7 +10,7 @@ const DashboardLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
       <div className="hidden h-screen grid-cols-12 gap-4 md:grid">
         <Sidebar />
 
-        <main className="col-span-10 mr-4 max-h-full overflow-y-auto">{children}</main>
+        <main className="container col-span-10 my-4 max-h-full overflow-y-auto">{children}</main>
       </div>
 
       <div className="container grid h-screen place-items-center md:hidden">

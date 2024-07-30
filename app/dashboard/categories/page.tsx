@@ -1,18 +1,24 @@
 import type { NextPage } from 'next'
-import { List } from './_list'
 import Link from 'next/link'
 
+import { api, HydrateClient } from '@/lib/trpc/server'
+import { List } from './_list'
+
 const Page: NextPage = () => {
+  void api.category.getCategories.prefetch()
+
   return (
-    <>
-      <section className="my-4 flex items-center justify-between">
+    <HydrateClient>
+      <section className="mb-4 flex items-center justify-between">
         <h1 className="text-3xl font-semibold">Categories</h1>
 
-        <Link href="/dashboard/categories/create">New Category</Link>
+        <Link href="/dashboard/categories/create" className="hover:underline">
+          New Category
+        </Link>
       </section>
 
       <List />
-    </>
+    </HydrateClient>
   )
 }
 

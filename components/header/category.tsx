@@ -1,13 +1,18 @@
+import { api } from '@/lib/trpc/server'
 import Link from 'next/link'
 
-export const Category: React.FC = () => {
-  const mock = ['Laptop', 'Book', 'Smartphone']
+export const Category: React.FC = async () => {
+  const categories = await api.category.getLatestCategories()
 
   return (
     <nav className="hidden gap-2 md:flex">
-      {mock.map((category, index) => (
-        <Link key={index} href="#" className="hover:text-muted-foreground">
-          {category}
+      {categories.map((category) => (
+        <Link
+          key={category.id}
+          href={`/shop?category=${category.name}`}
+          className="hover:text-muted-foreground"
+        >
+          {category.name}
         </Link>
       ))}
     </nav>
