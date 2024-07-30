@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 import { buttonVariants } from '@/components/ui/button'
 import {
   Table,
@@ -11,12 +13,11 @@ import {
 } from '@/components/ui/table'
 import { api } from '@/lib/trpc/react'
 import { DeleteBtn } from './_delete-btn'
-import Link from 'next/link'
 
 const headers = ['ID', 'Name', 'Number of Products', 'Created By', 'Actions']
 
 export const List: React.FC = () => {
-  const [categories, { isLoading }] = api.category.getCategories.useSuspenseQuery()
+  const { data: categories, isLoading } = api.category.getCategories.useQuery()
 
   return (
     <Table>
@@ -29,14 +30,6 @@ export const List: React.FC = () => {
       </TableHeader>
 
       <TableBody>
-        {categories.length === 0 && (
-          <TableRow>
-            <TableCell colSpan={headers.length} className="text-center text-muted-foreground">
-              No categories found.
-            </TableCell>
-          </TableRow>
-        )}
-
         {isLoading && (
           <TableRow>
             <TableCell colSpan={headers.length} className="text-center text-muted-foreground">
@@ -45,7 +38,15 @@ export const List: React.FC = () => {
           </TableRow>
         )}
 
-        {categories.map((category) => (
+        {categories?.length === 0 && (
+          <TableRow>
+            <TableCell colSpan={headers.length} className="text-center text-muted-foreground">
+              No categories found.
+            </TableCell>
+          </TableRow>
+        )}
+
+        {categories?.map((category) => (
           <TableRow key={category.id}>
             <TableCell>{category.id}</TableCell>
             <TableCell>{category.name}</TableCell>

@@ -1,10 +1,16 @@
 import { Sidebar } from '@/components/side-bar'
+import { auth } from '@/server/auth'
+import { redirect } from 'next/navigation'
 
 export const metadata = {
   title: 'Dashboard',
 }
 
-const DashboardLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
+const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
+  const { user } = await auth()
+
+  if (!user || user.role !== 'ADMIN') redirect('/')
+
   return (
     <>
       <div className="hidden h-screen grid-cols-12 gap-4 md:grid">
