@@ -93,6 +93,7 @@ export const categoryRouter = createTRPCRouter({
     if (!category) throw new TRPCError({ code: 'NOT_FOUND', message: 'Category not found' })
 
     await ctx.db.category.delete({ where: { id: input.id } })
+    if (category.image) await utapi.deleteFiles(category.image.split('/').pop() ?? '')
 
     return { success: true }
   }),

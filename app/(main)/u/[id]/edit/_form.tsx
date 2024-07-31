@@ -1,6 +1,5 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -8,21 +7,7 @@ import { toast } from 'sonner'
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/trpc/react'
-
-const UploadButton = dynamic(
-  () => import('@/components/uploadthing').then((mod) => mod.UploadButton),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="col-span-3 flex flex-col items-center justify-center gap-1">
-        <Button size="lg" isLoading>
-          Choose File
-        </Button>
-        <label className="text-xs text-muted-foreground">Image (4MB)</label>
-      </div>
-    ),
-  },
-)
+import { UploadButton } from '@/components/uploadthing'
 
 interface Props {
   name: string
@@ -86,7 +71,12 @@ export const Form: React.FC<Props> = (props) => {
           height={200}
           className="aspect-square rounded-lg object-cover"
         />
-        <UploadButton setImg={setImg} setUploading={setUploading} disabled={isLoading} />
+        <UploadButton
+          endpoint="avatarImage"
+          setImg={setImg}
+          setUploading={setUploading}
+          disabled={isLoading}
+        />
       </fieldset>
 
       <Button

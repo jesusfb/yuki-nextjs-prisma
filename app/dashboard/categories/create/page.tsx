@@ -1,7 +1,6 @@
 'use client'
 
 import type { NextPage } from 'next'
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -9,22 +8,8 @@ import { toast } from 'sonner'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
+import { UploadButton } from '@/components/uploadthing'
 import { api } from '@/lib/trpc/react'
-
-const UploadButton = dynamic(
-  () => import('@/components/uploadthing').then((mod) => mod.UploadButton),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="col-span-3 flex flex-col items-center justify-center gap-1">
-        <Button size="lg" isLoading>
-          Choose File
-        </Button>
-        <label className="text-xs text-muted-foreground">Image (4MB)</label>
-      </div>
-    ),
-  },
-)
 
 const Page: NextPage = () => {
   const router = useRouter()
@@ -50,13 +35,14 @@ const Page: NextPage = () => {
   }
 
   return (
-    <form action={action} className="grid grid-cols-2 gap-4">
+    <form action={action} className="grid grid-cols-3 gap-4">
       <FormField
         label="Name"
         name="name"
         disabled={isPending || isLoading}
         placeholder="Category name"
         message={error?.data?.zodError?.name?.at(0)}
+        className="col-span-2"
       />
 
       <fieldset className="flex flex-col items-center justify-center gap-4">
@@ -67,7 +53,12 @@ const Page: NextPage = () => {
           height={200}
           className="aspect-square rounded-lg object-cover"
         />
-        <UploadButton setImg={setImg} setUploading={setUploading} disabled={isLoading} />
+        <UploadButton
+          endpoint="categoryImage"
+          setImg={setImg}
+          setUploading={setUploading}
+          disabled={isLoading}
+        />
       </fieldset>
 
       <Button className="w-full" disabled={isLoading || isPending} isLoading={isPending}>

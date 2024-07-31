@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import type { OurFileRouter } from '@/server/uploadthing'
 
 interface Props
-  extends Omit<React.ComponentProps<ReturnType<typeof generateUploadButton>>, 'endpoint'> {
+  extends React.ComponentProps<ReturnType<typeof generateUploadButton<OurFileRouter>>> {
   setImg: React.Dispatch<React.SetStateAction<string>>
   setUploading: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -17,7 +17,6 @@ export const UploadButton: React.FC<Props> = ({ setImg, setUploading, ...props }
   return (
     <BaseUploadButton
       {...props}
-      endpoint="imageUploader"
       appearance={{
         container: 'w-fit',
         button: ({ ready, isUploading }) =>
