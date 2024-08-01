@@ -17,7 +17,7 @@ import { DeleteBtn } from './_delete-btn'
 const headers = ['ID', 'Name', 'Category', 'Price', 'Stock', 'Sold', 'Created By', 'Actions']
 
 export const List: React.FC = () => {
-  const { data: products, isLoading } = api.product.getProducts.useQuery()
+  const [products] = api.product.getProducts.useSuspenseQuery()
 
   return (
     <Table>
@@ -30,41 +30,34 @@ export const List: React.FC = () => {
       </TableHeader>
 
       <TableBody>
-        {isLoading && (
-          <TableRow>
-            <TableCell colSpan={headers.length} className="text-center text-muted-foreground">
-              Loading...
-            </TableCell>
-          </TableRow>
-        )}
-        {products?.length === 0 && (
+        {products.length === 0 ? (
           <TableRow>
             <TableCell colSpan={headers.length} className="text-center text-muted-foreground">
               No products found.
             </TableCell>
           </TableRow>
+        ) : (
+          products.map((product) => (
+            <TableRow key={product.id}>
+              <TableCell className="max-w-32">{product.id}</TableCell>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.category.name}</TableCell>
+              <TableCell>{product.price}</TableCell>
+              <TableCell>{product.stock}</TableCell>
+              <TableCell>{product.sold}</TableCell>
+              <TableCell>{product.createdBy.name}</TableCell>
+              <TableCell className="grid grid-cols-2 gap-2">
+                <Link
+                  href={`/dashboard/products/${product.id}`}
+                  className={buttonVariants({ size: 'sm' })}
+                >
+                  Edit
+                </Link>
+                <DeleteBtn id={product.id} />
+              </TableCell>
+            </TableRow>
+          ))
         )}
-
-        {products?.map((product) => (
-          <TableRow key={product.id}>
-            <TableCell className="max-w-32">{product.id}</TableCell>
-            <TableCell>{product.name}</TableCell>
-            <TableCell>{product.category.name}</TableCell>
-            <TableCell>{product.price}</TableCell>
-            <TableCell>{product.stock}</TableCell>
-            <TableCell>{product.sold}</TableCell>
-            <TableCell>{product.createdBy.name}</TableCell>
-            <TableCell className="grid grid-cols-2 gap-2">
-              <Link
-                href={`/dashboard/products/${product.id}`}
-                className={buttonVariants({ size: 'sm' })}
-              >
-                Edit
-              </Link>
-              <DeleteBtn id={product.id} />
-            </TableCell>
-          </TableRow>
-        ))}
       </TableBody>
     </Table>
   )
