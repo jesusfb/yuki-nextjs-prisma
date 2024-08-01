@@ -11,14 +11,14 @@ import { api } from '@/lib/trpc/react'
 import { useState } from 'react'
 
 interface Props {
-  category: { id: string; name: string; image: string | null }
+  category: { id: string; name: string; image: string }
 }
 
 export const Form: React.FC<Props> = ({ category }) => {
   const router = useRouter()
   const utils = api.useUtils()
 
-  const [img, setImg] = useState<string>(category.image ?? '')
+  const [img, setImg] = useState<string>(category.image)
   const [isLoading, setUploading] = useState<boolean>(false)
 
   const { mutate, isPending, error } = api.category.updateCategory.useMutation({

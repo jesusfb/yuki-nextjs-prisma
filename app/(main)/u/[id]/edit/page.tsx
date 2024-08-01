@@ -15,7 +15,7 @@ const Page: NextPage = async () => {
 
       <hr className="mb-4 mt-2" />
 
-      <Form name={user.name ?? ''} address={user.address ?? ''} image={user.image ?? ''} />
+      <Form name={user.name} address={user.address} image={user.image} />
 
       <hr className="my-4" />
 

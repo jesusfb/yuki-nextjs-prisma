@@ -15,7 +15,7 @@ const Page: NextPage = () => {
   const router = useRouter()
   const utils = api.useUtils()
 
-  const [img, setImg] = useState<string>('/default.jpg')
+  const [img, setImg] = useState<string>('/logo.svg')
   const [isLoading, setUploading] = useState<boolean>(false)
 
   const { mutate, isPending, error } = api.category.createCategory.useMutation({

@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
+
 import { List } from './_list'
 
 const Page: NextPage = () => {

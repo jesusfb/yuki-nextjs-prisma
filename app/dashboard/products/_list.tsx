@@ -14,10 +14,10 @@ import {
 import { api } from '@/lib/trpc/react'
 import { DeleteBtn } from './_delete-btn'
 
-const headers = ['ID', 'Name', 'Price', 'Stock', 'Sold', 'Created By', 'Actions']
+const headers = ['ID', 'Name', 'Category', 'Price', 'Stock', 'Sold', 'Created By', 'Actions']
 
 export const List: React.FC = () => {
-  const { data: products, isLoading } = api.product.getAdminProducts.useQuery()
+  const { data: products, isLoading } = api.product.getProducts.useQuery()
 
   return (
     <Table>
@@ -37,7 +37,6 @@ export const List: React.FC = () => {
             </TableCell>
           </TableRow>
         )}
-
         {products?.length === 0 && (
           <TableRow>
             <TableCell colSpan={headers.length} className="text-center text-muted-foreground">
@@ -48,12 +47,13 @@ export const List: React.FC = () => {
 
         {products?.map((product) => (
           <TableRow key={product.id}>
-            <TableCell>{product.id}</TableCell>
+            <TableCell className="max-w-32">{product.id}</TableCell>
             <TableCell>{product.name}</TableCell>
+            <TableCell>{product.category.name}</TableCell>
             <TableCell>{product.price}</TableCell>
             <TableCell>{product.stock}</TableCell>
             <TableCell>{product.sold}</TableCell>
-            <TableCell>{product.createdBy}</TableCell>
+            <TableCell>{product.createdBy.name}</TableCell>
             <TableCell className="grid grid-cols-2 gap-2">
               <Link
                 href={`/dashboard/products/${product.id}`}

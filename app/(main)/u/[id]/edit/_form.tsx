@@ -11,7 +11,7 @@ import { UploadButton } from '@/components/uploadthing'
 
 interface Props {
   name: string
-  address: string
+  address: string | null
   image: string
 }
 

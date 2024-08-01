@@ -75,7 +75,7 @@ export const userRouter = createTRPCRouter({
       },
     })
 
-    if (ctx.user.image && ctx.user.image !== user.image)
+    if (ctx.user.image !== user.image)
       await utapi.deleteFiles(ctx.user.image.split('/').pop() ?? '')
 
     if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' })
@@ -94,7 +94,7 @@ export const userRouter = createTRPCRouter({
     const user = await ctx.db.user.delete({ where: { id: ctx.user.id } })
     const sessions = await ctx.db.session.deleteMany({ where: { userId: ctx.user.id } })
     const products = await ctx.db.product.deleteMany({ where: { userId: ctx.user.id } })
-    if (user.image) await utapi.deleteFiles(user.image.split('/').pop() ?? '')
+    await utapi.deleteFiles(user.image.split('/').pop() ?? '')
 
     if (!user || !sessions || !products)
       throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to delete account' })

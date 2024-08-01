@@ -5,7 +5,6 @@ import { toast } from 'sonner'
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -19,12 +18,12 @@ import { api } from '@/lib/trpc/react'
 
 export const Buttons: React.FC<{ id: string }> = ({ id }) => {
   const router = useRouter()
-  const utils = api.useUtils()
+
   const { mutate, isPending } = api.user.deleteAccount.useMutation({
     onSuccess: async () => {
-      await utils.auth.me.invalidate()
       toast.success('Account deleted')
       router.push('/')
+      router.refresh()
     },
     onError: (error) => !error.data?.zodError && toast.error(error.message),
   })
@@ -50,9 +49,9 @@ export const Buttons: React.FC<{ id: string }> = ({ id }) => {
 
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={() => mutate()} disabled={isPending}>
+            <Button onClick={() => mutate()} isLoading={isPending}>
               Delete
-            </AlertDialogAction>
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

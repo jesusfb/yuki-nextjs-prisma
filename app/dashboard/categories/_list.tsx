@@ -37,7 +37,6 @@ export const List: React.FC = () => {
             </TableCell>
           </TableRow>
         )}
-
         {categories?.length === 0 && (
           <TableRow>
             <TableCell colSpan={headers.length} className="text-center text-muted-foreground">
@@ -48,7 +47,7 @@ export const List: React.FC = () => {
 
         {categories?.map((category) => (
           <TableRow key={category.id}>
-            <TableCell>{category.id}</TableCell>
+            <TableCell className="max-w-32">{category.id}</TableCell>
             <TableCell>{category.name}</TableCell>
             <TableCell>{category.numberOfProducts}</TableCell>
             <TableCell>{category.createdBy}</TableCell>

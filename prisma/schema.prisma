@@ -21,7 +21,7 @@ model User {
   password String @db.String
 
   name    String  @db.String
-  image   String? @db.String
+  image   String  @default("/default.jpg") @db.String
   address String? @db.String
   role    Role    @default(USER)
 
@@ -49,9 +49,9 @@ model Session {
 }
 
 model Category {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name  String  @unique @db.String
-  image String? @db.String
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String @unique @db.String
+  image String @default("/logo.svg") @db.String
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @db.ObjectId
@@ -65,7 +65,7 @@ model Product {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
   name        String @db.String
   description String @db.String
-  image       String @db.String
+  image       String @default("/logo.svg") @db.String
 
   price Float @db.Double
   stock Int   @db.Int

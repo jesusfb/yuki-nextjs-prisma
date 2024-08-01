@@ -18,31 +18,45 @@ import { Textarea } from '@/components/ui/textarea'
 import { UploadButton } from '@/components/uploadthing'
 import { api } from '@/lib/trpc/react'
 
-export const Form: React.FC<{ categories: { id: string; name: string }[] }> = ({ categories }) => {
+interface Props {
+  product: {
+    id: string
+    name: string
+    description: string
+    category: { id: string; name: string }
+    price: number
+    stock: number
+    image: string
+  }
+  categories: { id: string; name: string }[]
+}
+
+export const Form: React.FC<Props> = ({ product, categories }) => {
   const router = useRouter()
   const utils = api.useUtils()
 
-  const [img, setImg] = useState<string>('/logo.svg')
+  const [img, setImg] = useState<string>(product.image)
   const [isLoading, setUploading] = useState<boolean>(false)
 
-  const { mutate, isPending, error } = api.product.createProduct.useMutation({
+  const { mutate, isPending, error } = api.product.updateProduct.useMutation({
     onSuccess: async () => {
-      await utils.product.invalidate()
       await utils.category.invalidate()
+      await utils.product.invalidate()
       router.push('/dashboard/products')
-      toast.success('Product created')
+      toast.success('Product updated')
     },
     onError: (error) => !error.data?.zodError && toast.error(error.message),
   })
 
   const action = async (formData: FormData) => {
     mutate({
+      id: product.id,
+      image: img,
       name: String(formData.get('name')),
       description: String(formData.get('description')),
       category: String(formData.get('category')),
       price: Number(formData.get('price')),
       stock: Number(formData.get('stock')),
-      image: img,
     })
   }
 
@@ -52,6 +66,7 @@ export const Form: React.FC<{ categories: { id: string; name: string }[] }> = ({
         <FormField
           label="Name"
           name="name"
+          defaultValue={product.name}
           disabled={isPending || isLoading}
           placeholder="Product name"
           message={error?.data?.zodError?.name?.at(0)}
@@ -60,6 +75,7 @@ export const Form: React.FC<{ categories: { id: string; name: string }[] }> = ({
         <FormField
           label="Description"
           name="description"
+          defaultValue={product.description}
           disabled={isPending || isLoading}
           placeholder="Product description"
           message={error?.data?.zodError?.description?.at(0)}
@@ -75,7 +91,7 @@ export const Form: React.FC<{ categories: { id: string; name: string }[] }> = ({
           message={error?.data?.zodError?.category?.at(0)}
           asChild
         >
-          <Select required>
+          <Select defaultValue={product.category.id}>
             <SelectTrigger>
               <SelectValue placeholder="Select category of product" />
             </SelectTrigger>
@@ -93,6 +109,7 @@ export const Form: React.FC<{ categories: { id: string; name: string }[] }> = ({
         <FormField
           label="Price"
           name="price"
+          defaultValue={product.price}
           disabled={isPending || isLoading}
           placeholder="Product price"
           message={error?.data?.zodError?.price?.at(0)}
@@ -102,6 +119,7 @@ export const Form: React.FC<{ categories: { id: string; name: string }[] }> = ({
         <FormField
           label="Stock"
           name="stock"
+          defaultValue={product.stock}
           disabled={isPending || isLoading}
           placeholder="Product stock"
           message={error?.data?.zodError?.stock?.at(0)}
@@ -126,7 +144,7 @@ export const Form: React.FC<{ categories: { id: string; name: string }[] }> = ({
       </fieldset>
 
       <Button className="col-span-2" disabled={isLoading || isPending} isLoading={isPending}>
-        Create
+        Save Changes
       </Button>
     </form>
   )

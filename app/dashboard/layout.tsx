@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation'
-
 import { Sidebar } from '@/components/side-bar'
 import { SessionProvider } from '@/lib/session'
 import { auth } from '@/server/auth'
@@ -10,8 +8,6 @@ export const metadata = {
 
 const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
   const { user, session } = await auth()
-
-  if (!user || user.role !== 'ADMIN') redirect('/')
 
   return (
     <SessionProvider user={user} session={session}>

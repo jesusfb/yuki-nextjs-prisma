@@ -19,7 +19,7 @@ export const categoryRouter = createTRPCRouter({
   }),
 
   // [GET] /api/trpc/category.getCategories
-  getCategories: adminProcedure.query(async ({ ctx }) => {
+  getCategories: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db.category.findMany({
       include: {
         _count: { select: { products: true } },
@@ -37,12 +37,13 @@ export const categoryRouter = createTRPCRouter({
   }),
 
   // [GET] /api/trpc/category.getCategory
-  getCategory: adminProcedure.input(categorySchema.id).query(async ({ ctx, input }) => {
+  getCategory: publicProcedure.input(categorySchema.id).query(async ({ ctx, input }) => {
     const category = await ctx.db.category.findUnique({
       where: { id: input.id },
       include: {
         _count: { select: { products: true } },
         user: { select: { name: true } },
+        products: { include: { user: true } },
       },
     })
     if (!category) throw new TRPCError({ code: 'NOT_FOUND', message: 'Category not found' })
@@ -81,7 +82,7 @@ export const categoryRouter = createTRPCRouter({
     if (!newCategory)
       throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to update category' })
 
-    if (category.image && category.image !== newCategory.image)
+    if (category.image !== newCategory.image)
       await utapi.deleteFiles(category.image.split('/').pop() ?? '')
 
     return { success: true }
@@ -93,7 +94,7 @@ export const categoryRouter = createTRPCRouter({
     if (!category) throw new TRPCError({ code: 'NOT_FOUND', message: 'Category not found' })
 
     await ctx.db.category.delete({ where: { id: input.id } })
-    if (category.image) await utapi.deleteFiles(category.image.split('/').pop() ?? '')
+    await utapi.deleteFiles(category.image.split('/').pop() ?? '')
 
     return { success: true }
   }),

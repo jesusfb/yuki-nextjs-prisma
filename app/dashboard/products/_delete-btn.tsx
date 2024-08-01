@@ -4,7 +4,10 @@ import { api } from '@/lib/trpc/react'
 export const DeleteBtn: React.FC<{ id: string }> = ({ id }) => {
   const utils = api.useUtils()
   const { mutate, isPending } = api.product.deleteProduct.useMutation({
-    onSuccess: () => utils.product.getAdminProducts.invalidate(),
+    onSuccess: async () => {
+      await utils.product.invalidate()
+      await utils.category.invalidate()
+    },
   })
 
   return (
