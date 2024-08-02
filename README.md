@@ -31,7 +31,8 @@ A E-commerce website for selling digital products.
   - [x] Add product
   - [x] Edit product
   - [x] Delete product
-  - [ ] View all users
+  - [x] View all users
+  - [x] Delete user
   - [ ] View all orders
 - [x] User dashboard
   - [x] Change password

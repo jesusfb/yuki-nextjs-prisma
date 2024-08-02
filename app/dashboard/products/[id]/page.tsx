@@ -10,7 +10,7 @@ interface Props {
 const Page: NextPage<Props> = async ({ params }) => {
   try {
     const product = await api.product.getProduct({ id: params.id })
-    const categories = await api.category.getCategories()
+    const categories = await api.category.getCategories({})
 
     return <Form product={product} categories={categories} />
   } catch (error) {
