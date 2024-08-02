@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 export const categorySchema = {
   id: z.object({ id: z.string() }),
+  getCategories: z.object({ q: z.string().optional() }),
   create: z.object({
     name: z.string().min(1, 'Name is required'),
     image: z.string().optional(),

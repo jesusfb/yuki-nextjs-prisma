@@ -16,8 +16,8 @@ import { DeleteBtn } from './_delete-btn'
 
 const headers = ['ID', 'Name', 'Number of Products', 'Created By', 'Actions']
 
-export const List: React.FC = () => {
-  const [categories] = api.category.getCategories.useSuspenseQuery()
+export const List: React.FC<{ q?: string }> = ({ q }) => {
+  const [categories] = api.category.getCategories.useSuspenseQuery({ q })
 
   return (
     <Table>
@@ -39,10 +39,10 @@ export const List: React.FC = () => {
         ) : (
           categories.map((category) => (
             <TableRow key={category.id}>
-              <TableCell className="max-w-32">{category.id}</TableCell>
+              <TableCell>{category.id}</TableCell>
               <TableCell>{category.name}</TableCell>
               <TableCell>{category.numberOfProducts}</TableCell>
-              <TableCell>{category.createdBy}</TableCell>
+              <TableCell>{category.createdBy.name}</TableCell>
               <TableCell className="grid grid-cols-2 gap-2">
                 <Link
                   href={`/dashboard/categories/${category.id}`}

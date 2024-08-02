@@ -16,8 +16,8 @@ import { DeleteBtn } from './_delete-btn'
 
 const headers = ['ID', 'Name', 'Category', 'Price', 'Stock', 'Sold', 'Created By', 'Actions']
 
-export const List: React.FC = () => {
-  const [products] = api.product.getProducts.useSuspenseQuery()
+export const List: React.FC<{ q?: string }> = ({ q }) => {
+  const [products] = api.product.getAdminProducts.useSuspenseQuery({ q })
 
   return (
     <Table>
@@ -39,7 +39,7 @@ export const List: React.FC = () => {
         ) : (
           products.map((product) => (
             <TableRow key={product.id}>
-              <TableCell className="max-w-32">{product.id}</TableCell>
+              <TableCell>{product.id}</TableCell>
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.category.name}</TableCell>
               <TableCell>{product.price}</TableCell>

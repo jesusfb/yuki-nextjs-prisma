@@ -1,23 +1,51 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
-import { List } from './_list'
+import { FormField } from '@/components/form-field'
+import { Button } from '@/components/ui/button'
 import { api, HydrateClient } from '@/lib/trpc/server'
+import { List } from './_list'
 
-const Page: NextPage = async () => {
-  void api.category.getCategories.prefetch()
+interface Props {
+  searchParams: { q?: string }
+}
+
+const Page: NextPage<Props> = async ({ searchParams }) => {
+  void api.category.getCategories.prefetch({ q: searchParams.q })
+
+  const search = async (formData: FormData) => {
+    'use server'
+    const q = String(formData.get('q'))
+    if (!q) return redirect('/dashboard/categories')
+    redirect(`/dashboard/categories?q=${q}`)
+  }
+
+  const create = async () => {
+    'use server'
+    redirect('/dashboard/categories/create')
+  }
 
   return (
     <HydrateClient>
-      <section className="mb-4 flex items-center justify-between">
+      <section className="flex items-center justify-between">
         <h1 className="text-3xl font-semibold">Categories</h1>
 
-        <Link href="/dashboard/categories/create" className="hover:underline" prefetch={false}>
-          New Category
-        </Link>
+        <form action={create}>
+          <Button size="sm">New Category</Button>
+        </form>
       </section>
 
-      <List />
+      <form action={search} className="my-4 flex w-1/2 items-center gap-2">
+        <FormField
+          name="q"
+          placeholder="Search..."
+          defaultValue={searchParams.q}
+          className="flex-1"
+        />
+        <Button size="sm">Search</Button>
+      </form>
+
+      <List q={searchParams.q} />
     </HydrateClient>
   )
 }

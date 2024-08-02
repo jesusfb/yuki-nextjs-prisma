@@ -22,16 +22,26 @@ A E-commerce website for selling digital products.
   - [x] Forgot password
   - [x] Reset password
 - [x] Upload image feature [Uploadthing](https://uploadthing.com/)
-- [ ] Admin dashboard
-  - [ ] Add product
-  - [ ] Edit product
-  - [ ] Delete product
+- [x] Admin dashboard
+  - [x] View all categories
+  - [x] Add category
+  - [x] Edit category
+  - [x] Delete category
+  - [x] View all products
+  - [x] Add product
+  - [x] Edit product
+  - [x] Delete product
   - [ ] View all users
   - [ ] View all orders
-- [ ] User dashboard
-  - [ ] Change password
-  - [ ] Change information
+- [x] User dashboard
+  - [x] Change password
+  - [x] Change information
   - [ ] View orders
+- [ ] Product page
+- [ ] Search products
+- [ ] Filter products
+- [ ] Sort products
+- [ ] Pagination
 - [ ] Add to cart
 - [ ] Checkout
 

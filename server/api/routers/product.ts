@@ -5,28 +5,59 @@ import { adminProcedure, createTRPCRouter, publicProcedure } from '@/server/api/
 import { utapi } from '@/server/uploadthing'
 
 export const productRouter = createTRPCRouter({
-  // [GET] /api/trpc/product.getAdminProducts
-  getProducts: publicProcedure.query(async ({ ctx }) => {
+  // [GET] /api/trpc/product.getProducts
+  getProducts: publicProcedure.input(productSchema.getProducts).query(async ({ ctx, input }) => {
     const products = await ctx.db.product.findMany({
-      include: {
-        user: true,
-        category: { select: { id: true, name: true } },
+      where: {
+        ...(input.q ? { name: { contains: input.q, mode: 'insensitive' } } : undefined),
+        stock: { gt: 0 },
       },
-      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        name: true,
+        image: true,
+        price: true,
+      },
+      orderBy: {
+        [input.sortBy ?? 'createdAt']: input.orderBy ?? 'desc',
+      },
     })
 
-    return products.map((product) => ({
-      id: product.id,
-      name: product.name,
-      image: product.image,
-      category: product.category,
-      price: product.price,
-      stock: product.stock,
-      sold: product.sold,
-      createdBy: product.user,
-      createdAt: product.createdAt.toDateString(),
-    }))
+    return products
   }),
+  // [GET] /api/trpc/product.getAdminProducts
+  getAdminProducts: adminProcedure
+    .input(productSchema.getProducts)
+    .query(async ({ ctx, input }) => {
+      const products = await ctx.db.product.findMany({
+        where: input.q
+          ? {
+              OR: [
+                { name: { contains: input.q, mode: 'insensitive' } },
+                { description: { contains: input.q, mode: 'insensitive' } },
+              ],
+            }
+          : undefined,
+        include: {
+          user: true,
+
+          category: { select: { id: true, name: true } },
+        },
+        orderBy: { createdAt: 'desc' },
+      })
+
+      return products.map((product) => ({
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        category: product.category,
+        price: product.price,
+        stock: product.stock,
+        sold: product.sold,
+        createdBy: product.user,
+        createdAt: product.createdAt.toDateString(),
+      }))
+    }),
 
   // [GET] /api/trpc/product.getProduct
   getProduct: publicProcedure.input(productSchema.id).query(async ({ ctx, input }) => {

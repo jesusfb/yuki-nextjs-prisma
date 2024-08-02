@@ -19,22 +19,30 @@ export const categoryRouter = createTRPCRouter({
   }),
 
   // [GET] /api/trpc/category.getCategories
-  getCategories: publicProcedure.query(async ({ ctx }) => {
-    const categories = await ctx.db.category.findMany({
-      include: {
-        _count: { select: { products: true } },
-        user: { select: { name: true } },
-      },
-      orderBy: { createdAt: 'desc' },
-    })
+  getCategories: publicProcedure
+    .input(categorySchema.getCategories)
+    .query(async ({ ctx, input }) => {
+      const categories = await ctx.db.category.findMany({
+        where: input.q
+          ? {
+              OR: [{ name: { contains: input.q, mode: 'insensitive' } }],
+            }
+          : undefined,
+        include: {
+          _count: { select: { products: true } },
+          user: { select: { id: true, name: true } },
+        },
+        orderBy: { createdAt: 'desc' },
+      })
 
-    return categories.map((category) => ({
-      id: category.id,
-      name: category.name,
-      numberOfProducts: category._count.products,
-      createdBy: category.user.name,
-    }))
-  }),
+      return categories.map((category) => ({
+        id: category.id,
+        name: category.name,
+        image: category.image,
+        numberOfProducts: category._count.products,
+        createdBy: category.user,
+      }))
+    }),
 
   // [GET] /api/trpc/category.getCategory
   getCategory: publicProcedure.input(categorySchema.id).query(async ({ ctx, input }) => {
@@ -52,6 +60,12 @@ export const categoryRouter = createTRPCRouter({
       id: category.id,
       name: category.name,
       image: category.image,
+      products: category.products.map((product) => ({
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        price: product.price,
+      })),
     }
   }),
 
