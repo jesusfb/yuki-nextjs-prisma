@@ -11,7 +11,6 @@ export const env = createEnv({
     NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
     EMAIL_API: z.string().url().optional(),
     API_KEY: z.string().optional(),
-    DOMAIN: z.string().optional(),
   },
 
   /**
@@ -32,7 +31,6 @@ export const env = createEnv({
     EMAIL_API: process.env.EMAIL_API,
     API_KEY: process.env.API_KEY,
     NODE_ENV: process.env.NODE_ENV,
-    DOMAIN: process.env.DOMAIN,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
