@@ -12,5 +12,8 @@ export const setCookie = async ({
   value: string
   attributes?: Partial<ResponseCookie>
 }) => {
-  cookies().set(name, value, attributes)
+  cookies().set(name, value, {
+    ...attributes,
+    domain: '.tiesen.id.vn',
+  })
 }
