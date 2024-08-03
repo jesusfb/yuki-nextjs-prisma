@@ -7,7 +7,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function createSlug({ str, id }: { str: string; id: string }) {
-  const slug = slugify(str)
+  const slug = slugify(str, {
+    trim: true,
+    lower: true,
+    locale: 'en',
+    strict: true,
+  })
 
   return `${slug}-${id}`
 }

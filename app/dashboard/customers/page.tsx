@@ -1,8 +1,6 @@
 import type { NextPage } from 'next'
-import { redirect } from 'next/navigation'
 
-import { FormField } from '@/components/form-field'
-import { Button } from '@/components/ui/button'
+import { Search } from '@/components/search'
 import { api, HydrateClient } from '@/lib/trpc/server'
 import { List } from './_list'
 
@@ -13,28 +11,13 @@ interface Props {
 const Page: NextPage<Props> = async ({ searchParams }) => {
   void api.user.getUsers.prefetch({ q: searchParams.q })
 
-  const search = async (formData: FormData) => {
-    'use server'
-    const q = String(formData.get('q'))
-    if (!q) return redirect('/dashboard/customers')
-    redirect(`/dashboard/customers?q=${q}`)
-  }
-
   return (
     <HydrateClient>
       <section className="flex items-center justify-between">
         <h1 className="text-3xl font-semibold">Customers</h1>
       </section>
 
-      <form action={search} className="my-4 flex w-1/2 items-center gap-2">
-        <FormField
-          name="q"
-          placeholder="Search..."
-          defaultValue={searchParams.q}
-          className="flex-1"
-        />
-        <Button size="sm">Search</Button>
-      </form>
+      <Search type="customers" placeholder="Search users..." className="my-4 w-1/2" isAdmin />
 
       <List q={searchParams.q} />
     </HydrateClient>

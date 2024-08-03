@@ -5,19 +5,6 @@ import { adminProcedure, createTRPCRouter, publicProcedure } from '@/server/api/
 import { utapi } from '@/server/uploadthing'
 
 export const categoryRouter = createTRPCRouter({
-  // [GET] /api/trpc/category.getLatestCategories
-  getLatestCategories: publicProcedure.query(async ({ ctx }) => {
-    const categories = await ctx.db.category.findMany({
-      take: 3,
-      orderBy: { createdAt: 'desc' },
-    })
-
-    return categories.map((category) => ({
-      id: category.id,
-      name: category.name,
-    }))
-  }),
-
   // [GET] /api/trpc/category.getCategories
   getCategories: publicProcedure
     .input(categorySchema.getCategories)

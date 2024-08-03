@@ -6,7 +6,7 @@ export const ThreeProductGrid: React.FC = async () => {
   const threeLastProducts = await api.product.getProducts({}).then((res) => res.slice(0, 3))
 
   return (
-    <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
+    <section className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
       {threeLastProducts.map((product, idx) => (
         <ProductCard
           key={product.id}

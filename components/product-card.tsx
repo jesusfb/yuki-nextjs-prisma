@@ -18,16 +18,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   <Link
     href={`/shop/${createSlug({ str: product.name, id: product.id })}`}
     className={cn(
-      'group flex aspect-square flex-col rounded-lg border transition-all ease-linear hover:border-ring/80',
+      'group aspect-square rounded-lg border transition-colors ease-linear hover:border-ring/80',
       className,
     )}
   >
     <Image
       src={product.image}
       alt={product.name}
-      width={200}
-      height={200}
-      className={`absolute inset-0 h-full w-full rounded-lg object-cover ${product.image === '/logo.svg' ? 'dark:invert' : ''}`}
+      className={`rounded-lg object-cover ${product.image === '/logo.svg' ? 'dark:invert' : ''}`}
+      fill
     />
 
     <div className="absolute bottom-8 left-6 flex w-fit items-center justify-between gap-8 rounded-full bg-primary/60 text-primary-foreground shadow-lg backdrop-blur-xl transition-colors ease-linear group-hover:bg-primary/90">

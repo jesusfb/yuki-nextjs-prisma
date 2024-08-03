@@ -1,20 +1,20 @@
-'use client'
-
 import Link from 'next/link'
 
-import { api } from '@/lib/trpc/react'
+import { api } from '@/lib/trpc/server'
 
-export const Category: React.FC = () => {
-  const { data: categories, isLoading } = api.category.getLatestCategories.useQuery()
-
-  if (isLoading || !categories) return null
+export const Category: React.FC = async () => {
+  const categories = await api.category.getCategories({}).then((res) => res.slice(0, 2))
 
   return (
     <nav className="hidden gap-2 md:flex">
+      <Link href="/categories" className="hover:text-muted-foreground">
+        All
+      </Link>
+
       {categories.map((category) => (
         <Link
           key={category.id}
-          href={`/shop?category=${category.name}`}
+          href={`/categories/${category.name}`}
           className="hover:text-muted-foreground"
         >
           {category.name}
