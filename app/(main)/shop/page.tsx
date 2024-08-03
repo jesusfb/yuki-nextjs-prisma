@@ -8,6 +8,10 @@ interface Props {
   searchParams: { q?: string; sortBy?: 'name' | 'price' | 'createdAt'; orderBy?: 'asc' | 'desc' }
 }
 
+export const metadata = {
+  title: 'Shop',
+}
+
 const Page: NextPage<Props> = async ({ searchParams }) => {
   const products = await api.product.getProducts({
     q: searchParams.q,
@@ -19,6 +23,7 @@ const Page: NextPage<Props> = async ({ searchParams }) => {
     <div className="grid grid-cols-1 gap-4 md:grid-cols-6">
       <SideMenu
         query={{
+          q: searchParams.q ?? '',
           sortBy: searchParams.sortBy ?? 'createdAt',
           orderBy: searchParams.orderBy ?? 'desc',
         }}

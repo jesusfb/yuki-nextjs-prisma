@@ -15,7 +15,7 @@ export const DesktopNav: React.FC = async () => {
       {categories.map((category) => (
         <Link
           key={category.id}
-          href={`/shop/category/${createSlug({ str: category.name, suffix: category.id })}`}
+          href={`/shop/c/${createSlug({ str: category.name, suffix: category.id })}`}
           className="hover:text-muted-foreground"
         >
           {category.name}

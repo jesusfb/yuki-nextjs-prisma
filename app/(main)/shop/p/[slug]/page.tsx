@@ -62,7 +62,7 @@ const Page: NextPage<Props> = async ({ params }) => {
             <b className="text-foreground">Category:</b>{' '}
             <Link
               className="hover:text-foreground hover:underline"
-              href={`/shop/category/${createSlug({ str: product.category.name, suffix: product.category.id })}`}
+              href={`/shop/c/${createSlug({ str: product.category.name, suffix: product.category.id })}`}
             >
               {product.category.name}
             </Link>

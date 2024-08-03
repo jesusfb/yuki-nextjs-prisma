@@ -4,7 +4,7 @@ import { MobileDrawer } from './mobile'
 
 interface Props {
   slug?: string
-  query?: { sortBy: string; orderBy: 'asc' | 'desc' }
+  query?: Record<string, string>
 }
 
 export const SideMenu: React.FC<Props> = async ({ slug, query }) => {

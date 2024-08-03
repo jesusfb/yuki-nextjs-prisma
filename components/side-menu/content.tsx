@@ -4,12 +4,16 @@ import { createSlug, getIdFromSlug } from '@/lib/utils'
 
 interface Props {
   slug?: string
-  query?: { sortBy: string; orderBy: 'asc' | 'desc' }
+  query?: Record<string, string>
   categories: { id: string; name: string }[]
 }
 
 export const SideMenuContent: React.FC<Props> = ({ slug, query, categories }) => {
   const id = slug ? getIdFromSlug(slug) : null
+
+  const isMatch = (q: Record<string, string>) => {
+    return JSON.stringify(q) === JSON.stringify({ sortBy: query?.sortBy, orderBy: query?.orderBy })
+  }
 
   return (
     <>
@@ -20,8 +24,8 @@ export const SideMenuContent: React.FC<Props> = ({ slug, query, categories }) =>
           {sort.map((s) => (
             <Link
               key={s.name}
-              href={{ query: s.query }}
-              className={`hover:underline ${JSON.stringify(s.query) === JSON.stringify(query) ? 'text-primary' : 'text-muted-foreground'}`}
+              href={{ query: { ...query, ...s.query } }}
+              className={`hover:underline ${isMatch(s.query) ? 'text-primary' : 'text-muted-foreground'}`}
             >
               {s.name}
             </Link>
@@ -42,7 +46,7 @@ export const SideMenuContent: React.FC<Props> = ({ slug, query, categories }) =>
           {categories.map((category) => (
             <Link
               key={category.id}
-              href={`/shop/category/${createSlug({ str: category.name, suffix: category.id })}`}
+              href={`/shop/c/${createSlug({ str: category.name, suffix: category.id })}`}
               className={`hover:underline ${id === category.id ? 'text-primary' : 'text-muted-foreground'}`}
             >
               {category.name}
