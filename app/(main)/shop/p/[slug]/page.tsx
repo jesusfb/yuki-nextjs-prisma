@@ -82,7 +82,7 @@ const Page: NextPage<Props> = async ({ params }) => {
       </section>
 
       <Link
-        href={`/u/${product.createdBy.id}`}
+        href={`/u/${createSlug({ str: product.createdBy.name, suffix: product.createdBy.id })}`}
         className="mt-4 flex w-full items-center gap-4 rounded-lg border p-4 shadow-lg"
       >
         <Image

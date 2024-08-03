@@ -3,16 +3,18 @@ import { notFound } from 'next/navigation'
 
 import { getBaseUrl } from '@/lib/site'
 import { api } from '@/lib/trpc/server'
+import { getIdFromSlug } from '@/lib/utils'
 
 interface Props {
-  params: { id: string }
+  params: { slug: string }
 }
 
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const user = await api.user.getUser({ id: params.id })
+  const id = getIdFromSlug(params.slug) ?? ''
+  const user = await api.user.getUser({ id })
   if (!user) return notFound()
 
   const previousImages = (await parent).openGraph?.images ?? []

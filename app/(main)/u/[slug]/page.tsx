@@ -1,18 +1,23 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 
+import { ProductCard } from '@/components/product-card'
 import { CardDescription, CardTitle } from '@/components/ui/card'
 import { api } from '@/lib/trpc/server'
+import { getIdFromSlug } from '@/lib/utils'
 import { auth } from '@/server/auth'
 import { ActionBtn, FollowBtn } from './_buttons'
-import { ProductCard } from '@/components/product-card'
 
 interface Props {
-  params: { id: string }
+  params: { slug: string }
 }
 
-const Page: NextPage<Props> = async ({ params: { id } }) => {
+const Page: NextPage<Props> = async ({ params: { slug } }) => {
+  const id = getIdFromSlug(slug) ?? ''
   const user = await api.user.getUser({ id })
+  if (!user) notFound()
+
   const { user: authUser } = await auth()
 
   const isSelf = authUser ? authUser.id === user.id : false
@@ -56,15 +61,15 @@ const Page: NextPage<Props> = async ({ params: { id } }) => {
 
       <hr className="my-4" />
 
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <h3 className="text-2xl font-semibold leading-none tracking-tight md:col-span-3">
-          Products
-        </h3>
+      {user.role === 'ADMIN' && (
+        <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <CardTitle className="col-span-2 md:col-span-4">{user.name}&apos;s Products</CardTitle>
 
-        {user.products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </section>
+          {user.products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </section>
+      )}
     </>
   )
 }

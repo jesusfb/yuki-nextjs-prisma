@@ -1,3 +1,4 @@
+import { createSlug } from '@/lib/utils'
 import type { User } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -24,7 +25,7 @@ export const Auth: React.FC<{ user: User | null }> = ({ user }) => {
         </Link>
       )}
 
-      <Link href={`/u/${user.id}`} passHref>
+      <Link href={`/u/${createSlug({ str: user.name, suffix: user.id })}`} passHref>
         <Image
           src={user.image ?? '/default.jpg'}
           alt={user.name}
