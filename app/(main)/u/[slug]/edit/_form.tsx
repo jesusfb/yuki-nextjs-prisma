@@ -6,8 +6,8 @@ import { toast } from 'sonner'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
-import { api } from '@/lib/trpc/react'
 import { UploadButton } from '@/components/uploadthing'
+import { api } from '@/lib/trpc/react'
 
 interface Props {
   name: string
@@ -56,7 +56,7 @@ export const Form: React.FC<Props> = (props) => {
           label="Address"
           name="address"
           placeholder="Enter your address"
-          defaultValue={props.address}
+          defaultValue={props.address ?? ''}
           message={error?.data?.zodError?.address?.at(0)}
           disabled={isLoading}
         />
