@@ -8,9 +8,8 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { api } from '@/lib/trpc/react'
 
 export const Form: React.FC = () => {
-  const utils = api.useUtils()
   const { mutate, isPending, error } = api.auth.changePassword.useMutation({
-    onSuccess: () => toast.success('Password changed successfully') && utils.auth.me.invalidate(),
+    onSuccess: () => toast.success('Password changed successfully'),
     onError: (error) => !error.data?.zodError && toast.error(error.message),
   })
 
