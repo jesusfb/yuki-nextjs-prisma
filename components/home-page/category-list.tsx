@@ -1,7 +1,7 @@
 import { api } from '@/lib/trpc/server'
 
+import { CategoryCard } from '@/components/category-card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { CategoryCard } from '../category-card'
 
 export const CategoryList: React.FC = async () => {
   const categories = await api.category.getCategories({}).then((res) => res.slice(0, 8))

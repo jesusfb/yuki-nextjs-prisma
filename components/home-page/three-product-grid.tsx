@@ -1,6 +1,7 @@
 import { api } from '@/lib/trpc/server'
-import { ProductCard } from '../product-card'
-import { Skeleton } from '../ui/skeleton'
+
+import { ProductCard } from '@/components/product-card'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export const ThreeProductGrid: React.FC = async () => {
   const threeLastProducts = await api.product.getProducts({}).then((res) => res.slice(0, 3))

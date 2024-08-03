@@ -41,7 +41,6 @@ export const productRouter = createTRPCRouter({
           : undefined,
         include: {
           user: true,
-
           category: { select: { id: true, name: true } },
         },
         orderBy: { createdAt: 'desc' },
@@ -71,6 +70,12 @@ export const productRouter = createTRPCRouter({
     })
     if (!product) throw new TRPCError({ code: 'NOT_FOUND', message: 'Product not found' })
 
+    const relatedProducts = await ctx.db.product.findMany({
+      where: { categoryId: product.category.id, id: { not: product.id } },
+      take: 10,
+      select: { id: true, name: true, image: true, price: true },
+    })
+
     return {
       id: product.id,
       name: product.name,
@@ -82,6 +87,7 @@ export const productRouter = createTRPCRouter({
       sold: product.sold,
       createdBy: product.user,
       createdAt: product.createdAt.toDateString(),
+      relatedProducts: relatedProducts.length > 1 ? relatedProducts : null,
     }
   }),
 

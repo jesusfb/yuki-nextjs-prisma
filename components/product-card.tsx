@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 
-import { CardDescription, CardTitle } from '@/components/ui/card'
+import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn, createSlug } from '@/lib/utils'
 
 interface ProductCardProps {
@@ -29,9 +29,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
       fill
     />
 
-    <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 rounded-b-lg bg-secondary/60 px-6 py-4 backdrop-blur-xl backdrop-saturate-150 transition-colors group-hover:bg-secondary/80">
+    <CardHeader className="absolute inset-x-0 bottom-0 rounded-b-lg bg-card p-4">
       <CardTitle>{product.name}</CardTitle>
       <CardDescription>${product.price}</CardDescription>
-    </div>
+    </CardHeader>
   </Link>
 )
