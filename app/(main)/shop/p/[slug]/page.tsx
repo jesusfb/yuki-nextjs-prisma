@@ -81,6 +81,29 @@ const Page: NextPage<Props> = async ({ params }) => {
         </div>
       </section>
 
+      <Link
+        href={`/u/${product.createdBy.id}`}
+        className="mt-4 flex w-full items-center gap-4 rounded-lg border p-4 shadow-lg"
+      >
+        <Image
+          src={product.createdBy.image}
+          alt={product.createdBy.name}
+          width={64}
+          height={64}
+          className="rounded-full object-cover"
+        />
+
+        <div className="flex flex-col gap-2">
+          <CardTitle>{product.createdBy.name}</CardTitle>
+          <CardDescription>{product.createdBy._count.products} products</CardDescription>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <CardDescription>{product.createdBy._count.followers} followers</CardDescription>
+          <CardDescription>{product.createdBy._count.following} following</CardDescription>
+        </div>
+      </Link>
+
       <section className="mt-8">
         <h2 className="text-3xl font-bold">Related Products</h2>
 

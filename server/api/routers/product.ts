@@ -64,7 +64,16 @@ export const productRouter = createTRPCRouter({
     const product = await ctx.db.product.findUnique({
       where: { id: input.id },
       include: {
-        user: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+            _count: {
+              select: { products: true, followers: true, following: true },
+            },
+          },
+        },
         category: { select: { id: true, name: true } },
       },
     })

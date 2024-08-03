@@ -16,7 +16,7 @@ export const ActionBtn: React.FC<{ userId: string }> = ({ userId }) => {
   })
 
   return (
-    <div className="grid grid-cols-1 gap-2 md:col-span-2 md:col-start-5 md:grid-cols-2">
+    <div className="grid w-full grid-cols-1 gap-2 place-self-end md:col-span-2 md:col-start-5 md:grid-cols-2">
       <Button onClick={() => router.push(`/u/${userId}/edit`)} disabled={isPending}>
         Edit profile
       </Button>
@@ -29,14 +29,17 @@ export const ActionBtn: React.FC<{ userId: string }> = ({ userId }) => {
 }
 
 export const FollowBtn: React.FC<{ userID: string; isFollowed: boolean }> = (props) => {
-  const { mutate, isPending, data } = api.user.toggleFollow.useMutation()
+  const router = useRouter()
+  const { mutate, isPending, data } = api.user.toggleFollow.useMutation({
+    onSuccess: () => router.refresh(),
+  })
 
   const isFollowed = data?.isFollowed ?? props.isFollowed
 
   return (
     <Button
       isLoading={isPending}
-      className="md:col-span-2 md:col-start-5"
+      className="w-full place-self-end md:col-span-2 md:col-start-5"
       onClick={() => mutate({ id: props.userID })}
     >
       {isFollowed ? 'Unfollow' : 'Follow'}

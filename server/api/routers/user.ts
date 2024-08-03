@@ -46,7 +46,7 @@ export const userRouter = createTRPCRouter({
         _count: {
           select: { products: true, followers: true, following: true },
         },
-        products: { include: { user: true } },
+        products: { include: { user: true }, orderBy: { createdAt: 'desc' } },
       },
     })
     if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' })

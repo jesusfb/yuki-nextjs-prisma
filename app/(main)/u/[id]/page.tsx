@@ -25,12 +25,12 @@ const Page: NextPage<Props> = async ({ params: { id } }) => {
           width={200}
           height={200}
           alt={user.name}
-          className={`aspect-square w-full rounded-md object-cover shadow-lg ${user.image ? '' : 'dark:invert'}`}
+          className={`row-span-2 aspect-square w-full rounded-md object-cover shadow-lg ${user.image ? '' : 'dark:invert'}`}
         />
 
         <article className="flex flex-col gap-2 md:col-span-3">
           <div className="flex items-center gap-4">
-            <CardDescription className="rounded bg-background px-2 py-1 text-foreground shadow-md">
+            <CardDescription className="rounded border border-ring bg-background px-2 py-1 text-foreground">
               {user.role}
             </CardDescription>
             <CardTitle>{user.name}</CardTitle>
