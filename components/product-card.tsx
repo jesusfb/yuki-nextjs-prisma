@@ -29,11 +29,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
       fill
     />
 
-    <div className="absolute bottom-6 left-6 flex w-fit items-center justify-between gap-8 rounded-full bg-primary/60 text-primary-foreground shadow-lg backdrop-blur-xl transition-colors ease-linear group-hover:bg-primary/90">
-      <CardTitle className="px-4 py-2">{product.name}</CardTitle>
-      <CardDescription className="rounded-full bg-secondary/60 px-4 py-3 text-secondary-foreground transition-colors ease-linear group-hover:bg-secondary">
-        ${product.price}
-      </CardDescription>
+    <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 rounded-b-lg bg-secondary/60 px-6 py-4 backdrop-blur-xl backdrop-saturate-150 transition-colors group-hover:bg-secondary/80">
+      <CardTitle>{product.name}</CardTitle>
+      <CardDescription>${product.price}</CardDescription>
     </div>
   </Link>
 )
