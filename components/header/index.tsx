@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { Search } from '@/components/search'
 import { Auth } from './auth'
-import { Category } from './category'
+import { DesktopNav } from './desktop-nav'
 import { MobileNav } from './mobile-nav'
 import { ThemeBtn } from './theme-btn'
 
@@ -24,7 +24,7 @@ export const Header: React.FC<{ user: User | null }> = ({ user }) => (
         <span className="sr-only text-xl font-bold md:not-sr-only">Yuki</span>
       </Link>
 
-      <Category />
+      <DesktopNav />
 
       <Search className="hidden md:flex" />
 

@@ -14,7 +14,7 @@ interface CategoryCardProps {
 
 export const CategoryCard: React.FC<CategoryCardProps> = ({ category, className }) => (
   <Link
-    href={`/categories/${createSlug({ str: category.name, id: category.id })}`}
+    href={`/shop/category/${createSlug({ str: category.name, suffix: category.id })}`}
     className={cn('group aspect-square rounded-lg border', className)}
   >
     <Image

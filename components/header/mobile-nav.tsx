@@ -37,10 +37,16 @@ export const MobileNav = async () => {
         </SheetHeader>
 
         <nav className="flex flex-1 flex-col">
+          <Link
+            href="/shop"
+            className="rounded-lg px-4 py-2 hover:bg-accent hover:text-accent-foreground"
+          >
+            All
+          </Link>
           {categories.map((category) => (
             <Link
               key={category.id}
-              href={`/categories/${createSlug({ str: category.name, id: category.id })}`}
+              href={`/shop/category/${createSlug({ str: category.name, suffix: category.id })}`}
               className="rounded-lg px-4 py-2 hover:bg-accent hover:text-accent-foreground"
             >
               {category.name}

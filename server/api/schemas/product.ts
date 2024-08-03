@@ -6,6 +6,7 @@ export const productSchema = {
     q: z.string().optional(),
     sortBy: z.enum(['name', 'price', 'createdAt']).optional(),
     orderBy: z.enum(['asc', 'desc']).optional(),
+    category: z.string().optional(),
   }),
   createProduct: z.object({
     name: z.string().min(4, 'Name must be at least 4 characters long'),

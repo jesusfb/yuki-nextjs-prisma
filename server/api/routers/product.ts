@@ -10,6 +10,7 @@ export const productRouter = createTRPCRouter({
     const products = await ctx.db.product.findMany({
       where: {
         ...(input.q ? { name: { contains: input.q, mode: 'insensitive' } } : undefined),
+        ...(input.category ? { categoryId: input.category } : undefined),
         stock: { gt: 0 },
       },
       select: {

@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function createSlug({ str, id }: { str: string; id: string }) {
+export function createSlug({ str, suffix }: { str: string; suffix: string }) {
   const slug = slugify(str, {
     trim: true,
     lower: true,
@@ -14,5 +14,9 @@ export function createSlug({ str, id }: { str: string; id: string }) {
     strict: true,
   })
 
-  return `${slug}-${id}`
+  return `${slug}-${suffix}`
+}
+
+export function getIdFromSlug(slug: string) {
+  return slug.split('-').slice(-1)[0]
 }
