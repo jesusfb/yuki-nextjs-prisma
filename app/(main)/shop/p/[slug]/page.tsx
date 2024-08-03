@@ -42,13 +42,13 @@ const Page: NextPage<Props> = async ({ params }) => {
 
   return (
     <>
-      <section className="grid grid-cols-3 gap-4 rounded-lg border p-4">
+      <section className="grid grid-cols-1 gap-4 rounded-lg border p-4 md:grid-cols-3">
         <Image
           src={product.image}
           alt={product.name}
           width={400}
           height={400}
-          className={`col-span-2 aspect-square w-full rounded-lg object-cover drop-shadow-lg ${product.image === '/logo.svg' && 'dark:invert'}`}
+          className={`aspect-square w-full rounded-lg object-cover drop-shadow-lg md:col-span-2 ${product.image === '/logo.svg' && 'dark:invert'}`}
         />
 
         <div className="space-y-4">
