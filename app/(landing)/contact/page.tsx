@@ -5,10 +5,10 @@ import { getBaseUrl } from '@/lib/site'
 import { Form } from './_form'
 
 export const metadata = {
-  title: contact.title,
+  title: 'Contact Us',
   description: contact.description,
   openGraph: {
-    images: [`/og?title=${contact.title}&desc=${contact.description}`],
+    images: [`/og?title=Contact%20Us&desc=${contact.description}`],
     url: `${getBaseUrl()}/contact`,
   },
   alternates: { canonical: `${getBaseUrl()}/contact` },

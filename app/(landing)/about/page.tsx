@@ -8,10 +8,10 @@ import { about } from '@/lib/data'
 import { getBaseUrl } from '@/lib/site'
 
 export const metadata = {
-  title: about.title,
+  title: 'About Us',
   description: about.desciption,
   openGraph: {
-    images: [`/og?title=${about.title}&desc=${about.desciption}`],
+    images: [`/og?title=About%20Us&desc=${about.desciption}`],
     url: `${getBaseUrl()}/about`,
   },
   alternates: { canonical: `${getBaseUrl()}/about` },

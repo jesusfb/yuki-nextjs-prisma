@@ -4,10 +4,10 @@ import { policy } from '@/lib/data'
 import { getBaseUrl } from '@/lib/site'
 
 export const metadata = {
-  title: policy.title,
+  title: 'Privacy Policy',
   description: policy.desciption,
   openGraph: {
-    images: [`/og?title=${policy.title}&desc=${policy.desciption}`],
+    images: [`/og?title=Privacy%20Policy&desc=${policy.desciption}`],
     url: `${getBaseUrl()}/policy`,
   },
   alternates: { canonical: `${getBaseUrl()}/policy` },
