@@ -1,4 +1,4 @@
-import { FacebookIcon, GithubIcon, type LucideIcon, TwitchIcon, TwitterIcon } from 'lucide-react'
+import { FacebookIcon, GithubIcon, type LucideIcon, TwitterIcon } from 'lucide-react'
 import type { Metadata, Viewport } from 'next'
 
 export const getBaseUrl = () => {
@@ -53,5 +53,6 @@ export const siteConfig: SiteConfig = {
     { label: 'Shop', url: '/shop' },
     { label: 'About', url: '/about' },
     { label: 'Contact', url: '/contact' },
+    { label: 'Policy', url: '/policy' },
   ],
 }
