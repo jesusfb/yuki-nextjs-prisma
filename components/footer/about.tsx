@@ -7,7 +7,7 @@ export const About: React.FC = () => (
   <div className="flex flex-col items-start gap-4">
     <Link href="/" className="flex items-center gap-2" prefetch={false}>
       <div className="size-10 rounded-lg border border-primary/30 p-2">
-        <Image src="/logo.svg" alt="Logo" width={24} height={24} className="dark:invert" />
+        <Image src="/logo.svg" alt="logo" width={24} height={24} className="dark:invert" />
       </div>
       <span className="text-lg font-semibold">{siteConfig.meta.applicationName}</span>
     </Link>

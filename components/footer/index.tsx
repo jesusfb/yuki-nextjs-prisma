@@ -12,7 +12,7 @@ export const Footer: React.FC = () => (
       <Contact />
     </div>
 
-    <div className="container mt-12 max-w-7xl border-t pt-6 text-sm text-muted-foreground">
+    <div className="container mt-12 border-t border-primary/70 pt-6 text-center text-sm text-muted-foreground">
       <p>&copy; {new Date().getFullYear()} Yuki Inc. All rights reserved.</p>
     </div>
   </footer>

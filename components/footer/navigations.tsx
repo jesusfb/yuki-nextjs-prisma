@@ -5,6 +5,7 @@ import { siteConfig } from '@/lib/site'
 export const Navigations: React.FC = () => (
   <div className="grid gap-2">
     <h3 className="text-lg font-semibold">Navigation</h3>
+
     <nav className="grid gap-1">
       {siteConfig.navs.map((nav) => (
         <Link
