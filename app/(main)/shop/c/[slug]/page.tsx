@@ -3,9 +3,9 @@ import { notFound } from 'next/navigation'
 
 import { ProductCard } from '@/components/product-card'
 import { SideMenu } from '@/components/side-menu'
+import { getBaseUrl } from '@/lib/site'
 import { api } from '@/lib/trpc/server'
 import { getIdFromSlug } from '@/lib/utils'
-import { getBaseUrl } from '@/lib/site'
 
 interface Props {
   params: { slug: string }

@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 import { Suspense } from 'react'
 
+import { CarouselProduct, CarouselProductSkeleton } from '@/components/home-page/carousel-product'
+import { CategoryList, CategoryListSkeleton } from '@/components/home-page/category-list'
 import {
   ThreeProductGrid,
   ThreeProductGridSkeleton,
 } from '@/components/home-page/three-product-grid'
-import { CategoryList, CategoryListSkeleton } from '@/components/home-page/category-list'
-import { CarouselProduct, CarouselProductSkeleton } from '@/components/home-page/carousel-product'
 
 const Page: NextPage = async () => (
   <>
