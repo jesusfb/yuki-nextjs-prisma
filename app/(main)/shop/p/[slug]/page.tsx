@@ -1,13 +1,14 @@
 import type { Metadata, NextPage, ResolvingMetadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { ProductCard } from '@/components/product-card'
+import { CardDescription, CardTitle } from '@/components/ui/card'
+import { Marquee } from '@/components/ui/marquee'
 import { api } from '@/lib/trpc/server'
 import { createSlug, getIdFromSlug } from '@/lib/utils'
-import Image from 'next/image'
-import { CardDescription, CardTitle } from '@/components/ui/card'
-import Link from 'next/link'
-import { Marquee } from '@/components/ui/marquee'
-import { ProductCard } from '@/components/product-card'
+import { getBaseUrl } from '@/lib/site'
 
 interface Props {
   params: { slug: string }
@@ -21,17 +22,21 @@ export const generateMetadata = async (
   const product = await api.product.getProduct({ id })
   if (!product) notFound()
 
+  const baseDesc = product.description.replace(/\\n/g, ' ')
   const previousImages = (await parent).openGraph?.images ?? []
+  const imgDesc = baseDesc.length > 100 ? baseDesc.slice(0, 100) + '...' : baseDesc
 
   return {
     title: product.name,
-    description: product.description,
+    description: baseDesc,
     openGraph: {
       images: [
-        `/og?title=${product.name}&desc=${product.description}&image=${product.image}`,
+        `/og?title=${product.name}&desc=${imgDesc}&image=${product.image}`,
         ...previousImages,
       ],
+      url: `${getBaseUrl()}/p/${params.slug}`,
     },
+    alternates: { canonical: `${getBaseUrl()}/p/${params.slug}` },
   }
 }
 
@@ -72,7 +77,10 @@ const Page: NextPage<Props> = async ({ params }) => {
             <b className="text-foreground">
               Description: <br />
             </b>
-            {product.description}
+
+            <span
+              dangerouslySetInnerHTML={{ __html: product.description.replace(/\\n/g, '<br />') }}
+            />
           </CardDescription>
 
           <CardDescription className="text-lg">

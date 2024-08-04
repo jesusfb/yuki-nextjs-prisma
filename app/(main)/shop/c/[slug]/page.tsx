@@ -5,6 +5,7 @@ import { ProductCard } from '@/components/product-card'
 import { SideMenu } from '@/components/side-menu'
 import { api } from '@/lib/trpc/server'
 import { getIdFromSlug } from '@/lib/utils'
+import { getBaseUrl } from '@/lib/site'
 
 interface Props {
   params: { slug: string }
@@ -16,16 +17,23 @@ export const generateMetadata = async (
   parent: ResolvingMetadata,
 ): Promise<Metadata> => {
   const id = getIdFromSlug(params.slug) ?? ''
-  const product = await api.category.getCategory({ id })
-  if (!product) notFound()
+  const category = await api.category.getCategory({ id })
+  if (!category) notFound()
 
   const previousImages = (await parent).openGraph?.images ?? []
+  const description = `Discover the best ${category.name} products on our store.`
 
   return {
-    title: product.name,
+    title: category.name,
+    description,
     openGraph: {
-      images: [`/og?title=${product.name}&image=${product.image}`, ...previousImages],
+      images: [
+        `/og?title=${category.name}&desc=${description}&image=${category.image}`,
+        ...previousImages,
+      ],
+      url: `${getBaseUrl()}/c/${params.slug}`,
     },
+    alternates: { canonical: `${getBaseUrl()}/c/${params.slug}` },
   }
 }
 

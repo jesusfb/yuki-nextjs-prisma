@@ -18,7 +18,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   <Link
     href={`/shop/p/${createSlug({ str: product.name, suffix: product.id })}`}
     className={cn(
-      'group aspect-square rounded-lg border transition-colors ease-linear hover:border-ring/80',
+      'group aspect-square rounded-lg border transition-colors ease-linear hover:border-primary/60',
       className,
     )}
   >
