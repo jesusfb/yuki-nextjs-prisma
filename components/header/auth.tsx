@@ -2,6 +2,8 @@ import { createSlug } from '@/lib/utils'
 import type { User } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
+import { buttonVariants } from '../ui/button'
+import { ShoppingBagIcon, ShoppingCartIcon } from 'lucide-react'
 
 export const Auth: React.FC<{ user: User | null }> = ({ user }) => {
   if (!user)
@@ -33,6 +35,13 @@ export const Auth: React.FC<{ user: User | null }> = ({ user }) => {
           height={28}
           className={`aspect-square rounded-full object-cover ring-2 ring-transparent hover:ring-ring ${user.image ? '' : 'dark:invert'}`}
         />
+      </Link>
+
+      <Link
+        href={`/u/${createSlug({ str: user.name, suffix: user.id })}/cart`}
+        className={buttonVariants({ variant: 'outline', size: 'icon' })}
+      >
+        <ShoppingBagIcon />
       </Link>
     </div>
   )

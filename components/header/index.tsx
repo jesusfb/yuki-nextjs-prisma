@@ -6,7 +6,6 @@ import { Search } from '@/components/search'
 import { Auth } from './auth'
 import { DesktopNav } from './desktop-nav'
 import { MobileNav } from './mobile-nav'
-import { ThemeBtn } from './theme-btn'
 
 export const Header: React.FC<{ user: User | null }> = ({ user }) => (
   <header className="sticky inset-0 z-50 border-b bg-background/70 py-2 backdrop-blur-xl backdrop-saturate-150">
@@ -28,10 +27,7 @@ export const Header: React.FC<{ user: User | null }> = ({ user }) => (
 
       <Search className="hidden md:flex" />
 
-      <div className="flex items-center gap-2 place-self-end">
-        <Auth user={user} />
-        <ThemeBtn />
-      </div>
+      <Auth user={user} />
     </div>
   </header>
 )

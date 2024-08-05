@@ -1,11 +1,15 @@
 import type { NextPage } from 'next'
 
+import { CardTitle } from '@/components/ui/card'
 import { auth } from '@/server/auth'
 import { Buttons } from './_buttonts'
 import { Form } from './_form'
-import { CardTitle } from '@/components/ui/card'
 
-const Page: NextPage = async () => {
+interface Props {
+  params: { slug: string }
+}
+
+const Page: NextPage<Props> = async ({ params }) => {
   const { user } = await auth()
   if (!user) return null
 
@@ -19,7 +23,7 @@ const Page: NextPage = async () => {
 
       <hr className="my-4" />
 
-      <Buttons id={user.id} />
+      <Buttons slug={params.slug} />
     </>
   )
 }

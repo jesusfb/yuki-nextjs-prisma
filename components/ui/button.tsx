@@ -1,9 +1,10 @@
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { Loader2Icon } from 'lucide-react'
 import * as React from 'react'
 
+import { ThreeDotLoading } from '@/components/ui/three-dot-loading'
 import { cn } from '@/lib/utils'
+import { ChevronRightIcon } from 'lucide-react'
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
@@ -48,23 +49,25 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {isLoading ? (
-          <>
-            {size === 'icon' ? (
-              <Loader2Icon className="animate-spin" />
-            ) : (
-              <>
-                <Loader2Icon className="mr-2 animate-spin" /> {props.children}
-              </>
-            )}
-          </>
-        ) : (
-          props.children
-        )}
+        {isLoading ? <ThreeDotLoading /> : props.children}
       </Comp>
     )
   },
 )
 Button.displayName = 'Button'
 
-export { Button, buttonVariants }
+const BarButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  children,
+  className,
+  ...props
+}) => (
+  <button className={cn('group flex items-center', className)} {...props}>
+    {children}
+    <div className="ml-2 h-[2px] flex-grow">
+      <div className="h-full w-0 bg-current transition-all ease-linear group-hover:w-full" />
+    </div>
+    <ChevronRightIcon className="-ml-4 opacity-0 transition-opacity ease-linear group-hover:opacity-100" />
+  </button>
+)
+
+export { Button, BarButton, buttonVariants }

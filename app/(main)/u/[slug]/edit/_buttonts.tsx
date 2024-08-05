@@ -1,5 +1,6 @@
 'use client'
 
+import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -13,11 +14,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
+import { BarButton, Button } from '@/components/ui/button'
 import { api } from '@/lib/trpc/react'
 
-export const Buttons: React.FC<{ id: string }> = ({ id }) => {
+export const Buttons: React.FC<{ slug: string }> = ({ slug }) => {
   const router = useRouter()
+  const { theme, setTheme } = useTheme()
 
   const { mutate, isPending } = api.user.deleteAccount.useMutation({
     onSuccess: async () => {
@@ -29,14 +31,18 @@ export const Buttons: React.FC<{ id: string }> = ({ id }) => {
   })
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-      <Button variant="secondary" onClick={() => router.push(`/u/${id}/edit/change-password`)}>
+    <div className="flex flex-col gap-4">
+      <BarButton onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        Change Theme
+      </BarButton>
+
+      <BarButton onClick={() => router.push(`/u/${slug}/edit/change-password`)}>
         Change Password
-      </Button>
+      </BarButton>
 
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="destructive">Delete Account</Button>
+          <BarButton className="text-destructive">Delete Account</BarButton>
         </AlertDialogTrigger>
 
         <AlertDialogContent>
@@ -49,6 +55,7 @@ export const Buttons: React.FC<{ id: string }> = ({ id }) => {
 
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+
             <Button onClick={() => mutate()} isLoading={isPending}>
               Delete
             </Button>

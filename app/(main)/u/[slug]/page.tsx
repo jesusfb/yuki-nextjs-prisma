@@ -53,7 +53,7 @@ const Page: NextPage<Props> = async ({ params: { slug } }) => {
 
         {Boolean(authUser) &&
           (isSelf ? (
-            <ActionBtn userId={user.id} />
+            <ActionBtn slug={slug} />
           ) : (
             <FollowBtn userID={user.id} isFollowed={user.isFollowed} />
           ))}

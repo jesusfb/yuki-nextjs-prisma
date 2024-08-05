@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/trpc/react'
 
-export const ActionBtn: React.FC<{ userId: string }> = ({ userId }) => {
+export const ActionBtn: React.FC<{ slug: string }> = ({ slug }) => {
   const router = useRouter()
 
   const { mutate: logout, isPending } = api.auth.signOut.useMutation({
@@ -17,7 +17,7 @@ export const ActionBtn: React.FC<{ userId: string }> = ({ userId }) => {
 
   return (
     <div className="col-span-2 grid w-full grid-cols-1 gap-2 place-self-end md:col-start-5 md:grid-cols-2">
-      <Button onClick={() => router.push(`/u/${userId}/edit`)} disabled={isPending}>
+      <Button onClick={() => router.push(`/u/${slug}/edit`)} disabled={isPending}>
         Edit profile
       </Button>
 
