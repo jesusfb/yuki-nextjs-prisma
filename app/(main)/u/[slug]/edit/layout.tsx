@@ -1,10 +1,23 @@
 import { redirect } from 'next/navigation'
 
 import { auth } from '@/server/auth'
+import { getIdFromSlug } from '@/lib/utils'
 
-const EditUserLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
+interface Props {
+  params: { slug: string }
+  children: React.ReactNode
+}
+
+export const metadata = {
+  title: 'Settings',
+}
+
+const EditUserLayout: React.FC<Props> = async ({ params, children }) => {
   const { user, session } = await auth()
   if (!session || !user) return redirect('/')
+
+  const id = getIdFromSlug(params.slug)
+  if (id !== user.id) return redirect('/')
 
   return <>{children}</>
 }
