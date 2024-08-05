@@ -1,3 +1,5 @@
+import { toast } from 'sonner'
+
 import {
   Select,
   SelectContent,
@@ -13,7 +15,10 @@ interface Props {
   refetch: () => void
 }
 export const ChangeRole: React.FC<Props> = ({ id, role, refetch }) => {
-  const { mutate, isPending } = api.user.changeRole.useMutation({ onSuccess: () => refetch() })
+  const { mutate, isPending } = api.user.changeRole.useMutation({
+    onSuccess: () => refetch(),
+    onError: (e) => toast.error(e.message),
+  })
 
   return (
     <Select
