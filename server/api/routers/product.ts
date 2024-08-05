@@ -26,6 +26,7 @@ export const productRouter = createTRPCRouter({
 
     return products
   }),
+
   // [GET] /api/trpc/product.getAdminProducts
   getAdminProducts: adminProcedure
     .input(productSchema.getProducts)
@@ -96,7 +97,7 @@ export const productRouter = createTRPCRouter({
       sold: product.sold,
       createdBy: product.user,
       createdAt: product.createdAt.toDateString(),
-      relatedProducts: relatedProducts.length > 1 ? relatedProducts : null,
+      relatedProducts: relatedProducts.length >= 1 ? relatedProducts : null,
     }
   }),
 

@@ -126,6 +126,20 @@ export const userRouter = createTRPCRouter({
     }
   }),
 
+  // [POST] /api/trpc/user.changeRole
+  changeRole: adminProcedure.input(userSchema.changeRole).mutation(async ({ ctx, input }) => {
+    if (ctx.user.id === input.id)
+      throw new TRPCError({ code: 'FORBIDDEN', message: 'You cannot change your own role' })
+
+    const user = await ctx.db.user.update({
+      where: { id: input.id },
+      data: { role: input.role },
+    })
+    if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' })
+
+    return { success: true }
+  }),
+
   // [POST] /api/trpc/user.deleteAccount
   deleteAccount: protectedProcedure.mutation(async ({ ctx }) => {
     const user = await ctx.db.user.delete({ where: { id: ctx.user.id } })

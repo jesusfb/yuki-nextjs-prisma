@@ -14,4 +14,9 @@ export const userSchema = {
     image: z.string().url('Invalid image URL').optional(),
     address: z.string().min(10, 'Address must be at least 10 characters'),
   }),
+
+  changeRole: z.object({
+    id: z.string(),
+    role: z.enum(['USER', 'ADMIN']),
+  }),
 }

@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const metadata = {
-  title: 'Settings',
+  title: 'Settings | Yuki',
 }
 
 const EditUserLayout: React.FC<Props> = async ({ params, children }) => {

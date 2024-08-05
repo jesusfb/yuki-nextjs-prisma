@@ -9,12 +9,13 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { api } from '@/lib/trpc/react'
+import { ChangeRole } from './_change-role'
 import { DeleteBtn } from './_delete-btn'
 
 const headers = ['ID', 'Name', 'Email', 'Role', 'Address', 'Products', 'Orders', 'Actions']
 
 export const List: React.FC<{ q?: string }> = ({ q }) => {
-  const [users] = api.user.getUsers.useSuspenseQuery({ q })
+  const [users, { refetch }] = api.user.getUsers.useSuspenseQuery({ q })
 
   return (
     <Table>
@@ -38,7 +39,9 @@ export const List: React.FC<{ q?: string }> = ({ q }) => {
             <TableRow key={user.id}>
               <TableCell>{user.id}</TableCell>
               <TableCell>{user.name}</TableCell>
-              <TableCell>{user.role}</TableCell>
+              <TableCell>
+                <ChangeRole id={user.id} role={user.role} refetch={refetch} />
+              </TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.address}</TableCell>
               <TableCell>{user.numProducts}</TableCell>
