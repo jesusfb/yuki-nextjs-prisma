@@ -21,7 +21,7 @@ export const ActionBtn: React.FC<{ slug: string }> = ({ slug }) => {
         Edit profile
       </Button>
 
-      <Button variant="destructive" onClick={() => logout()} isLoading={isPending}>
+      <Button variant="secondary" onClick={() => logout()} isLoading={isPending}>
         Logout
       </Button>
     </div>
