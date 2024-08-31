@@ -19,7 +19,7 @@ export async function generateMetadata(
 
   const previousImages = (await parent).openGraph?.images ?? []
   const description = `User profile for ${user.name} (${user.email})`
-  const image = `/og?title=${user.name}&desc=${description}&image=${user.image ?? `${getBaseUrl()}/default.jpg`}`
+  const image = `/api/og?title=${user.name}&desc=${description}&image=${user.image ?? `${getBaseUrl()}/default.jpg`}`
 
   return seo({
     title: user.name,
