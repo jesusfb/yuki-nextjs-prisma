@@ -10,14 +10,12 @@ import { setCookie } from '@/server/actions'
 
 export const Form: React.FC = () => {
   const router = useRouter()
-  const utils = api.useUtils()
 
   const { mutate, isPending, error } = api.auth.signIn.useMutation({
     onSuccess: async (data) => {
       await setCookie(data.sessionCookie)
       toast.success('Login success')
       router.push('/')
-      await utils.auth.me.invalidate()
     },
     onError: (error) => {
       if (!error.data?.zodError) toast.error('Login fail', { description: error.message })

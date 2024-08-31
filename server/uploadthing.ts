@@ -12,7 +12,7 @@ const config = f({ image: { maxFileSize: '4MB' } })
     const { user } = await auth()
 
     // If you throw, the user will not be able to upload
-    if (!user) throw new UploadThingError('Unauthorized')
+    if (!user) throw new UploadThingError('You must be logged in to upload')
 
     // Whatever is returned here is accessible in onUploadComplete as `metadata`
     return { userId: user.id }

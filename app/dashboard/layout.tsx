@@ -1,11 +1,14 @@
 import { Sidebar } from '@/components/side-bar'
+import { seo } from '@/lib/seo'
 import { SessionProvider } from '@/lib/session'
 import { auth } from '@/server/auth'
 import { redirect } from 'next/navigation'
 
-export const metadata = {
+export const metadata = seo({
   title: 'Dashboard',
-}
+  description: 'Admin dashboard',
+  url: '/dashboard',
+})
 
 const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
   const { user, session } = await auth()

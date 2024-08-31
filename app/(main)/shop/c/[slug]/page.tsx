@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 
 import { ProductCard } from '@/components/product-card'
 import { SideMenu } from '@/components/side-menu'
-import { getBaseUrl } from '@/lib/site'
+import { seo } from '@/lib/seo'
 import { api } from '@/lib/trpc/server'
 import { getIdFromSlug } from '@/lib/utils'
 
@@ -23,18 +23,15 @@ export const generateMetadata = async (
   const previousImages = (await parent).openGraph?.images ?? []
   const description = `Discover the best ${category.name} products on our store.`
 
-  return {
+  return seo({
     title: category.name,
     description,
-    openGraph: {
-      images: [
-        `/og?title=${category.name}&desc=${description}&image=${category.image}`,
-        ...previousImages,
-      ],
-      url: `${getBaseUrl()}/c/${params.slug}`,
-    },
-    alternates: { canonical: `${getBaseUrl()}/c/${params.slug}` },
-  }
+    images: [
+      `/api/og?title=${category.name}&desc=${description}&image=${category.image}`,
+      ...previousImages,
+    ],
+    url: `/c/${params.slug}`,
+  })
 }
 
 const Page: NextPage<Props> = async ({ params, searchParams }) => {

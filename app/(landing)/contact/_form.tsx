@@ -7,7 +7,6 @@ import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { sendEmail } from '@/lib/emails'
-import { siteConfig } from '@/lib/site'
 
 export const Form: React.FC = () => {
   const [isPending, startTransition] = useTransition()
@@ -16,7 +15,7 @@ export const Form: React.FC = () => {
       const data = Object.fromEntries(formData) as Record<string, string>
 
       const args = {
-        to: siteConfig.email,
+        to: 'ttien56906@gmail.com',
         subject: `New message from ${data.name} <${data.email}>`,
         data: { message: data.message ?? '' },
         type: 'contact' as const,

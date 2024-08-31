@@ -1,11 +1,11 @@
 import type { MetadataRoute } from 'next'
 
-import { siteConfig } from '@/lib/site'
+import { seo } from '@/lib/seo'
 
 const manifest = (): MetadataRoute.Manifest => ({
-  name: siteConfig.meta.applicationName ?? '',
-  short_name: siteConfig.meta.applicationName ?? '',
-  description: siteConfig.meta.description ?? '',
+  name: seo({}).applicationName!,
+  short_name: seo({}).applicationName!,
+  description: seo({}).description!,
   display: 'standalone',
   start_url: '/',
   background_color: '#ffffff',

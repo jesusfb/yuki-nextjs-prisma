@@ -1,7 +1,8 @@
 'use server'
 
 import { env } from '@/env'
-import { getBaseUrl, siteConfig } from '@/lib/site'
+import { seo } from '@/lib/seo'
+import { getBaseUrl } from '@/lib/utils'
 
 interface Args {
   to: string
@@ -19,9 +20,9 @@ export const sendEmail = async (args: Args) => {
   const res = await fetch(env.EMAIL_API, {
     method: 'POST',
     body: JSON.stringify({
-      from: siteConfig.meta.applicationName,
+      from: seo({}).title,
       to: args.to,
-      reply_to: siteConfig.email,
+      reply_to: env.EMAIL,
       subject: args.subject,
       message,
       api_key: env.API_KEY!,
@@ -41,7 +42,7 @@ const template = {
 
   We're excited to have you on board! 🎉
 
-  If you have any questions or need help, feel free to reach out to us at ${siteConfig.email}.
+  If you have any questions or need help, feel free to reach out to us at ${env.EMAIL}.
 
   Thanks for joining us! 🚀
 `,
@@ -61,7 +62,7 @@ const template = {
 
   Your account has been successfully deleted.
 
-  Sorry to see you go! If you have any feedback, feel free to reach out to us at ${siteConfig.email}.
+  Sorry to see you go! If you have any feedback, feel free to reach out to us at ${env.EMAIL}.
 
   Thanks for being with us! 🙏
 `,

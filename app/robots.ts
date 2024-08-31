@@ -1,4 +1,4 @@
-import { getBaseUrl } from '@/lib/site'
+import { getBaseUrl } from '@/lib/utils'
 
 const robots = () => ({
   rules: [{ userAgent: '*' }],

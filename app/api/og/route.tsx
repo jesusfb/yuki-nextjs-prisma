@@ -1,7 +1,7 @@
+import { seo } from '@/lib/seo'
+import { getBaseUrl } from '@/lib/utils'
 import { ImageResponse } from 'next/og'
 import type { NextRequest } from 'next/server'
-
-import { getBaseUrl, siteConfig } from '@/lib/site'
 
 interface Props {
   params: {
@@ -14,8 +14,8 @@ interface Props {
 export const runtime = 'edge'
 
 export const GET = async (_: NextRequest, { params }: Props): Promise<ImageResponse> => {
-  const title = params.title ?? siteConfig.meta.applicationName
-  const description = params.desc ?? siteConfig.meta.description
+  const title = params.title ?? String(seo({}).title)
+  const description = params.desc ?? seo({}).description
 
   const style =
     !params.image || params.image === '/logo.svg'

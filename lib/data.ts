@@ -2,7 +2,7 @@ import { LeafIcon, RecycleIcon, TruckIcon } from 'lucide-react'
 
 export const about = {
   title: 'Empowering Sustainable Living',
-  desciption:
+  description:
     'At Yuki Store, we&apos;re passionate about providing high-quality, eco-friendly products that help our customers live more sustainable lifestyles. Our mission is to make it easy for everyone to reduce their environmental impact.',
   story: {
     title: 'dsaadsad',

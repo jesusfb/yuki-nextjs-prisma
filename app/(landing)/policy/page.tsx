@@ -1,17 +1,14 @@
 import type { NextPage } from 'next'
 
 import { policy } from '@/lib/data'
-import { getBaseUrl } from '@/lib/site'
+import { seo } from '@/lib/seo'
 
-export const metadata = {
+export const metadata = seo({
   title: 'Privacy Policy',
   description: policy.desciption,
-  openGraph: {
-    images: [`/og?title=Privacy%20Policy&desc=${policy.desciption}`],
-    url: `${getBaseUrl()}/policy`,
-  },
-  alternates: { canonical: `${getBaseUrl()}/policy` },
-}
+  images: `/api/og?title=Privacy%20Policy&desc=${policy.desciption}`,
+  url: '/policy',
+})
 
 const Page: NextPage = () => (
   <>

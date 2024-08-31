@@ -2,15 +2,18 @@ import type { NextPage } from 'next'
 
 import { ProductCard } from '@/components/product-card'
 import { SideMenu } from '@/components/side-menu'
+import { seo } from '@/lib/seo'
 import { api } from '@/lib/trpc/server'
 
 interface Props {
   searchParams: { q?: string; sortBy?: 'name' | 'price' | 'createdAt'; orderBy?: 'asc' | 'desc' }
 }
 
-export const metadata = {
+export const metadata = seo({
   title: 'Shop',
-}
+  description: 'Shop for the best products',
+  url: '/shop',
+})
 
 const Page: NextPage<Props> = async ({ searchParams }) => {
   const products = await api.product.getProducts({

@@ -2,7 +2,7 @@ import type { Metadata, NextPage, ResolvingMetadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
-import { getBaseUrl } from '@/lib/site'
+import { seo } from '@/lib/seo'
 import { api } from '@/lib/trpc/server'
 import { getIdFromSlug } from '@/lib/utils'
 import { Info } from './_info'
@@ -25,18 +25,15 @@ export const generateMetadata = async (
   const previousImages = (await parent).openGraph?.images ?? []
   const imgDesc = baseDesc.length > 100 ? baseDesc.slice(0, 100) + '...' : baseDesc
 
-  return {
+  return seo({
     title: product.name,
     description: baseDesc,
-    openGraph: {
-      images: [
-        `/og?title=${product.name}&desc=${imgDesc}&image=${product.image}`,
-        ...previousImages,
-      ],
-      url: `${getBaseUrl()}/p/${params.slug}`,
-    },
-    alternates: { canonical: `${getBaseUrl()}/p/${params.slug}` },
-  }
+    images: [
+      `/api/og?title=${product.name}&desc=${imgDesc}&image=${product.image}`,
+      ...previousImages,
+    ],
+    url: `/p/${params.slug}`,
+  })
 }
 
 const Page: NextPage<Props> = async ({ params }) => {

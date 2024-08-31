@@ -1,7 +1,12 @@
+import { FacebookIcon, GithubIcon, TwitterIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { siteConfig } from '@/lib/site'
+const socials = [
+  { label: 'Facebook', url: 'https://facebook.com/tiesen243', icon: FacebookIcon },
+  { label: 'Twitter', url: 'https://twitter.com/tiesen243', icon: TwitterIcon },
+  { label: 'Github', url: 'https://github.com/tiesen243', icon: GithubIcon },
+]
 
 export const About: React.FC = () => (
   <div className="flex flex-col items-start gap-4">
@@ -9,12 +14,12 @@ export const About: React.FC = () => (
       <div className="size-10 rounded-lg border border-primary/30 p-2">
         <Image src="/logo.svg" alt="logo" width={24} height={24} className="dark:invert" />
       </div>
-      <span className="text-lg font-semibold">{siteConfig.meta.applicationName}</span>
+      <span className="text-lg font-semibold">Yuki</span>
     </Link>
 
     <p className="text-muted-foreground">Discover the best products for your home and lifestyle.</p>
     <div className="flex gap-4">
-      {siteConfig.socials.map((social) => (
+      {socials.map((social) => (
         <a
           key={social.label}
           href={social.url}

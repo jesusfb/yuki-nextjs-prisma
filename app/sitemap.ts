@@ -1,8 +1,7 @@
 import type { MetadataRoute } from 'next'
 
-import { getBaseUrl } from '@/lib/site'
+import { createSlug, getBaseUrl } from '@/lib/utils'
 import { db } from '@/server/db'
-import { createSlug } from '@/lib/utils'
 
 interface Route {
   url: string
@@ -48,7 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     fetchedRoutes = (await Promise.all([userRoutes, categoryRoutes, productRoutes])).flat()
   } catch (error) {
-    throw JSON.stringify(error, null, 2)
+    if (error instanceof Error) throw new Error(`Error fetching dynamic routes: ${error.message}`)
   }
   return [...routesMap, ...fetchedRoutes]
 }

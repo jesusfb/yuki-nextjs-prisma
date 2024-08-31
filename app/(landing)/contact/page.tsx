@@ -1,18 +1,15 @@
 import type { NextPage } from 'next'
 
 import { contact } from '@/lib/data'
-import { getBaseUrl } from '@/lib/site'
+import { seo } from '@/lib/seo'
 import { Form } from './_form'
 
-export const metadata = {
+export const metadata = seo({
   title: 'Contact Us',
   description: contact.description,
-  openGraph: {
-    images: [`/og?title=Contact%20Us&desc=${contact.description}`],
-    url: `${getBaseUrl()}/contact`,
-  },
-  alternates: { canonical: `${getBaseUrl()}/contact` },
-}
+  images: `/api/og?title=Contact%20Us&desc=${contact.description}`,
+  url: '/contact',
+})
 
 const Page: NextPage = () => (
   <main className="flex min-h-dvh flex-col items-center justify-center">

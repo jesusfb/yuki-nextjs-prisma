@@ -1,9 +1,9 @@
 import type { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { getBaseUrl } from '@/lib/site'
+import { seo } from '@/lib/seo'
 import { api } from '@/lib/trpc/server'
-import { getIdFromSlug } from '@/lib/utils'
+import { getBaseUrl, getIdFromSlug } from '@/lib/utils'
 
 interface Props {
   params: { slug: string }
@@ -21,12 +21,12 @@ export async function generateMetadata(
   const description = `User profile for ${user.name} (${user.email})`
   const image = `/og?title=${user.name}&desc=${description}&image=${user.image ?? `${getBaseUrl()}/default.jpg`}`
 
-  return {
+  return seo({
     title: user.name,
     description,
-    openGraph: { images: [image, ...previousImages], url: `${getBaseUrl()}/u/${user.id}` },
-    alternates: { canonical: `${getBaseUrl()}/u/${user.id}` },
-  }
+    images: [image, ...previousImages],
+    url: `/u/${params.slug}`,
+  })
 }
 
 const UserLayout: React.FC<React.PropsWithChildren> = ({ children }) => children

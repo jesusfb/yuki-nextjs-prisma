@@ -1,9 +1,10 @@
-import { createSlug } from '@/lib/utils'
 import type { User } from '@prisma/client'
+import { ShoppingBagIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { buttonVariants } from '../ui/button'
-import { ShoppingBagIcon, ShoppingCartIcon } from 'lucide-react'
+
+import { buttonVariants } from '@/components/ui/button'
+import { createSlug } from '@/lib/utils'
 
 export const Auth: React.FC<{ user: User | null }> = ({ user }) => {
   if (!user)
