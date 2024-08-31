@@ -9,7 +9,7 @@ import { createSlug } from '@/lib/utils'
 export const Auth: React.FC<{ user: User | null }> = ({ user }) => {
   if (!user)
     return (
-      <div className="flex items-center gap-2 text-sm">
+      <div className="flex items-center gap-2 text-sm place-self-end">
         <Link href="/sign-up" className="hover:text-muted-foreground">
           Sign up
         </Link>
@@ -21,7 +21,7 @@ export const Auth: React.FC<{ user: User | null }> = ({ user }) => {
     )
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 place-self-end">
       {user.role === 'ADMIN' && (
         <Link className="hidden hover:underline md:block" href="/dashboard">
           Dashboard
