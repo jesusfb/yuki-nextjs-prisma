@@ -2,8 +2,10 @@ import './globals.css'
 
 import { Inter } from 'next/font/google'
 
-import { Provider } from '@/components/provider'
+import { Footer } from '@/components/footer'
 import { seo } from '@/lib/seo'
+import { auth } from '@/server/auth'
+import { Provider } from './_provider'
 
 export const metadata = seo({})
 export const viewport = {
@@ -15,12 +17,19 @@ export const viewport = {
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
-const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => (
-  <html lang="en" suppressHydrationWarning>
-    <body className={`${inter.variable} flex flex-col font-sans`}>
-      <Provider>{children}</Provider>
-    </body>
-  </html>
-)
+const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
+  const { user, session } = await auth()
+
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} flex flex-col font-sans`}>
+        <Provider session={session} user={user}>
+          {children}
+          <Footer />
+        </Provider>
+      </body>
+    </html>
+  )
+}
 
 export default RootLayout

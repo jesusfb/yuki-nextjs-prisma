@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 
 import { Search } from '@/components/search'
 import { api, HydrateClient } from '@/lib/trpc/server'
-import Link from 'next/link'
-import { List } from './_list'
+import { List } from '../_components/product/list'
 
 interface Props {
   searchParams: { q?: string }

@@ -1,4 +1,3 @@
-import type { User } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -7,7 +6,7 @@ import { Auth } from './auth'
 import { DesktopNav } from './desktop-nav'
 import { MobileNav } from './mobile-nav'
 
-export const Header: React.FC<{ user: User | null }> = ({ user }) => (
+export const Header: React.FC = () => (
   <header className="sticky inset-0 z-50 border-b bg-background/70 py-2 backdrop-blur-xl backdrop-saturate-150">
     <div className="container grid grid-cols-3 items-center justify-between gap-4 md:flex">
       <MobileNav />
@@ -27,7 +26,7 @@ export const Header: React.FC<{ user: User | null }> = ({ user }) => (
 
       <Search className="hidden md:flex" />
 
-      <Auth user={user} />
+      <Auth />
     </div>
   </header>
 )

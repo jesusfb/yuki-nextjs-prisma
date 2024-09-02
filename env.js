@@ -12,7 +12,6 @@ export const env = createEnv({
     EMAIL: z.string().email(),
     DATABASE_URL: z.string().url(),
     API_KEY: z.string().optional(),
-    PORT: z.string().default('3000'),
     EMAIL_API: z.string().url().optional(),
     VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
     NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
@@ -32,7 +31,6 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    PORT: process.env.PORT,
     EMAIL: process.env.EMAIL,
     API_KEY: process.env.API_KEY,
     NODE_ENV: process.env.NODE_ENV,

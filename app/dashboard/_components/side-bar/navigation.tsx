@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 const navigation = [
+  { name: 'Home', href: '/?' },
   { name: 'Categories', href: '/dashboard/categories' },
   { name: 'Products', href: '/dashboard/products' },
   { name: 'Orders', href: '/dashboard/orders' },
@@ -17,18 +18,6 @@ export const Navigation: React.FC = () => {
 
   return (
     <nav className="flex flex-1 flex-col gap-2 p-4">
-      <Link
-        href="/dashboard"
-        className={cn(
-          'rounded-lg px-3 py-2',
-          pathName === '/dashboard'
-            ? 'bg-accent text-accent-foreground'
-            : 'hover:bg-accent hover:text-accent-foreground',
-        )}
-      >
-        Dashboard
-      </Link>
-
       {navigation.map((item) => (
         <Link
           key={item.name}

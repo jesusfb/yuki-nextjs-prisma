@@ -10,7 +10,7 @@ interface Route {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch static routes
-  const routesMap: Route[] = ['', 'about', 'contact', 'policy', 'shop'].map((route) => ({
+  const routesMap: Route[] = ['', 'about', 'contact', 'policy', 'p'].map((route) => ({
     url: `${getBaseUrl()}/${route}`,
     lastModified: new Date().toISOString(),
   }))
@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .findMany({ select: { id: true, name: true, createdAt: true } })
     .then((categories) =>
       categories.map((category) => ({
-        url: `${getBaseUrl()}/shop/c/${createSlug({ str: category.name, suffix: category.id })}`,
+        url: `${getBaseUrl()}/c/${createSlug({ str: category.name, suffix: category.id })}`,
         lastModified: category.createdAt.toISOString(),
       })),
     )
@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .findMany({ select: { id: true, name: true, updatedAt: true } })
     .then((products) =>
       products.map((product) => ({
-        url: `${getBaseUrl()}/shop/p/${createSlug({ str: product.name, suffix: product.id })}`,
+        url: `${getBaseUrl()}/p/${createSlug({ str: product.name, suffix: product.id })}`,
         lastModified: product.updatedAt.toISOString(),
       })),
     )
@@ -45,7 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch dynamic routes
   let fetchedRoutes: Route[] = []
   try {
-    fetchedRoutes = (await Promise.all([userRoutes, categoryRoutes, productRoutes])).flat()
+    fetchedRoutes = (await Promise.all([productRoutes, categoryRoutes, userRoutes])).flat()
   } catch (error) {
     if (error instanceof Error) throw new Error(`Error fetching dynamic routes: ${error.message}`)
   }

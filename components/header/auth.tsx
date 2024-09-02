@@ -1,15 +1,19 @@
-import type { User } from '@prisma/client'
+'use client'
+
 import { ShoppingBagIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { buttonVariants } from '@/components/ui/button'
+import { useSession } from '@/lib/session'
 import { createSlug } from '@/lib/utils'
 
-export const Auth: React.FC<{ user: User | null }> = ({ user }) => {
-  if (!user)
+export const Auth: React.FC = () => {
+  const { user, isAuth } = useSession()
+
+  if (!isAuth)
     return (
-      <div className="flex items-center gap-2 text-sm place-self-end">
+      <div className="flex items-center gap-2 place-self-end text-sm md:place-self-auto">
         <Link href="/sign-up" className="hover:text-muted-foreground">
           Sign up
         </Link>

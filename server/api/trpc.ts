@@ -78,13 +78,36 @@ export const createCallerFactory = t.createCallerFactory
 export const createTRPCRouter = t.router
 
 /**
+ * Middleware for timing procedure execution and adding an artificial delay in development.
+ *
+ * You can remove this if you don't like it, but it can help catch unwanted waterfalls by simulating
+ * network latency that would occur in production but not in local development.
+ */
+const timingMiddleware = t.middleware(async ({ next, path }) => {
+  const start = Date.now()
+
+  if (t._config.isDev) {
+    // artificial delay in dev
+    const waitMs = Math.floor(Math.random() * 400) + 100
+    await new Promise((resolve) => setTimeout(resolve, waitMs))
+  }
+
+  const result = await next()
+
+  const end = Date.now()
+  console.log(`[TRPC] ${path} took ${end - start}ms to execute`)
+
+  return result
+})
+
+/**
  * Public (unauthenticated) procedure
  *
  * This is the base piece you use to build new queries and mutations on your tRPC API. It does not
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure
+export const publicProcedure = t.procedure.use(timingMiddleware)
 
 /**
  * Protected (authenticated) procedure
@@ -94,7 +117,7 @@ export const publicProcedure = t.procedure
  *
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
+export const protectedProcedure = t.procedure.use(timingMiddleware).use(({ ctx, next }) => {
   if (!ctx.session || !ctx.user)
     throw new TRPCError({
       code: 'UNAUTHORIZED',
@@ -118,12 +141,25 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
  * It verifies the session is valid and guarantees `ctx.session.user` is not null and `ctx.user.role` is 'admin'.
  *
  */
-export const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
+export const adminProcedure = t.procedure.use(timingMiddleware).use(({ ctx, next }) => {
+  if (!ctx.session || !ctx.user)
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+      message: 'You must be logged in to access this resource',
+    })
+
   if (ctx.user.role !== 'ADMIN')
     throw new TRPCError({
       code: 'FORBIDDEN',
       message: 'You do not have permission to access this resource',
     })
 
-  return next()
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: ctx.session,
+      // infers the `user` as non-nullable
+      user: ctx.user,
+    },
+  })
 })

@@ -8,14 +8,14 @@ export const DesktopNav: React.FC = async () => {
 
   return (
     <nav className="hidden gap-2 md:flex">
-      <Link href="/shop" className="hover:text-muted-foreground">
+      <Link href="/p" className="hover:text-muted-foreground">
         All
       </Link>
 
       {categories.map((category) => (
         <Link
           key={category.id}
-          href={`/shop/c/${createSlug({ str: category.name, suffix: category.id })}`}
+          href={`/c/${createSlug({ str: category.name, suffix: category.id })}`}
           className="hover:text-muted-foreground"
         >
           {category.name}

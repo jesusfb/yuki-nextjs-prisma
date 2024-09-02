@@ -7,13 +7,7 @@ import { toast } from 'sonner'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import * as select from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { UploadButton } from '@/components/uploadthing'
 import { api } from '@/lib/trpc/react'
@@ -31,7 +25,7 @@ interface Props {
   categories: { id: string; name: string }[]
 }
 
-export const Form: React.FC<Props> = ({ product, categories }) => {
+export const UpdateForm: React.FC<Props> = ({ product, categories }) => {
   const router = useRouter()
   const utils = api.useUtils()
 
@@ -91,19 +85,19 @@ export const Form: React.FC<Props> = ({ product, categories }) => {
           message={error?.data?.zodError?.category?.at(0)}
           asChild
         >
-          <Select defaultValue={product.category.id}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select category of product" />
-            </SelectTrigger>
+          <select.Select defaultValue={product.category.id}>
+            <select.SelectTrigger>
+              <select.SelectValue placeholder="Select category of product" />
+            </select.SelectTrigger>
 
-            <SelectContent>
+            <select.SelectContent>
               {categories.map((category) => (
-                <SelectItem key={category.id} value={category.id}>
+                <select.SelectItem key={category.id} value={category.id}>
                   {category.name}
-                </SelectItem>
+                </select.SelectItem>
               ))}
-            </SelectContent>
-          </Select>
+            </select.SelectContent>
+          </select.Select>
         </FormField>
 
         <FormField

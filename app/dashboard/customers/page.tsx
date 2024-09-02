@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 
 import { Search } from '@/components/search'
 import { api, HydrateClient } from '@/lib/trpc/server'
-import { List } from './_list'
+import { List } from '../_components/customer/list'
 
 interface Props {
   searchParams: { q?: string }

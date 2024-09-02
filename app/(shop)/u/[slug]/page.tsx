@@ -19,7 +19,6 @@ const Page: NextPage<Props> = async ({ params: { slug } }) => {
   if (!user) notFound()
 
   const { user: authUser } = await auth()
-
   const isSelf = authUser ? authUser.id === user.id : false
 
   return (

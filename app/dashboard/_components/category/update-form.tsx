@@ -2,19 +2,19 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { UploadButton } from '@/components/uploadthing'
 import { api } from '@/lib/trpc/react'
-import { useState } from 'react'
 
 interface Props {
   category: { id: string; name: string; image: string }
 }
 
-export const Form: React.FC<Props> = ({ category }) => {
+export const UpdateForm: React.FC<Props> = ({ category }) => {
   const router = useRouter()
   const utils = api.useUtils()
 

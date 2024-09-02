@@ -37,7 +37,7 @@ export const SideMenuContent: React.FC<Props> = ({ slug, query, categories }) =>
 
         <nav className="mt-2 flex flex-col gap-2">
           <Link
-            href="/shop"
+            href="/p"
             className={`hover:underline ${id ? 'text-muted-foreground' : 'text-primary'}`}
           >
             All
@@ -46,7 +46,7 @@ export const SideMenuContent: React.FC<Props> = ({ slug, query, categories }) =>
           {categories.map((category) => (
             <Link
               key={category.id}
-              href={`/shop/c/${createSlug({ str: category.name, suffix: category.id })}`}
+              href={`/c/${createSlug({ str: category.name, suffix: category.id })}`}
               className={`hover:underline ${id === category.id ? 'text-primary' : 'text-muted-foreground'}`}
             >
               {category.name}

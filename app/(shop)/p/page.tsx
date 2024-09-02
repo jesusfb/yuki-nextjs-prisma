@@ -12,7 +12,7 @@ interface Props {
 export const metadata = seo({
   title: 'Shop',
   description: 'Shop for the best products',
-  url: '/shop',
+  url: '/p',
 })
 
 const Page: NextPage<Props> = async ({ searchParams }) => {
