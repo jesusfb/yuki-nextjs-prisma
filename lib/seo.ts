@@ -20,7 +20,7 @@ export const seo = (params: Seo): Metadata => {
     description: params.description ?? 'A ecommerce website for selling digital products',
     category: 'E-commerce',
     keywords: ['E-commerce', 'Digital', 'Products'],
-    authors: [{ name: 'Tiesen', url: 'https://tiesen.id.vn' }],
+    authors: { name: 'Tiesen', url: 'https://tiesen.id.vn' },
     icons: { icon: '/favicon.ico', shortcut: '/favicon-16x16.png', apple: '/apple-touch-icon.png' },
     twitter: { creatorId: '@tiesen243', card: 'summary_large_image' },
     openGraph: {

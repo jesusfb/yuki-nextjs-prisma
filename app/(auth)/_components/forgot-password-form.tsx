@@ -3,11 +3,11 @@
 import Link from 'next/link'
 import { toast } from 'sonner'
 
-import { FormField } from '@/components/form-field'
+import { FormField } from '@/components/ui/form-field'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/trpc/react'
 
-export const Form: React.FC = () => {
+export const ForgotPasswordForm: React.FC = () => {
   const { mutate, isPending, error } = api.auth.forgotPassword.useMutation({
     onSuccess: () => {
       toast.success('Reset link sent', {

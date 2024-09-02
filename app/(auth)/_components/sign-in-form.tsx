@@ -1,23 +1,24 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-
-import { FormField } from '@/components/form-field'
-import { Button } from '@/components/ui/button'
-import { api } from '@/lib/trpc/react'
 import { toast } from 'sonner'
 
-export const Form: React.FC = () => {
+import { FormField } from '@/components/ui/form-field'
+import { Button } from '@/components/ui/button'
+import { api } from '@/lib/trpc/react'
+import { setCookie } from '@/server/actions'
+
+export const SignInForm: React.FC = () => {
   const router = useRouter()
 
-  const { mutate, isPending, error } = api.auth.signUp.useMutation({
-    onSuccess: () => {
-      toast.success('Account created')
-      router.push('/sign-in')
+  const { mutate, isPending, error } = api.auth.signIn.useMutation({
+    onSuccess: async (data) => {
+      await setCookie(data.sessionCookie)
+      toast.success('Login success')
+      router.push('/')
     },
     onError: (error) => {
-      if (!error.data?.zodError)
-        toast.error('Failed to create account', { description: error.message })
+      if (!error.data?.zodError) toast.error('Login fail', { description: error.message })
     },
   })
 
@@ -46,28 +47,24 @@ export const Form: React.FC = () => {
           Forgot password?
         </button>
 
-        <button type="button" onClick={() => router.push('/sign-in')} className="text-sm">
-          Already have an account? <span className="hover:underline">Sign in</span>
+        <button type="button" onClick={() => router.push('/sign-up')} className="text-sm">
+          Don&apos;t have an account? <span className="hover:underline">Sign up</span>
         </button>
       </div>
 
       <Button className="w-full" isLoading={isPending}>
-        Register
+        Login
       </Button>
     </form>
   )
 }
 
 const fields = [
-  { name: 'name', label: 'Name', placeholder: 'Yuki', type: 'text' },
   { name: 'email', label: 'Email', placeholder: 'abc@tiesen.id.vn', type: 'email' },
   { name: 'password', label: 'Password', placeholder: '********', type: 'password' },
-  { name: 'confirmPassword', label: 'Confirm Password', placeholder: '********', type: 'password' },
 ]
 
 type InputField = {
-  name: string
   email: string
   password: string
-  confirmPassword: string
 }

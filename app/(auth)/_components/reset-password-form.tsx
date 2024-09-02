@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
-import { FormField } from '@/components/form-field'
+import { FormField } from '@/components/ui/form-field'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/trpc/react'
 
@@ -14,7 +14,7 @@ export interface Props {
   }
 }
 
-export const Form: React.FC<Props> = ({ searchParams }) => {
+export const ResetPasswordForm: React.FC<Props> = ({ searchParams }) => {
   const router = useRouter()
   const { mutate, isPending, error } = api.auth.resetPassword.useMutation({
     onSuccess: () => {
