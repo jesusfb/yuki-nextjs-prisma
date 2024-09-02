@@ -2,8 +2,8 @@ import type { NextPage } from 'next'
 
 import { CardTitle } from '@/components/ui/card'
 import { auth } from '@/server/auth'
-import { Buttons } from './_buttonts'
-import { Form } from './_form'
+import { EditProfileForm } from '../../_components/edit-profile-form'
+import { SettingBtn } from '../../_components/setting-btn'
 
 interface Props {
   params: { slug: string }
@@ -19,11 +19,11 @@ const Page: NextPage<Props> = async ({ params }) => {
 
       <hr className="mb-4 mt-2" />
 
-      <Form name={user.name} address={user.address} image={user.image} />
+      <EditProfileForm name={user.name} address={user.address} image={user.image} />
 
       <hr className="my-4" />
 
-      <Buttons slug={params.slug} />
+      <SettingBtn slug={params.slug} />
     </>
   )
 }

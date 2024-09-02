@@ -7,7 +7,7 @@ import { CardDescription, CardTitle } from '@/components/ui/card'
 import { api } from '@/lib/trpc/server'
 import { getIdFromSlug } from '@/lib/utils'
 import { auth } from '@/server/auth'
-import { ActionBtn, FollowBtn } from './_buttons'
+import { ActionBtn, FollowBtn } from '../_components/profile-btn'
 
 interface Props {
   params: { slug: string }

@@ -13,29 +13,6 @@ interface Props {
   params: { slug: string }
 }
 
-export const generateMetadata = async (
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> => {
-  const id = getIdFromSlug(params.slug) ?? ''
-  const product = await api.product.getProduct({ id })
-  if (!product) notFound()
-
-  const baseDesc = product.description.replace(/\\n/g, ' ')
-  const previousImages = (await parent).openGraph?.images ?? []
-  const imgDesc = baseDesc.length > 100 ? baseDesc.slice(0, 100) + '...' : baseDesc
-
-  return seo({
-    title: product.name,
-    description: baseDesc,
-    images: [
-      `/api/og?title=${product.name}&desc=${imgDesc}&image=${product.image}`,
-      ...previousImages,
-    ],
-    url: `/p/${params.slug}`,
-  })
-}
-
 const Page: NextPage<Props> = async ({ params }) => {
   const id = getIdFromSlug(params.slug) ?? ''
   const product = await api.product.getProduct({ id })
@@ -63,3 +40,26 @@ const Page: NextPage<Props> = async ({ params }) => {
 }
 
 export default Page
+
+export const generateMetadata = async (
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> => {
+  const id = getIdFromSlug(params.slug) ?? ''
+  const product = await api.product.getProduct({ id })
+  if (!product) notFound()
+
+  const baseDesc = product.description.replace(/\\n/g, ' ')
+  const previousImages = (await parent).openGraph?.images ?? []
+  const imgDesc = baseDesc.length > 100 ? baseDesc.slice(0, 100) + '...' : baseDesc
+
+  return seo({
+    title: product.name,
+    description: baseDesc,
+    images: [
+      `/api/og?title=${product.name}&desc=${imgDesc}&image=${product.image}`,
+      ...previousImages,
+    ],
+    url: `/p/${params.slug}`,
+  })
+}

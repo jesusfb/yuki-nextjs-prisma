@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
-import { UploadButton } from '@/components/uploadthing'
+import { FormField } from '@/components/ui/form-field'
+import { UploadButton } from '@/components/ui/uploadthing'
 import { api } from '@/lib/trpc/react'
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
   image: string
 }
 
-export const Form: React.FC<Props> = (props) => {
+export const EditProfileForm: React.FC<Props> = (props) => {
   const utils = api.useUtils()
   const [img, setImg] = useState<string>(props.image)
   const [isUploading, setUploading] = useState<boolean>(false)

@@ -4,20 +4,11 @@ import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
+import * as alertDialog from '@/components/ui/alert-dialog'
 import { BarButton, Button } from '@/components/ui/button'
 import { api } from '@/lib/trpc/react'
 
-export const Buttons: React.FC<{ slug: string }> = ({ slug }) => {
+export const SettingBtn: React.FC<{ slug: string }> = ({ slug }) => {
   const router = useRouter()
   const { theme, setTheme } = useTheme()
 
@@ -40,28 +31,30 @@ export const Buttons: React.FC<{ slug: string }> = ({ slug }) => {
         Change Password
       </BarButton>
 
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
+      <alertDialog.AlertDialog>
+        <alertDialog.AlertDialogTrigger asChild>
           <BarButton className="text-destructive">Delete Account</BarButton>
-        </AlertDialogTrigger>
+        </alertDialog.AlertDialogTrigger>
 
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
+        <alertDialog.AlertDialogContent>
+          <alertDialog.AlertDialogHeader>
+            <alertDialog.AlertDialogTitle>Are you sure?</alertDialog.AlertDialogTitle>
+            <alertDialog.AlertDialogDescription>
               This will permanently delete your account.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+            </alertDialog.AlertDialogDescription>
+          </alertDialog.AlertDialogHeader>
 
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+          <alertDialog.AlertDialogFooter>
+            <alertDialog.AlertDialogCancel disabled={isPending}>
+              Cancel
+            </alertDialog.AlertDialogCancel>
 
             <Button onClick={() => mutate()} isLoading={isPending}>
               Delete
             </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+          </alertDialog.AlertDialogFooter>
+        </alertDialog.AlertDialogContent>
+      </alertDialog.AlertDialog>
     </div>
   )
 }

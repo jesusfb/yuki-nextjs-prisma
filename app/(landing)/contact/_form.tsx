@@ -3,7 +3,7 @@
 import { useTransition } from 'react'
 import { toast } from 'sonner'
 
-import { FormField } from '@/components/form-field'
+import { FormField } from '@/components/ui/form-field'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { sendEmail } from '@/lib/emails'

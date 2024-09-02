@@ -2,12 +2,12 @@
 
 import { toast } from 'sonner'
 
-import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { FormField } from '@/components/ui/form-field'
 import { api } from '@/lib/trpc/react'
 
-export const Form: React.FC = () => {
+export const ChangePasswordForm: React.FC = () => {
   const { mutate, isPending, error } = api.auth.changePassword.useMutation({
     onSuccess: () => toast.success('Password changed successfully'),
     onError: (error) => !error.data?.zodError && toast.error(error.message),

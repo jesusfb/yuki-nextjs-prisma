@@ -12,28 +12,6 @@ interface Props {
   searchParams: { q?: string; sortBy?: 'name' | 'price' | 'createdAt'; orderBy?: 'asc' | 'desc' }
 }
 
-export const generateMetadata = async (
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> => {
-  const id = getIdFromSlug(params.slug) ?? ''
-  const category = await api.category.getCategory({ id })
-  if (!category) notFound()
-
-  const previousImages = (await parent).openGraph?.images ?? []
-  const description = `Discover the best ${category.name} products on our store.`
-
-  return seo({
-    title: category.name,
-    description,
-    images: [
-      `/api/og?title=${category.name}&desc=${description}&image=${category.image}`,
-      ...previousImages,
-    ],
-    url: `/c/${params.slug}`,
-  })
-}
-
 const Page: NextPage<Props> = async ({ params, searchParams }) => {
   const products = await api.product.getProducts({
     q: searchParams.q,
@@ -62,3 +40,25 @@ const Page: NextPage<Props> = async ({ params, searchParams }) => {
 }
 
 export default Page
+
+export const generateMetadata = async (
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> => {
+  const id = getIdFromSlug(params.slug) ?? ''
+  const category = await api.category.getCategory({ id })
+  if (!category) notFound()
+
+  const previousImages = (await parent).openGraph?.images ?? []
+  const description = `Discover the best ${category.name} products on our store.`
+
+  return seo({
+    title: category.name,
+    description,
+    images: [
+      `/api/og?title=${category.name}&desc=${description}&image=${category.image}`,
+      ...previousImages,
+    ],
+    url: `/c/${params.slug}`,
+  })
+}

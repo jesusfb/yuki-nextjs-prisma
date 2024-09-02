@@ -12,7 +12,7 @@ import { utapi } from '@/server/uploadthing'
 
 export const userRouter = createTRPCRouter({
   // [GET] /api/trpc/user.getUsers
-  getUsers: adminProcedure.input(userSchema.getUsers).query(async ({ ctx, input }) => {
+  getUsers: publicProcedure.input(userSchema.getUsers).query(async ({ ctx, input }) => {
     const users = await ctx.db.user.findMany({
       where: input.q
         ? {
