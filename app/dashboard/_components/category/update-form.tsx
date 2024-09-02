@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
-import { UploadButton } from '@/components/uploadthing'
+import { FormField } from '@/components/ui/form-field'
+import { UploadButton } from '@/components/ui/uploadthing'
 import { api } from '@/lib/trpc/react'
 
 interface Props {

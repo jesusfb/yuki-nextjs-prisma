@@ -6,12 +6,14 @@ import { cn } from '@/lib/utils'
 
 interface FormFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
+  description?: string
   message?: string
   asChild?: boolean
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
   label,
+  description,
   message,
   className = '',
   asChild = false,
@@ -25,6 +27,7 @@ export const FormField: React.FC<FormFieldProps> = ({
 
       <Comp {...props} />
 
+      {description && <small className="text-xs text-muted">{description}</small>}
       <small className="text-xs text-destructive">{message}</small>
     </fieldset>
   )

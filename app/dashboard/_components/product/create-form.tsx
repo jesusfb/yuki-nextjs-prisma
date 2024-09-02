@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
+import { FormField } from '@/components/ui/form-field'
 import * as select from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { UploadButton } from '@/components/uploadthing'
+import { UploadButton } from '@/components/ui/uploadthing'
 import { api } from '@/lib/trpc/react'
 
 export const CreateForm: React.FC<{ categories: { id: string; name: string }[] }> = ({

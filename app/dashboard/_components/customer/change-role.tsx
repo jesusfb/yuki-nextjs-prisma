@@ -1,12 +1,6 @@
 import { toast } from 'sonner'
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import * as select from '@/components/ui/select'
 import { api } from '@/lib/trpc/react'
 
 interface Props {
@@ -21,18 +15,18 @@ export const ChangeRole: React.FC<Props> = ({ id, role, refetch }) => {
   })
 
   return (
-    <Select
+    <select.Select
       defaultValue={role}
       onValueChange={(value) => mutate({ id, role: value as 'USER' | 'ADMIN' })}
       disabled={isPending}
     >
-      <SelectTrigger>
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="USER">User</SelectItem>
-        <SelectItem value="ADMIN">Admin</SelectItem>
-      </SelectContent>
-    </Select>
+      <select.SelectTrigger>
+        <select.SelectValue />
+      </select.SelectTrigger>
+      <select.SelectContent>
+        <select.SelectItem value="USER">User</select.SelectItem>
+        <select.SelectItem value="ADMIN">Admin</select.SelectItem>
+      </select.SelectContent>
+    </select.Select>
   )
 }
