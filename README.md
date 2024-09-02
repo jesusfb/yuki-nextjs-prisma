@@ -7,7 +7,6 @@ A E-commerce website for selling digital products.
 - [Next.js](https://nextjs.org/)
 - [tRPC](https://trpc.io/)
 - [Prisma](https://www.prisma.io/)
-- [MongoDB](https://www.mongodb.com/)
 - [Lucia](https://lucia-auth.com/)
 - [React Query](https://react-query.tanstack.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
@@ -38,10 +37,10 @@ A E-commerce website for selling digital products.
   - [x] Change password
   - [x] Change information
   - [ ] View orders
-- [ ] Product page
-- [ ] Search products
-- [ ] Filter products
-- [ ] Sort products
+- [x] Product page
+- [x] Search products
+- [x] Filter products
+- [x] Sort products
 - [ ] Pagination
 - [ ] Add to cart
 - [ ] Checkout
@@ -74,6 +73,8 @@ bun install
 
 ```bash
 DATABASE_URL=
+UPLOADTHING_APP_ID=
+UPLOADTHING_SECRET=
 ```
 
 4. Start the development server
@@ -107,4 +108,4 @@ Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/ver
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the [MIT License](LICENSE.md).
