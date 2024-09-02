@@ -2,7 +2,6 @@ import './globals.css'
 
 import { Inter } from 'next/font/google'
 
-import { Footer } from '@/components/footer'
 import { seo } from '@/lib/seo'
 import { auth } from '@/server/auth'
 import { Provider } from './_provider'
@@ -15,7 +14,7 @@ export const viewport = {
   ],
 }
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
+const inter = Inter({ subsets: ['latin', 'vietnamese'], variable: '--font-sans' })
 
 const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
   const { user, session } = await auth()
@@ -25,7 +24,6 @@ const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
       <body className={`${inter.variable} flex flex-col font-sans`}>
         <Provider session={session} user={user}>
           {children}
-          <Footer />
         </Provider>
       </body>
     </html>
