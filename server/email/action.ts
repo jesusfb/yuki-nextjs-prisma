@@ -1,12 +1,12 @@
 'use server'
 
 import { Resend } from 'resend'
+import { z } from 'zod'
 
 import { env } from '@/env'
 import { seo } from '@/lib/seo'
 import { getBaseUrl } from '@/lib/utils'
-import { z } from 'zod'
-import EmailTemplate from './template'
+import EmailTemplate from '@/server/email/template'
 
 const schema = z.object({
   email: z.string().email(),

@@ -1,18 +1,4 @@
-import {
-  Body,
-  Container,
-  Head,
-  Heading,
-  Html,
-  Img,
-  Link,
-  Markdown,
-  Preview,
-  Section,
-  Tailwind,
-  Text,
-  type TailwindConfig,
-} from '@react-email/components'
+import * as components from '@react-email/components'
 
 interface EmailProps {
   from: string
@@ -21,7 +7,7 @@ interface EmailProps {
   message: string
 }
 
-const config: TailwindConfig = {
+const config: components.TailwindConfig = {
   darkMode: 'class',
   theme: {
     fontFamily: {
@@ -39,23 +25,23 @@ export const EmailTemplate: React.FC<Readonly<EmailProps>> = (data) => {
   const previewText = `Message from ${data.replyTo} on ${data.from}`
 
   return (
-    <Html lang="en">
-      <Head />
-      <Preview>{previewText}</Preview>
+    <components.Html lang="en">
+      <components.Head />
+      <components.Preview>{previewText}</components.Preview>
 
-      <Tailwind config={config}>
-        <Body className="border-border bg-background font-sans text-foreground antialiased">
-          <Container className="mx-auto px-2">
-            <Section>
-              <Img
+      <components.Tailwind config={config}>
+        <components.Body className="border-border bg-background font-sans text-foreground antialiased">
+          <components.Container className="mx-auto px-2">
+            <components.Section>
+              <components.Img
                 src="https://raw.githubusercontent.com/tiesen243/portfolio/main/public/android-chrome-512x512.png"
                 alt="logo"
                 className="mx-auto my-4 h-16 w-16"
               />
-              <Heading className="text-center">{data.subject}</Heading>
-            </Section>
+              <components.Heading className="text-center">{data.subject}</components.Heading>
+            </components.Section>
 
-            <Markdown
+            <components.Markdown
               markdownCustomStyles={{
                 h1: { marginTop: 2, marginBottom: 2 },
                 h2: { marginTop: 2, marginBottom: 2 },
@@ -68,33 +54,35 @@ export const EmailTemplate: React.FC<Readonly<EmailProps>> = (data) => {
               }}
             >
               {data.message}
-            </Markdown>
+            </components.Markdown>
 
-            <Text>
+            <components.Text>
               Best Regards, <br />
               {data.from.split(' ').at(0)}
-            </Text>
+            </components.Text>
 
             <hr className="border-border" />
-            <Section>
-              <Text>
-                Website: <Link href="https://tiesen.id.vn/">https://tiesen.id.vn</Link>
+            <components.Section>
+              <components.Text>
+                Website:{' '}
+                <components.Link href="https://tiesen.id.vn/">https://tiesen.id.vn</components.Link>
                 <br />
-                Email: <Link href={`mailto:${data.replyTo}`}>{data.replyTo}</Link>
+                Email:{' '}
+                <components.Link href={`mailto:${data.replyTo}`}>{data.replyTo}</components.Link>
                 <br />
                 Address: Saigon, Vietnam
-              </Text>
+              </components.Text>
 
-              <Img
+              <components.Img
                 src="https://raw.githubusercontent.com/tiesen243/portfolio/main/public/images/tiesen.png"
                 alt="Tiesen"
                 className="my-4 h-auto w-52"
               />
-            </Section>
-          </Container>
-        </Body>
-      </Tailwind>
-    </Html>
+            </components.Section>
+          </components.Container>
+        </components.Body>
+      </components.Tailwind>
+    </components.Html>
   )
 }
 
