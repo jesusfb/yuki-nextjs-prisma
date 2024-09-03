@@ -4,8 +4,7 @@ A E-commerce website for selling digital products.
 
 ## Tech Stack
 
-- [Next.js](https://nextjs.org/)
-- [tRPC](https://trpc.io/)
+- [Next.js](https://nextjs.org/) [tRPC](https://trpc.io/)
 - [Prisma](https://www.prisma.io/)
 - [Lucia](https://lucia-auth.com/)
 - [React Query](https://react-query.tanstack.com/)
@@ -72,9 +71,7 @@ bun install
 3. Create a `.env` file in the root directory and add the following environment variables
 
 ```bash
-DATABASE_URL=
-UPLOADTHING_APP_ID=
-UPLOADTHING_SECRET=
+cp .env.example .env
 ```
 
 4. Start the development server
@@ -95,17 +92,6 @@ bun dev
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
-
 ## License
 
-This project is open source and available under the [MIT License](LICENSE.md).
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
