@@ -2,10 +2,10 @@ import { TRPCError } from '@trpc/server'
 import { Scrypt } from 'lucia'
 import { cookies } from 'next/headers'
 
-import { sendEmail } from '@/lib/emails'
 import { authSchema } from '@/server/api/schemas/auth'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/api/trpc'
 import { lucia } from '@/server/auth/lucia'
+import { sendEmail } from '@/server/email/action'
 
 export const authRouter = createTRPCRouter({
   // [POST] /api/trpc/auth.signUp
@@ -25,7 +25,7 @@ export const authRouter = createTRPCRouter({
 
     await sendEmail({
       subject: `Welcome to Yuki`,
-      to: input.email,
+      email: input.email,
       name: input.name,
       type: 'welcome',
     })
@@ -75,7 +75,7 @@ export const authRouter = createTRPCRouter({
 
       await sendEmail({
         subject: `Reset your password`,
-        to: user.email,
+        email: user.email,
         type: 'reset-password',
         data: { name: user.name, token },
       })

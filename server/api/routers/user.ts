@@ -1,6 +1,5 @@
 import { TRPCError } from '@trpc/server'
 
-import { sendEmail } from '@/lib/emails'
 import { userSchema } from '@/server/api/schemas/user'
 import {
   adminProcedure,
@@ -8,6 +7,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from '@/server/api/trpc'
+import { sendEmail } from '@/server/email/action'
 import { utapi } from '@/server/uploadthing'
 
 export const userRouter = createTRPCRouter({
@@ -151,7 +151,7 @@ export const userRouter = createTRPCRouter({
       throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to delete account' })
 
     await sendEmail({
-      to: user.email,
+      email: user.email,
       name: user.name,
       type: 'deleteAccount',
       subject: 'Your account has been deleted successfully',
@@ -171,7 +171,7 @@ export const userRouter = createTRPCRouter({
       throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to delete user' })
 
     await sendEmail({
-      to: user.email,
+      email: user.email,
       name: user.name,
       type: 'deleteAccount',
       subject: 'Your account has been deleted by an admin',

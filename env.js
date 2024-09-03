@@ -9,12 +9,10 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DATABASE_URL: z.string().url(),
-    API_KEY: z.string().optional(),
-    EMAIL: z.string().email().optional(),
-    EMAIL_API: z.string().url().optional(),
-    VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
     NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+    RESEND_KEY: z.string(),
+    DATABASE_URL: z.string().url(),
+    VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
   },
 
   /**
@@ -31,10 +29,8 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    EMAIL: process.env.EMAIL,
-    API_KEY: process.env.API_KEY,
     NODE_ENV: process.env.NODE_ENV,
-    EMAIL_API: process.env.EMAIL_API,
+    RESEND_KEY: process.env.RESEND_KEY,
     DATABASE_URL: process.env.DATABASE_URL,
     VERCEL_PROJECT_PRODUCTION_URL: process.env.VERCEL_PROJECT_PRODUCTION_URL,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
