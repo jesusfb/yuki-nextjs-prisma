@@ -21,7 +21,7 @@ const Page: NextPage<Props> = async ({ searchParams }) => {
           href="/dashboard/products/create"
           className="rounded-lg bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
         >
-          New Category
+          New Product
         </Link>
       </section>
 

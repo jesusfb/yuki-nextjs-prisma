@@ -32,7 +32,7 @@ const Page: NextPage<Props> = async ({ params: { slug } }) => {
           className={`row-span-2 aspect-square w-full rounded-md object-cover shadow-lg ${user.image ? '' : 'dark:invert'}`}
         />
 
-        <article className="flex flex-col gap-2 md:col-span-3">
+        <div className="flex flex-col gap-2 md:col-span-3">
           <div className="flex items-center gap-4">
             <CardDescription className="rounded border border-ring bg-background px-2 py-1 text-foreground">
               {user.role}
@@ -42,13 +42,13 @@ const Page: NextPage<Props> = async ({ params: { slug } }) => {
 
           <CardDescription>{user.email}</CardDescription>
           <CardDescription>Joined: {user.createdAt}</CardDescription>
-        </article>
+        </div>
 
-        <article className="col-span-1 flex flex-col gap-2 md:col-span-2">
+        <div className="col-span-1 flex flex-col gap-2 md:col-span-2">
           <CardDescription>Number of products: {user.numProducts}</CardDescription>
           <CardDescription>Following: {user.following}</CardDescription>
           <CardDescription>Followers: {user.followers}</CardDescription>
-        </article>
+        </div>
 
         {Boolean(authUser) &&
           (isSelf ? (

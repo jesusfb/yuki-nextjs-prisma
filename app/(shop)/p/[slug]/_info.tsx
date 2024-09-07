@@ -20,7 +20,7 @@ export const Info: React.FC<Props> = ({ product }) => (
   <div className="space-y-4">
     <CardTitle className="text-4xl">{product.name}</CardTitle>
 
-    <p className="w-fit rounded-full bg-primary px-3 py-1 text-lg text-primary-foreground">
+    <p className="w-fit rounded-full bg-primary px-4 py-1 text-lg text-primary-foreground">
       $ {product.price}
     </p>
 

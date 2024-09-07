@@ -13,15 +13,12 @@ export const Auth: React.FC = () => {
 
   if (!isAuth)
     return (
-      <div className="flex items-center gap-2 place-self-end text-sm md:place-self-auto">
-        <Link href="/sign-up" className="hover:text-muted-foreground">
-          Sign up
-        </Link>
-        |
-        <Link href="/sign-in" className="hover:text-muted-foreground">
-          Sign in
-        </Link>
-      </div>
+      <Link
+        href="/sign-in"
+        className="grid h-full place-items-center place-self-end hover:text-muted-foreground md:place-self-center"
+      >
+        Sign in
+      </Link>
     )
 
   return (

@@ -21,7 +21,12 @@ export const ActionBtn: React.FC<{ slug: string }> = ({ slug }) => {
         Edit profile
       </Button>
 
-      <Button variant="secondary" onClick={() => logout()} isLoading={isPending}>
+      <Button
+        variant="secondary"
+        className="hover:bg-primary/20"
+        onClick={() => logout()}
+        isLoading={isPending}
+      >
         Logout
       </Button>
     </div>

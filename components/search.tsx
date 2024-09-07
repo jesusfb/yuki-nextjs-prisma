@@ -6,14 +6,14 @@ import { cn } from '@/lib/utils'
 
 interface Props {
   className?: string
-  type?: 'shop' | 'products' | 'categories' | 'customers' | 'orders'
+  type?: 'p' | 'products' | 'categories' | 'customers' | 'orders'
   placeholder?: string
   isAdmin?: boolean
 }
 
 export const Search: React.FC<Props> = ({
   className,
-  type = 'shop',
+  type = 'p',
   placeholder = 'What are you looking for?',
   isAdmin = false,
 }) => {
