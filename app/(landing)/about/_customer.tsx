@@ -1,7 +1,7 @@
 import { StarIcon } from 'lucide-react'
 import Image from 'next/image'
 
-import { about } from '@/lib/data'
+import { about } from '../_data'
 
 export const Customer: React.FC = () => (
   <section className="w-full py-12 md:py-24 lg:py-32">

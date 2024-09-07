@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { about } from '@/lib/data'
+import { about } from '../_data'
 
 export const Story: React.FC = async () => (
   <section className="w-full py-12 md:py-24 lg:py-32">

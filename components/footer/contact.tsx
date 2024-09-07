@@ -1,4 +1,4 @@
-import { contact } from '@/lib/data'
+import { contact } from '@/app/(landing)/_data'
 
 export const Contact: React.FC = () => (
   <div className="grid">

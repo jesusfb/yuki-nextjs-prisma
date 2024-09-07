@@ -1,4 +1,4 @@
-import { about } from '@/lib/data'
+import { about } from '../_data'
 
 export const Product: React.FC = () => (
   <section className="w-full bg-muted py-12 md:py-24 lg:py-32">

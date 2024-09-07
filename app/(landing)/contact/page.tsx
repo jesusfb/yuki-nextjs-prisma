@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 
-import { contact } from '@/lib/data'
+import { contact } from '../_data'
 import { seo } from '@/lib/seo'
 import { Form } from './_form'
 

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 
-import { policy } from '@/lib/data'
+import { policy } from '../_data'
 import { seo } from '@/lib/seo'
 
 export const metadata = seo({

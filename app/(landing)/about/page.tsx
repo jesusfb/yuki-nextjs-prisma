@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 
-import { about } from '@/lib/data'
 import { seo } from '@/lib/seo'
+import { about } from '../_data'
 import { About } from './_about'
 import { Customer } from './_customer'
 import { Product } from './_product'

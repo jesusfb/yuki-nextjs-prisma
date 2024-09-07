@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { about } from '@/lib/data'
+import { about } from '../_data'
 
 export const About: React.FC = () => (
   <section className="w-full bg-muted">
@@ -10,7 +10,7 @@ export const About: React.FC = () => (
           {about.title}
         </h1>
         <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-          {about.desciption}
+          {about.description}
         </p>
       </div>
 
