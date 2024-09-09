@@ -70,11 +70,41 @@ export const authRouter = createTRPCRouter({
       return true
     }),
 
-  // [POST] /api/trpc/auth.signOut
-  signOut: protectedProcedure.mutation(async ({ ctx }) => {
-    await lucia.invalidateSession(ctx.session.id)
-    const sessionCookie = lucia.createBlankSessionCookie()
-    ctx.headers.set('Set-Cookie', sessionCookie.serialize())
+  // [POST] /api/trpc/auth.forgotPassword
+  forgotPassword: publicProcedure.input(schema.forgotPassword).mutation(async ({ input, ctx }) => {
+    const user = await ctx.db.user.findUnique({ where: { email: input.email } })
+    if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' })
+
+    const token = await new Scrypt().hash(`${user.id}-${Date.now()}`)
+    await ctx.db.user.update({
+      where: { id: user.id },
+      data: { resetToken: token },
+    })
+
+    await sendEmail({
+      type: 'resetPassword',
+      email: user.email,
+      data: { name: user.name, token },
+    })
+
+    return { message: 'We have sent you an email with instructions to reset your password' }
+  }),
+
+  // [POST] /api/trpc/auth.resetPassword
+  resetPassword: publicProcedure.input(schema.resetPassword).mutation(async ({ input, ctx }) => {
+    const user = await ctx.db.user.findUnique({ where: { email: input.email } })
+    if (!user) throw new TRPCError({ code: 'NOT_FOUND', message: 'User not found' })
+
+    if (!user.resetToken) throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid token' })
+
+    const isTokenValid = user.resetToken === input.token
+    if (!isTokenValid) throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid token' })
+
+    const newPassword = await new Scrypt().hash(input.password)
+    await ctx.db.user.update({
+      where: { id: user.id },
+      data: { password: newPassword, resetToken: null },
+    })
 
     return true
   }),

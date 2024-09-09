@@ -3,8 +3,8 @@
 import { Resend } from 'resend'
 
 import { env } from '@/env'
-import EmailTemplate from './template'
 import { getBaseUrl } from '@/lib/utils'
+import EmailTemplate from './template'
 
 const resend = new Resend(env.RESEND_KEY)
 
@@ -59,7 +59,7 @@ const emailTypes = {
 
         To reset your password, click on the link below:
 
-        [Reset password](${getBaseUrl()}/forgot-password/reset?token=${params.data?.token})
+        [Reset password](${getBaseUrl()}/forgot-password/reset?token=${params.data?.token}&email=${params.email})
 
         If you have any questions or need help, feel free to reach out to us at ${replyTo}.
 

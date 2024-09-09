@@ -7,7 +7,6 @@ import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server'
 import { useState } from 'react'
 import SuperJSON from 'superjson'
 
-import { env } from '@/env'
 import { createQueryClient } from '@/lib/trpc/query-client'
 import { getBaseUrl } from '@/lib/utils'
 import { type AppRouter } from '@/server/api/root'
@@ -46,7 +45,7 @@ export const TRPCReactProvider: React.FC<React.PropsWithChildren> = ({ children 
       links: [
         loggerLink({
           enabled: (op) =>
-            env.NODE_ENV === 'development' ||
+            process.env.NODE_ENV === 'development' ||
             (op.direction === 'down' && op.result instanceof Error),
         }),
         unstable_httpBatchStreamLink({

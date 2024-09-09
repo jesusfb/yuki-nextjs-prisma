@@ -27,16 +27,17 @@ export const LoginForm: React.FC = () => {
   return (
     <CardContent asChild>
       <form className="space-y-4" action={action}>
-        <fieldset className="grid gap-2" disabled={isPending}>
+        <fieldset className="space-y-2" disabled={isPending}>
           <Label htmlFor="email">Email</Label>
           <Input name="email" type="email" placeholder="yuki@example.com" />
           <small className="text-xs text-destructive">{error?.data?.zodError?.email}</small>
         </fieldset>
 
-        <fieldset className="grid gap-2" disabled={isPending}>
+        <fieldset className="space-y-2" disabled={isPending}>
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
             <button
+              type="button"
               onClick={() => router.push('/forgot-password')}
               className="ml-auto inline-block text-xs underline"
             >

@@ -16,9 +16,9 @@ enum Role {
 }
 
 type DiscordUser {
-  id            String
-  username      String
-  avatar        String
+  id       String
+  username String
+  avatar   String
 }
 
 model User {
@@ -27,10 +27,11 @@ model User {
   discord DiscordUser? @unique
   email   String       @unique
 
-  name     String
-  avatar   String?
-  role     Role    @default(USER)
-  password String?
+  name       String
+  avatar     String?
+  role       Role    @default(USER)
+  password   String?
+  resetToken String?
 
   sessions Session[]
 

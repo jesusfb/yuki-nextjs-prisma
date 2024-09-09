@@ -16,6 +16,7 @@ export const signUp = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
+    path: ['confirmPassword'],
   })
 
 export const signIn = z.object({
@@ -31,4 +32,21 @@ export const changePassword = z
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  })
+
+export const forgotPassword = z.object({
+  email: z.string().email(),
+})
+
+export const resetPassword = z
+  .object({
+    token: z.string(),
+    email: z.string().email(),
+    password,
+    confirmPassword: password,
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
   })
