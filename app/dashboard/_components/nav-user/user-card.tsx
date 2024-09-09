@@ -10,7 +10,10 @@ export const UserCard: React.FC<{ user: User; icon?: boolean }> = ({ user, icon 
       <AvatarFallback>{user.name.slice(0, 2)}</AvatarFallback>
     </Avatar>
     <div className="grid flex-1">
-      <div className="font-medium">{user.name}</div>
+      <div className="font-medium">
+        {user.name}
+        {user.discord && <span className="text-muted-foreground"> ({user.discord?.username})</span>}
+      </div>
       <div className="overflow-hidden text-xs text-muted-foreground">
         <div className="line-clamp-1">{user.email}</div>
       </div>
