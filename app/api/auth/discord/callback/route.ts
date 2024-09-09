@@ -20,12 +20,13 @@ export const GET = async (req: NextRequest) => {
     const discordUserRes = await fetch('https://discord.com/api/users/@me', {
       headers: { Authorization: `Bearer ${tokens.accessToken}` },
     })
-    const discordUser = (await discordUserRes.json()) as DiscordUser
+    const discordUser = (await discordUserRes.json()) as DiscordUser & {
+      email: string
+      global_name: string
+    }
     const discord_ = {
       id: discordUser.id,
-      email: discordUser.email,
       username: discordUser.username,
-      global_name: discordUser.global_name,
       avatar: `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`,
     }
 
@@ -45,7 +46,7 @@ export const GET = async (req: NextRequest) => {
     }
 
     const newUser = await db.user.create({
-      data: { discord: discord_, email: discordUser.email, name: discord_.global_name },
+      data: { discord: discord_, email: discordUser.email, name: discordUser.global_name },
     })
 
     const session = await lucia.createSession(newUser.id, {})
@@ -55,7 +56,7 @@ export const GET = async (req: NextRequest) => {
     await sendEmail({
       type: 'welcome',
       email: discordUser.email,
-      data: { name: discord_.global_name },
+      data: { name: discordUser.global_name },
     })
 
     return NextResponse.redirect(new URL('/', req.url))

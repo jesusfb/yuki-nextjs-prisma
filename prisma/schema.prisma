@@ -18,9 +18,7 @@ enum Role {
 type DiscordUser {
   id            String
   username      String
-  global_name   String
   avatar        String
-  email         String
 }
 
 model User {

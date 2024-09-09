@@ -10,7 +10,7 @@ const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) 
   const { cookies } = await import('next/headers')
 
   const session = await auth()
-  if (!session || !session.user) redirect('/login')
+  if (!session || !session.user) redirect('/sign-in')
 
   return (
     <SidebarLayout defaultOpen={cookies().get('sidebar:state')?.value === 'true'}>

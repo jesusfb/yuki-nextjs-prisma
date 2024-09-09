@@ -1,7 +1,7 @@
 import { type NextPage } from 'next'
 
 const Page: NextPage = () => {
-  return <main className="container">page</main>
+  return <div>Page</div>
 }
 
 export default Page
