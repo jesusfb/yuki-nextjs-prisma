@@ -19,7 +19,7 @@ export const CustomerService: React.FC = () => (
 )
 
 const links = [
-  { title: 'Contact Us', url: 'https://youtu.be/dQw4w9WgXcQ' },
+  { title: 'Contact Us', url: '/contact-us' },
   { title: 'Shipping & Returns', url: '/privacy-policy' },
   { title: 'FAQ', url: ' https://youtu.be/dQw4w9WgXcQ' },
   { title: 'Size Guide', url: 'https://youtu.be/dQw4w9WgXcQ' },

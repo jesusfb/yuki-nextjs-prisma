@@ -11,14 +11,15 @@ const resend = new Resend(env.RESEND_KEY)
 interface Params {
   type: keyof typeof emailTypes
   email: string
+  from?: string
+  replyTo?: string
   data?: Record<string, string>
 }
 
-const from = 'Yuki <no-reply@tiesen.id.vn>'
-const replyTo = 'ttien56906@gmail.com'
-
 export const sendEmail = async (params: Params) => {
+  const from = `${params.from ?? 'Yuki'} <no-reply@tiesen.id.vn>`
   const preview = `You have received an email from ${from}.`
+  const replyTo = params.replyTo ?? 'ttien56906@gmail.com'
 
   const { subject, message } = emailTypes[params.type](params)
 
@@ -31,7 +32,8 @@ export const sendEmail = async (params: Params) => {
     react: EmailTemplate({ subject, message, preview, replyTo }),
   })
 
-  if (res.error) throw new Error(res.error.message)
+  if (res.error) return { message: '', error: res.error.message }
+  return { message: 'Email sent successfully!', error: '' }
 }
 
 const emailTypes = {
@@ -43,7 +45,7 @@ const emailTypes = {
 
       Welcome to Yuki! We're excited to have you on board. 🎉
 
-      If you have any questions or need help, feel free to reach out to us at ${replyTo}.
+      If you have any questions or need help, feel free to reach out to us at ttien56906@gmail.com.
 
       Thanks for joining us! 🚀
       `,
@@ -61,7 +63,7 @@ const emailTypes = {
 
         [Reset password](${getBaseUrl()}/forgot-password/reset?token=${params.data?.token}&email=${params.email})
 
-        If you have any questions or need help, feel free to reach out to us at ${replyTo}.
+        If you have any questions or need help, feel free to reach out to us at ttien56906@gmail.com.
 
         Thanks for using Yuki! 🚀
       `,

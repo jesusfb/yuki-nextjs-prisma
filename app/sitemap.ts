@@ -10,12 +10,16 @@ interface Route {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch static routes
-  const routesMap: Route[] = ['', 'about', 'contact', 'privacy-policy', 'terms-of-service'].map(
-    (route) => ({
-      url: `${getBaseUrl()}/${route}`,
-      lastModified: new Date().toISOString(),
-    }),
-  )
+  const routesMap: Route[] = [
+    '',
+    'about-us',
+    'contact-us',
+    'privacy-policy',
+    'terms-of-service',
+  ].map((route) => ({
+    url: `${getBaseUrl()}/${route}`,
+    lastModified: new Date().toISOString(),
+  }))
 
   // const userRoutes: Route[] = await db.user
   //   .findMany({ select: { id: true, name: true, updatedAt: true } })
