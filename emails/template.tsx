@@ -1,18 +1,16 @@
-import * as components from '@react-email/components'
+import { getBaseUrl } from '@/lib/utils'
+import * as comp from '@react-email/components'
 
 interface EmailProps {
-  from: string
-  replyTo: string
+  preview: string
   subject: string
   message: string
+  replyTo: string
 }
 
-const config: components.TailwindConfig = {
-  darkMode: 'class',
+const config: comp.TailwindConfig = {
   theme: {
-    fontFamily: {
-      sans: ['Inter', 'sans-serif'],
-    },
+    fontFamily: { sans: ['Inter', 'sans-serif'] },
     colors: {
       background: 'hsl(240 10% 3.9%)',
       foreground: 'hsl(0 0% 98%)',
@@ -21,82 +19,62 @@ const config: components.TailwindConfig = {
   },
 }
 
-const EmailTemplate: React.FC<Readonly<EmailProps>> = (data) => {
-  data = {
-    from: 'Tiesen <no-reply@tiesen.id.vn>',
-    replyTo: 'a@gmail.com',
-    subject: 'Hello World',
-    message: `
-    # Hello World
-    
-    This is a test email template.
+const EmailTemplate: React.FC<EmailProps> = ({ preview, subject, message, replyTo }) => (
+  <comp.Html lang="en">
+    <comp.Head>
+      <comp.Font
+        fontFamily="Inter"
+        fallbackFontFamily="sans-serif"
+        webFont={{
+          url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+          format: 'woff2',
+        }}
+        fontWeight={400}
+        fontStyle="normal"
+      />
+    </comp.Head>
 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    `,
-  }
+    <comp.Preview>{preview}</comp.Preview>
 
-  const previewText = `Message from ${data.replyTo} on ${data.from}`
+    <comp.Tailwind config={config}>
+      <comp.Body className="border-border bg-background font-sans text-foreground antialiased">
+        <comp.Container className="mx-auto px-2">
+          <comp.Section>
+            <comp.Img
+              src={`${getBaseUrl()}/android-chrome-512x512.png`}
+              alt="logo"
+              className="mx-auto my-4 h-16 w-16"
+            />
+            <comp.Heading className="text-center">{subject}</comp.Heading>
+          </comp.Section>
 
-  return (
-    <components.Html lang="en">
-      <components.Head />
-      <components.Preview>{previewText}</components.Preview>
+          <comp.Markdown>{message}</comp.Markdown>
 
-      <components.Tailwind config={config}>
-        <components.Body className="border-border bg-background font-sans text-foreground antialiased">
-          <components.Container className="mx-auto px-2">
-            <components.Section>
-              <components.Img
-                src="https://raw.githubusercontent.com/tiesen243/portfolio/main/public/android-chrome-512x512.png"
-                alt="logo"
-                className="mx-auto my-4 h-16 w-16"
-              />
-              <components.Heading className="text-center">{data.subject}</components.Heading>
-            </components.Section>
+          <comp.Text>
+            Best Regards, <br />
+            Yuki
+          </comp.Text>
 
-            <components.Markdown
-              markdownCustomStyles={{
-                h1: { marginTop: 2, marginBottom: 2 },
-                h2: { marginTop: 2, marginBottom: 2 },
-                h3: { marginTop: 2, marginBottom: 2 },
-                h4: { marginTop: 2, marginBottom: 2 },
-              }}
-              markdownContainerStyles={{
-                background: 'hsl(240 10% 3.9%)',
-                color: 'hsl(0 0% 98%)',
-              }}
-            >
-              {data.message}
-            </components.Markdown>
+          <hr className="border-border" />
+          <comp.Section>
+            <comp.Text>
+              Website: <comp.Link href="https://tiesen.id.vn">tiesen.id.vn</comp.Link>
+              <br />
+              Email: <comp.Link href={`mailto:${replyTo}`}>{replyTo}</comp.Link>
+              <br />
+              Address: Saigon, Vietnam
+            </comp.Text>
 
-            <components.Text>
-              Best Regards, <br />
-              {data.from.split(' ').at(0)}
-            </components.Text>
-
-            <hr className="border-border" />
-            <components.Section>
-              <components.Text>
-                Website:{' '}
-                <components.Link href="https://tiesen.id.vn/">https://tiesen.id.vn</components.Link>
-                <br />
-                Email:{' '}
-                <components.Link href={`mailto:${data.replyTo}`}>{data.replyTo}</components.Link>
-                <br />
-                Address: Saigon, Vietnam
-              </components.Text>
-
-              <components.Img
-                src="https://raw.githubusercontent.com/tiesen243/portfolio/main/public/images/tiesen.png"
-                alt="Tiesen"
-                className="my-4 h-auto w-52"
-              />
-            </components.Section>
-          </components.Container>
-        </components.Body>
-      </components.Tailwind>
-    </components.Html>
-  )
-}
+            <comp.Img
+              src="https://raw.githubusercontent.com/tiesen243/portfolio/main/public/images/tiesen.png"
+              alt="Tiesen"
+              className="my-4 h-auto w-52"
+            />
+          </comp.Section>
+        </comp.Container>
+      </comp.Body>
+    </comp.Tailwind>
+  </comp.Html>
+)
 
 export default EmailTemplate

@@ -5,6 +5,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 
 import { discord, lucia } from '@/server/auth/lucia'
 import { db } from '@/server/db'
+import { sendEmail } from '@/emails'
 
 export const GET = async (req: NextRequest) => {
   const url = new URL(req.url)
@@ -50,6 +51,12 @@ export const GET = async (req: NextRequest) => {
     const session = await lucia.createSession(newUser.id, {})
     const sessionCookie = lucia.createSessionCookie(session.id)
     cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+
+    await sendEmail({
+      type: 'welcome',
+      email: discordUser.email,
+      data: { name: discord_.global_name },
+    })
 
     return NextResponse.redirect(new URL('/', req.url))
   } catch (e) {
