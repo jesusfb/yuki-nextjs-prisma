@@ -1,12 +1,10 @@
-'use client'
-
 import Link from 'next/link'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { useSession } from '@/hooks/use-session'
+import { auth } from '@/server/auth'
 
-export const User: React.FC = () => {
-  const session = useSession()
+export const User: React.FC = async () => {
+  const session = await auth()
   if (!session) return <Link href="/sign-in">Login</Link>
 
   return (
