@@ -7,9 +7,9 @@ import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server'
 import { useState } from 'react'
 import SuperJSON from 'superjson'
 
-import { createQueryClient } from '@/lib/trpc/query-client'
-import { getBaseUrl } from '@/lib/utils'
 import { type AppRouter } from '@/server/api/root'
+import { createQueryClient } from './query-client'
+import { getBaseUrl } from '../utils'
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined
 const getQueryClient = () => {
@@ -50,7 +50,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
         }),
         unstable_httpBatchStreamLink({
           transformer: SuperJSON,
-          url: getBaseUrl() + '/api/trpc',
+          url: `${getBaseUrl()}/api/trpc`,
           headers: () => {
             const headers = new Headers()
             headers.set('x-trpc-source', 'nextjs-react')

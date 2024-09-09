@@ -6,12 +6,11 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC, TRPCError } from '@trpc/server'
+import { initTRPC } from '@trpc/server'
 import superjson from 'superjson'
 import { ZodError } from 'zod'
 
 import { db } from '@/server/db'
-import { auth } from '@/server/auth'
 
 /**
  * 1. CONTEXT
@@ -26,12 +25,8 @@ import { auth } from '@/server/auth'
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const { session, user } = await auth()
-
   return {
     db,
-    user,
-    session,
     ...opts,
   }
 }
@@ -50,7 +45,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
       ...shape,
       data: {
         ...shape.data,
-        zodError: error.cause instanceof ZodError ? error.cause.flatten().fieldErrors : null,
+        zodError: error.cause instanceof ZodError ? error.cause.flatten() : null,
       },
     }
   },
@@ -85,7 +80,15 @@ export const createTRPCRouter = t.router
  */
 const timingMiddleware = t.middleware(async ({ next, path }) => {
   const start = Date.now()
+
+  if (t._config.isDev) {
+    // artificial delay in dev
+    const waitMs = Math.floor(Math.random() * 400) + 100
+    await new Promise((resolve) => setTimeout(resolve, waitMs))
+  }
+
   const result = await next()
+
   const end = Date.now()
   console.log(`[TRPC] ${path} took ${end - start}ms to execute`)
 
@@ -100,58 +103,3 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * are logged in.
  */
 export const publicProcedure = t.procedure.use(timingMiddleware)
-
-/**
- * Protected (authenticated) procedure
- *
- * If you want a query or mutation to ONLY be accessible to logged in users, use this. It verifies
- * the session is valid and guarantees `ctx.session.user` is not null.
- *
- * @see https://trpc.io/docs/procedures
- */
-export const protectedProcedure = t.procedure.use(timingMiddleware).use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.user)
-    throw new TRPCError({
-      code: 'UNAUTHORIZED',
-      message: 'You must be logged in to access this resource',
-    })
-
-  return next({
-    ctx: {
-      // infers the `session` as non-nullable
-      session: ctx.session,
-      // infers the `user` as non-nullable
-      user: ctx.user,
-    },
-  })
-})
-
-/**
- * Admin (authenticated and admin) procedure
- *
- * If you want a query or mutation to ONLY be accessible to logged in users with admin role, use this.
- * It verifies the session is valid and guarantees `ctx.session.user` is not null and `ctx.user.role` is 'admin'.
- *
- */
-export const adminProcedure = t.procedure.use(timingMiddleware).use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.user)
-    throw new TRPCError({
-      code: 'UNAUTHORIZED',
-      message: 'You must be logged in to access this resource',
-    })
-
-  if (ctx.user.role !== 'ADMIN')
-    throw new TRPCError({
-      code: 'FORBIDDEN',
-      message: 'You do not have permission to access this resource',
-    })
-
-  return next({
-    ctx: {
-      // infers the `session` as non-nullable
-      session: ctx.session,
-      // infers the `user` as non-nullable
-      user: ctx.user,
-    },
-  })
-})

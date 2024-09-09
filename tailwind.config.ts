@@ -1,17 +1,14 @@
-import type { Config } from 'tailwindcss'
+import { type Config } from 'tailwindcss'
 import { fontFamily } from 'tailwindcss/defaultTheme'
 
-import animate from 'tailwindcss-animate'
-
-const config = {
+export default {
   darkMode: ['class'],
-  content: ['./components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
-  prefix: '',
-  plugins: [animate],
+  content: ['./app/**/*.tsx', './components/**/*.tsx'],
   theme: {
-    container: { center: true, padding: '2rem', screens: { '2xl': '1400px' } },
     extend: {
-      fontFamily: { sans: ['var(--font-sans)', ...fontFamily.sans] },
+      fontFamily: {
+        sans: ['var(--font-geist-sans)', ...fontFamily.sans],
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -51,15 +48,15 @@ const config = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-      },
-      keyframes: {
-        marquee: { to: { transform: 'translateX(-50%)' } },
-      },
-      animation: {
-        marquee: 'marquee var(--duration, 30s) linear infinite',
+        chart: {
+          '1': 'hsl(var(--chart-1))',
+          '2': 'hsl(var(--chart-2))',
+          '3': 'hsl(var(--chart-3))',
+          '4': 'hsl(var(--chart-4))',
+          '5': 'hsl(var(--chart-5))',
+        },
       },
     },
   },
+  plugins: [require('tailwindcss-animate')],
 } satisfies Config
-
-export default config

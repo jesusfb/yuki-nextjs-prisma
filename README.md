@@ -1,97 +1,68 @@
 # Yuki
 
-A E-commerce website for selling digital products.
+Yuki is a full-stack e-commerce platform built with Next.js, Prisma, and tRPC. It is a modern, fast, and secure platform that allows you to create your own e-commerce store with ease. Yuki is built with the latest technologies and best practices to ensure that your store is fast, secure, and scalable.
 
 ## Tech Stack
 
-- [Next.js](https://nextjs.org/) [tRPC](https://trpc.io/)
-- [Prisma](https://www.prisma.io/)
-- [Lucia](https://lucia-auth.com/)
-- [React Query](https://react-query.tanstack.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Shadcn/ui](https://ui.shadcn.com/)
-
-## Features
-
-- [x] User authentication [Lucia](https://lucia-auth.com/)
-  - [x] Sign up
-  - [x] Sign in
-  - [x] Sign out
-  - [x] Forgot password
-  - [x] Reset password
-- [x] Upload image feature [Uploadthing](https://uploadthing.com/)
-- [x] Admin dashboard
-  - [x] View all categories
-  - [x] Add category
-  - [x] Edit category
-  - [x] Delete category
-  - [x] View all products
-  - [x] Add product
-  - [x] Edit product
-  - [x] Delete product
-  - [x] View all users
-  - [x] Delete user
-  - [ ] View all orders
-- [x] User dashboard
-  - [x] Change password
-  - [x] Change information
-  - [ ] View orders
-- [x] Product page
-- [x] Search products
-- [x] Filter products
-- [x] Sort products
-- [ ] Pagination
-- [ ] Add to cart
-- [ ] Checkout
+- [Next.js](https://nextjs.org)
+- [Lucia auth](https://lucia-auth.com)
+- [Prisma](https://prisma.io)
+- [Tailwind CSS](https://tailwindcss.com)
+- [tRPC](https://trpc.io)
+- [Uploadthing](https://uploadthing.com)
+- [Resend](https://resend.io)
 
 ## Getting Started
 
-1. Clone the repository
+First, clone the repository:
 
 ```bash
 git clone git@github.com:tiesen243/yuki.git
 ```
 
-2. Install dependencies
+Then, install the dependencies:
 
 ```bash
-# npm
+# Using NPM
 npm install
 
-# yarn
+# Using Yarn
 yarn install
 
-# pnpm
+# Using PNPM
 pnpm install
 
-# bun
+# Using Bun
 bun install
 ```
 
-3. Create a `.env` file in the root directory and add the following environment variables
+Then, add a `.env` file:
 
 ```bash
 cp .env.example .env
 ```
 
-4. Start the development server
+Then, run the development server:
 
 ```bash
-# npm
-npm run dev
+# Using NPM
+npm run db:push
 
-# yarn
+# Using Yarn
+yarn db:push
 yarn dev
 
-# pnpm
+# Using PNPM
+pnpm db:push
 pnpm dev
 
-# bun
+# Using Bun
+bun db:push
 bun dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
