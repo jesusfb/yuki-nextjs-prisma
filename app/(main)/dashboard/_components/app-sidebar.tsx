@@ -1,29 +1,35 @@
+import { type User } from '@prisma/client'
 import * as icons from 'lucide-react'
 import Image from 'next/image'
 
-import { NavMain } from '@/app/dashboard/_components/nav-main'
-import { NavSecondary } from '@/app/dashboard/_components/nav-secondary'
-import { NavUser } from '@/app/dashboard/_components/nav-user'
 import * as sidebar from '@/components/ui/sidebar'
+import { NavMain } from './nav-main'
+import { NavSecondary } from './nav-secondary'
+import { NavUser } from './nav-user'
+import Link from 'next/link'
 
-export const AppSidebar: React.FC = () => (
+export const AppSidebar: React.FC<{ user: User }> = ({ user }) => (
   <sidebar.Sidebar>
-    <sidebar.SidebarHeader className="flex items-center gap-4">
-      <Image
-        src="/logo.svg"
-        alt="Yuki"
-        width={24}
-        height={24}
-        className="object-cover dark:invert"
-      />
-      <span className="text-lg font-bold">Dashboard</span>
-    </sidebar.SidebarHeader>
+    <Link href="/dashboard" passHref>
+      <sidebar.SidebarHeader className="flex items-center gap-4">
+        <Image
+          src="/logo.svg"
+          alt="Yuki"
+          width={24}
+          height={24}
+          className="object-cover dark:invert"
+        />
+        <span className="text-lg font-bold">Dashboard</span>
+      </sidebar.SidebarHeader>
+    </Link>
 
     <sidebar.SidebarContent>
-      <sidebar.SidebarItem>
-        <sidebar.SidebarLabel>Admin</sidebar.SidebarLabel>
-        <NavMain items={data.adminNav} />
-      </sidebar.SidebarItem>
+      {user.role === 'ADMIN' && (
+        <sidebar.SidebarItem>
+          <sidebar.SidebarLabel>Admin</sidebar.SidebarLabel>
+          <NavMain items={data.adminNav} />
+        </sidebar.SidebarItem>
+      )}
       <sidebar.SidebarItem>
         <sidebar.SidebarLabel>User</sidebar.SidebarLabel>
         <NavMain items={data.userNav} />
@@ -35,7 +41,7 @@ export const AppSidebar: React.FC = () => (
     </sidebar.SidebarContent>
 
     <sidebar.SidebarFooter>
-      <NavUser />
+      <NavUser user={user} />
     </sidebar.SidebarFooter>
   </sidebar.Sidebar>
 )
@@ -65,20 +71,20 @@ const data = {
   ],
 
   userNav: [
-    { title: 'Profile', url: '/dashboard/profile', icon: icons.User },
-    { title: 'Your Orders', url: '/dashboard/profile/orders', icon: icons.ShoppingBag },
+    { title: 'Account', url: '/dashboard/account', icon: icons.User },
+    { title: 'Your Cart', url: '/dashboard/account/cart', icon: icons.ShoppingCart },
     { title: 'Settings', url: '/dashboard/settings', icon: icons.Settings },
   ],
 
   navSecondary: [
     {
       title: 'Support',
-      url: '#',
+      url: 'https://youtu.be/dQw4w9WgXcQ',
       icon: icons.LifeBuoy,
     },
     {
       title: 'Feedback',
-      url: '#',
+      url: 'https://youtu.be/UIp6_0kct_U',
       icon: icons.Send,
     },
   ],

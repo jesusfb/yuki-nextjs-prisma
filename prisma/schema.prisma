@@ -19,7 +19,6 @@ type DiscordUser {
   id            String
   username      String
   global_name   String
-  discriminator String
   avatar        String
   email         String
 }
