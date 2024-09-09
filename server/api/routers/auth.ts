@@ -108,4 +108,18 @@ export const authRouter = createTRPCRouter({
 
     return true
   }),
+
+  // [POST] /api/trpc/auth.deleteAccount
+  deleteAccount: protectedProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.user.delete({ where: { id: ctx.session.user.id } })
+    await lucia.invalidateUserSessions(ctx.session.user.id)
+
+    await sendEmail({
+      type: 'deleteAccount',
+      email: ctx.session.user.email,
+      data: { name: ctx.session.user.name },
+    })
+
+    return true
+  }),
 })
