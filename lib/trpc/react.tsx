@@ -7,9 +7,9 @@ import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server'
 import { useState } from 'react'
 import SuperJSON from 'superjson'
 
+import { createQueryClient } from '@/lib/trpc/query-client'
+import { getBaseUrl } from '@/lib/utils'
 import { type AppRouter } from '@/server/api/root'
-import { createQueryClient } from './query-client'
-import { getBaseUrl } from '../utils'
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined
 const getQueryClient = () => {
@@ -37,7 +37,7 @@ export type RouterInputs = inferRouterInputs<AppRouter>
  */
 export type RouterOutputs = inferRouterOutputs<AppRouter>
 
-export function TRPCReactProvider(props: { children: React.ReactNode }) {
+export const TRPCReactProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const queryClient = getQueryClient()
 
   const [trpcClient] = useState(() =>
@@ -64,7 +64,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <api.Provider client={trpcClient} queryClient={queryClient}>
-        {props.children}
+        {children}
       </api.Provider>
     </QueryClientProvider>
   )

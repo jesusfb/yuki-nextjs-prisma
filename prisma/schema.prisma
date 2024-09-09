@@ -10,9 +10,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum Role {
+  USER
+  ADMIN
+}
+
+type DiscordUser {
+  id            String
+  username      String
+  global_name   String
+  discriminator String
+  avatar        String
+  email         String
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  discord DiscordUser? @unique
+  email   String       @unique
+
+  name     String
+  avatar   String?
+  role     Role    @default(USER)
+  password String?
+
+  sessions Session[]
+
+  createdAt DateTime @default(now()) @db.Date
+}
+
+model Session {
+  id        String   @id @map("_id")
+  expiresAt DateTime @db.Date
+
+  user   User   @relation(references: [id], fields: [userId], onDelete: Cascade)
+  userId String @db.ObjectId
 }

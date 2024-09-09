@@ -1,26 +1,21 @@
 import '@/app/globals.css'
 
 import { GeistSans } from 'geist/font/sans'
-
-/* Providers */
 import { ThemeProvider } from 'next-themes'
-import { TRPCReactProvider } from '@/lib/trpc/react'
 
 /* Lib */
 import { seo } from '@/lib/seo'
 import { cn } from '@/lib/utils'
 
-const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn('font-sans', GeistSans.variable)}>
-        <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </ThemeProvider>
-      </body>
-    </html>
-  )
-}
+const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => (
+  <html lang="en" suppressHydrationWarning>
+    <body className={cn('font-sans', GeistSans.variable)}>
+      <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
+        {children}
+      </ThemeProvider>
+    </body>
+  </html>
+)
 
 export default RootLayout
 
