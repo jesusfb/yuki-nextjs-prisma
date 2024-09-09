@@ -1,11 +1,14 @@
 import { type Config } from 'tailwindcss'
 import { fontFamily } from 'tailwindcss/defaultTheme'
 
+import animate from 'tailwindcss-animate'
+
 export default {
   darkMode: ['class'],
   content: ['./app/**/*.tsx', './components/**/*.tsx'],
   theme: {
     extend: {
+      container: { center: true, padding: '2rem', screens: { '2xl': '1400px' } },
       fontFamily: {
         sans: ['var(--font-geist-sans)', ...fontFamily.sans],
       },
@@ -48,15 +51,8 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        chart: {
-          '1': 'hsl(var(--chart-1))',
-          '2': 'hsl(var(--chart-2))',
-          '3': 'hsl(var(--chart-3))',
-          '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))',
-        },
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [animate],
 } satisfies Config
