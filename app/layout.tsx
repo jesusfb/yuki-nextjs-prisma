@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 
 const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => (
   <html lang="en" suppressHydrationWarning>
-    <body className={cn('font-sans', GeistSans.variable)}>
+    <body className={cn('flex flex-col font-sans', GeistSans.variable)}>
       <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
         {children}
       </ThemeProvider>

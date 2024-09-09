@@ -6,7 +6,7 @@ import { terms } from './_data'
 
 const Page: NextPage = () => (
   <main className="container py-8">
-    <Card className="mx-auto max-w-4xl">
+    <Card className="container">
       <CardHeader>
         <CardTitle className="text-center text-3xl font-bold">Terms of Service</CardTitle>
       </CardHeader>
