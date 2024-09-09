@@ -81,11 +81,13 @@ const data = {
       title: 'Support',
       url: 'https://youtu.be/dQw4w9WgXcQ',
       icon: icons.LifeBuoy,
+      isExternal: true,
     },
     {
       title: 'Feedback',
       url: 'https://youtu.be/UIp6_0kct_U',
       icon: icons.Send,
+      isExternal: true,
     },
   ],
 }

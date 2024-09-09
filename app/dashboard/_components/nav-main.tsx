@@ -40,6 +40,9 @@ export const NavMain: React.FC<NavMainProps> = ({ className, items }) => (
                   <Link
                     href={subItem.url}
                     className="flex h-8 min-w-8 items-center gap-2 overflow-hidden rounded-md px-2 text-sm font-medium text-muted-foreground ring-ring transition-all hover:bg-accent hover:text-accent-foreground focus-visible:ring-2"
+                    {...(subItem.isExternal
+                      ? { target: '_blank', rel: 'noopener noreferrer' }
+                      : {})}
                   >
                     <div className="line-clamp-1">{subItem.title}</div>
                   </Link>
@@ -62,6 +65,7 @@ interface NavMainProps extends React.ComponentProps<'ul'> {
     items?: {
       title: string
       url: string
+      isExternal?: boolean
     }[]
   }[]
 }
