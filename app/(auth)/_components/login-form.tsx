@@ -7,29 +7,26 @@ import { CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { api } from '@/lib/trpc/react'
-import { toast } from 'sonner'
+import { setCookie } from '@/server/actions'
 
 export const LoginForm: React.FC = () => {
   const router = useRouter()
 
   const { mutate, isPending, error } = api.auth.signIn.useMutation({
-    onSuccess: () => {
-      toast.success('Logged in successfully')
+    onSuccess: async ({ name, value, attributes }) => {
+      await setCookie({ name, value, attributes })
       router.push('/')
     },
-    onError: (error) => !error.data?.zodError && toast.error(error.message),
   })
 
-  const action = async (formData: FormData) => {
-    mutate({
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
-    })
+  const action = (formData: FormData) => {
+    // @ts-expect-error zod types are not inferred
+    mutate(Object.fromEntries(formData))
   }
 
   return (
     <CardContent asChild>
-      <form className="grid gap-4" action={action}>
+      <form className="space-y-4" action={action}>
         <fieldset className="grid gap-2" disabled={isPending}>
           <Label htmlFor="email">Email</Label>
           <Input name="email" type="email" placeholder="yuki@example.com" />
@@ -50,13 +47,15 @@ export const LoginForm: React.FC = () => {
           <small className="text-xs text-destructive">{error?.data?.zodError?.password}</small>
         </fieldset>
 
+        {!error?.data?.zodError && <small className="text-destructive">{error?.message}</small>}
+
         <Button className="w-full" disabled={isPending}>
           Login
         </Button>
 
         <div className="text-center text-sm">
           Don&apos;t have an account?{' '}
-          <button onClick={() => router.push('sign-up')} className="underline">
+          <button type="button" onClick={() => router.push('sign-up')} className="underline">
             Sign up
           </button>
         </div>

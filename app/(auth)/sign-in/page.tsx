@@ -2,6 +2,7 @@ import { type NextPage } from 'next'
 
 import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { LoginForm } from '../_components/login-form'
+
 import { seo } from '@/lib/seo'
 
 const Page: NextPage = () => (

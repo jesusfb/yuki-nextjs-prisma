@@ -3,9 +3,9 @@ import { OAuth2RequestError } from 'arctic'
 import { cookies } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'
 
+import { sendEmail } from '@/emails'
 import { discord, lucia } from '@/server/auth/lucia'
 import { db } from '@/server/db'
-import { sendEmail } from '@/emails'
 
 export const GET = async (req: NextRequest) => {
   const url = new URL(req.url)
@@ -14,6 +14,8 @@ export const GET = async (req: NextRequest) => {
   const storedState = req.cookies.get('discord_oauth_state')?.value ?? null
   if (!code || !state || state !== storedState)
     return NextResponse.json({ message: 'Invalid state' }, { status: 400 })
+
+  cookies().delete('discord_oauth_state')
 
   try {
     const tokens = await discord.validateAuthorizationCode(code)

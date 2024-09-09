@@ -4,13 +4,15 @@ import { LogOut } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
-import { api } from '@/lib/trpc/react'
+import { signOut } from '@/server/actions'
 
 export const LogoutBtn: React.FC = () => {
   const router = useRouter()
-  const { mutate } = api.auth.signOut.useMutation({ onSuccess: () => router.refresh() })
 
-  const handleLogout = () => mutate()
+  const handleLogout = async () => {
+    await signOut()
+    router.push('/')
+  }
 
   return (
     <DropdownMenuItem className="gap-2" onClick={handleLogout}>

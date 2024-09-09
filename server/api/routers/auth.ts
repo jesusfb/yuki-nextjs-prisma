@@ -44,16 +44,15 @@ export const authRouter = createTRPCRouter({
 
     const session = await lucia.createSession(user.id, {})
     const sessionCookie = lucia.createSessionCookie(session.id)
-    ctx.headers.set('Set-Cookie', sessionCookie.serialize())
 
-    return true
+    return sessionCookie
   }),
 
   // [POST] /api/trpc/auth.changePassword
   changePassword: protectedProcedure
     .input(schema.changePassword)
     .mutation(async ({ input, ctx }) => {
-      if (ctx.session.user.password) {
+      if (ctx.session.user.password && input.currentPassword) {
         const isPasswordCorrect = await new Scrypt().verify(
           ctx.session.user.password,
           input.currentPassword,
