@@ -33,7 +33,11 @@ export const GET = async (req: NextRequest) => {
     }
 
     // check if user exists in database
-    const existedUser = await db.user.findUnique({ where: { email: discordUser.email } })
+    const existedUser = await db.user.findFirst({
+      where: {
+        OR: [{ discord: { is: { id: discord_.id } } }, { email: discordUser.email }],
+      },
+    })
     if (existedUser) {
       await db.user.update({
         where: { id: existedUser.id },
@@ -56,9 +60,11 @@ export const GET = async (req: NextRequest) => {
     cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
 
     await sendEmail({
-      type: 'welcome',
-      email: discordUser.email,
-      data: { name: discordUser.global_name },
+      type: 'Welcome',
+      email: newUser.email,
+      subject: 'Welcome to our platform!',
+      preview: 'You have successfully created an account',
+      data: { name: newUser.name },
     })
 
     return NextResponse.redirect(new URL('/', req.url))
