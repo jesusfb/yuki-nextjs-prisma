@@ -8,6 +8,7 @@ import { CardContent, CardFooter } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
 
 import { sendEmail } from '@/emails'
+import { replyTo } from '@/emails/config'
 
 export const ContactForm: React.FC = () => {
   const [isPending, startTransition] = useTransition()
@@ -15,11 +16,16 @@ export const ContactForm: React.FC = () => {
 
   const action = (formData: FormData) =>
     startTransition(async () => {
-      const data = Object.fromEntries(formData) as { name: string; email: string; message: string }
+      const data = Object.fromEntries(formData) as {
+        email: string
+        subject: string
+        message: string
+      }
       const res = await sendEmail({
         type: 'Feedback',
-        email: 'ttien56906@gmail.com',
+        email: replyTo,
         replyTo: data.email,
+        subject: data.subject,
         preview: 'You have received a new message',
         data,
       })

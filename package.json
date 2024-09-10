@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
+    "email:build": "email build -d ./emails/components",
     "db:generate": "prisma migrate dev",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
@@ -13,8 +14,10 @@
     "email:dev": "email dev -d ./emails/components",
     "postinstall": "prisma generate",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "start": "next start"
+    "start": "next start",
+    "email:start": "email start -d ./emails/components"
   },
   "dependencies": {
     "@lucia-auth/adapter-prisma": "^4.0.1",
