@@ -1,12 +1,13 @@
 'use client'
 
+import { useRef, useTransition } from 'react'
+
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { CardContent, CardFooter } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
 
 import { sendEmail } from '@/emails'
-import { useRef, useTransition } from 'react'
 
 export const ContactForm: React.FC = () => {
   const [isPending, startTransition] = useTransition()
@@ -16,10 +17,10 @@ export const ContactForm: React.FC = () => {
     startTransition(async () => {
       const data = Object.fromEntries(formData) as { name: string; email: string; message: string }
       const res = await sendEmail({
-        type: 'contact',
+        type: 'Feedback',
         email: 'ttien56906@gmail.com',
-        from: data.name,
         replyTo: data.email,
+        preview: 'You have received a new message',
         data,
       })
       formRef.current.reset()
@@ -31,17 +32,24 @@ export const ContactForm: React.FC = () => {
   return (
     <form action={action} ref={formRef}>
       <CardContent className="grid w-full items-center gap-4">
-        <FormField name="name" label="Name" placeholder="Your name" disabled={isPending} required />
         <FormField
+          type="email"
           name="email"
           label="Email"
-          placeholder="Your email"
-          type="email"
+          placeholder="yuki@example.com"
+          disabled={isPending}
+          required
+        />
+        <FormField
+          name="subject"
+          type="text"
+          label="Subject"
+          placeholder="What's it about?"
           disabled={isPending}
           required
         />
         <FormField name="message" label="Message" disabled={isPending} asChild>
-          <Textarea id="message" placeholder="Your message" required />
+          <Textarea placeholder="Write your message here" required />
         </FormField>
       </CardContent>
 

@@ -5,6 +5,7 @@ import { sendEmail } from '@/emails'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/api/trpc'
 import * as schema from '@/server/api/validators/auth'
 import { lucia } from '@/server/auth/lucia'
+import { getBaseUrl } from '@/lib/utils'
 
 export const authRouter = createTRPCRouter({
   // [POST] /api/trpc/auth.signUp
@@ -23,8 +24,10 @@ export const authRouter = createTRPCRouter({
       throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to create user' })
 
     await sendEmail({
-      type: 'welcome',
+      type: 'Welcome',
       email: user.email,
+      subject: 'Welcome to our platform!',
+      preview: 'You have successfully created an account',
       data: { name: user.name },
     })
 
@@ -67,6 +70,14 @@ export const authRouter = createTRPCRouter({
         data: { password: newPassword },
       })
 
+      await sendEmail({
+        type: 'ChangePassword',
+        email: ctx.session.user.email,
+        subject: 'Your password has been changed',
+        preview: 'You have successfully changed your password',
+        data: { name: ctx.session.user.name },
+      })
+
       return true
     }),
 
@@ -82,9 +93,14 @@ export const authRouter = createTRPCRouter({
     })
 
     await sendEmail({
-      type: 'resetPassword',
+      type: 'ResetPassword',
       email: user.email,
-      data: { name: user.name, token },
+      subject: 'Reset your password',
+      preview: 'You have requested to reset your password',
+      data: {
+        name: user.name,
+        link: `${getBaseUrl()}/forgot-password/reset?token=${token}&email=${user.email}`,
+      },
     })
 
     return { message: 'We have sent you an email with instructions to reset your password' }
@@ -115,8 +131,10 @@ export const authRouter = createTRPCRouter({
     await lucia.invalidateUserSessions(ctx.session.user.id)
 
     await sendEmail({
-      type: 'deleteAccount',
+      type: 'DeleteAccount',
       email: ctx.session.user.email,
+      subject: 'Account deleted',
+      preview: 'You have successfully deleted your account from our platform.',
       data: { name: ctx.session.user.name },
     })
 

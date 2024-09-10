@@ -10,6 +10,7 @@
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "dev": "next dev --turbo",
+    "email:dev": "email dev -d ./emails/components",
     "postinstall": "prisma generate",
     "lint": "next lint",
     "format": "prettier --write .",
@@ -45,6 +46,7 @@
     "react-dom": "^18.3.1",
     "resend": "^4.0.0",
     "server-only": "^0.0.1",
+    "sharp": "^0.33.5",
     "sonner": "^1.5.0",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.5.2",
@@ -66,6 +68,7 @@
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
     "prisma": "^5.19.1",
+    "react-email": "^3.0.1",
     "tailwindcss": "^3.4.10",
     "typescript": "^5.6.2"
   }
