@@ -6,18 +6,16 @@ import { AccountSetting } from './_components/account-settings'
 import { DangerZone } from './_components/danger-zone'
 import { ThemeSetting } from './_components/theme-setting'
 
-const Page: NextPage = () => {
-  return (
-    <>
-      <CardTitle>Settings</CardTitle>
+const Page: NextPage = () => (
+  <>
+    <CardTitle>Settings</CardTitle>
 
-      <Accordion type="single" collapsible className="w-full">
-        <AccountSetting />
-        <ThemeSetting />
-        <DangerZone />
-      </Accordion>
-    </>
-  )
-}
+    <Accordion type="single" collapsible className="w-full">
+      <AccountSetting />
+      <ThemeSetting />
+      <DangerZone />
+    </Accordion>
+  </>
+)
 
 export default Page

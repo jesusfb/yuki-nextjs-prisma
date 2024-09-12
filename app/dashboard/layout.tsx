@@ -1,3 +1,4 @@
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
 import { redirect } from 'next/navigation'
 import { extractRouterConfig } from 'uploadthing/server'
 
@@ -7,13 +8,12 @@ import { AppSidebar } from './_components/app-sidebar'
 import { Toaster } from '@/components/ui/sonner'
 import { SessionProvider } from '@/hooks/use-session'
 import { TRPCReactProvider } from '@/lib/trpc/react'
-import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
 
 import { seo } from '@/lib/seo'
 import { auth } from '@/server/auth'
 import { ourFileRouter } from '@/server/uploadthing'
 
-const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
+const DashboardLayout: React.FC<Props> = async ({ children, modal }) => {
   const { cookies } = await import('next/headers')
 
   const session = await auth()
@@ -34,6 +34,8 @@ const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) 
           </main>
         </SidebarLayout>
 
+        {modal}
+
         <Toaster richColors />
       </TRPCReactProvider>
     </SessionProvider>
@@ -41,6 +43,11 @@ const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) 
 }
 
 export default DashboardLayout
+
+interface Props {
+  children: Readonly<React.ReactNode>
+  modal: Readonly<React.ReactNode>
+}
 
 export const metadata = seo({
   title: 'Dashboard',

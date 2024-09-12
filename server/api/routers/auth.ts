@@ -6,6 +6,7 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/
 import * as schema from '@/server/api/validators/auth'
 import { lucia } from '@/server/auth/lucia'
 import { getBaseUrl } from '@/lib/utils'
+import { utapi } from '@/server/uploadthing'
 
 export const authRouter = createTRPCRouter({
   // [POST] /api/trpc/auth.signUp
@@ -126,8 +127,14 @@ export const authRouter = createTRPCRouter({
   }),
 
   // [POST] /api/trpc/auth.deleteAccount
-  deleteAccount: protectedProcedure.mutation(async ({ ctx }) => {
+  deleteAccount: protectedProcedure.input(schema.deleteAccount).mutation(async ({ input, ctx }) => {
+    const isPasswordCorrect = await new Scrypt().verify(ctx.session.user.password!, input.password)
+    if (!isPasswordCorrect)
+      throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Incorrect password' })
+
     await ctx.db.user.delete({ where: { id: ctx.session.user.id } })
+
+    if (ctx.session.user.avatar) await utapi.deleteFiles(ctx.session.user.avatar.split('/').pop()!)
     await lucia.invalidateUserSessions(ctx.session.user.id)
 
     await sendEmail({

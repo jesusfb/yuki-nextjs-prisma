@@ -29,6 +29,7 @@ export const changePassword = z
     currentPassword: password.optional(),
     newPassword: password,
     confirmPassword: password,
+    isLogoutAll: z.boolean().default(false),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'Passwords do not match',
@@ -50,3 +51,10 @@ export const resetPassword = z
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   })
+
+export const deleteAccount = z.object({
+  confirm: z
+    .string()
+    .refine((data) => data === 'Delete my account', { message: 'Please type "Delete my account"' }),
+  password,
+})
