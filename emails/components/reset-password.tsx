@@ -1,7 +1,7 @@
 import { Heading, Link, Text } from '@react-email/components'
 
 import { EmailLayout } from '@/emails/components/_layout'
-import { type EmailProps } from '@/emails/config'
+import { hello, type EmailProps } from '@/emails/config'
 
 const ResetPassword: React.FC<EmailProps> = ({
   subject = 'Reset your password',
@@ -9,7 +9,7 @@ const ResetPassword: React.FC<EmailProps> = ({
   data = { name: 'Yuki', link: '#' },
 }) => (
   <EmailLayout preview={preview} subject={subject}>
-    <Heading className="text-2xl">Hello, {data.name}! 👋</Heading>
+    <Text>{hello(data.name)}</Text>
     <Text>
       We received a request to reset your password. If you didn&apos;t make this request, you can
       safely ignore this email.

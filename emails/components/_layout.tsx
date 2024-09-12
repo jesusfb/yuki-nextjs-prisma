@@ -3,7 +3,7 @@ import * as email from '@react-email/components'
 import { type EmailProps, font, replyTo as rt, tailwindConfig } from '@/emails/config'
 
 const logo =
-  'https://raw.githubusercontent.com/tiesen243/portfolio/main/public/android-chrome-512x512.png'
+  'https://raw.githubusercontent.com/tiesen243/portfolio/main/public/android-chrome-192x192.png'
 const logoText =
   'https://raw.githubusercontent.com/tiesen243/portfolio/main/public/images/tiesen.png'
 
@@ -15,14 +15,16 @@ export const EmailLayout: React.FC<EmailProps> = ({ preview, subject, replyTo = 
     </email.Head>
 
     <email.Tailwind config={tailwindConfig}>
-      <email.Body className="border-border bg-background font-sans text-foreground antialiased">
+      <email.Body className="bg-background font-sans text-foreground antialiased">
         <email.Container className="mx-auto px-4">
-          <email.Section className="my-4 space-y-4">
-            <email.Img src={logo} alt="logo" className="mx-auto h-16 w-16 object-cover" />
-            <email.Heading className="text-center">{subject}</email.Heading>
-          </email.Section>
+          <email.Img src={logo} alt="logo" className="mx-auto my-8 h-16 w-16 object-cover" />
 
-          <email.Section>
+          <email.Section
+            className="rounded-lg px-8 py-4 shadow-lg"
+            style={{ border: '1px solid hsl(0, 0%, 89.8%)' }}
+          >
+            <email.Heading className="text-2xl">{subject}</email.Heading>
+
             {children}
 
             <email.Text>
@@ -30,8 +32,6 @@ export const EmailLayout: React.FC<EmailProps> = ({ preview, subject, replyTo = 
               Yuki
             </email.Text>
           </email.Section>
-
-          <email.Hr className="border-border" />
 
           <email.Section>
             <email.Text>

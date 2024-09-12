@@ -5,9 +5,8 @@ export const tailwindConfig: TailwindConfig = {
   theme: {
     fontFamily: { sans: ['Inter', 'sans-serif'] },
     colors: {
-      background: 'hsl(240 10% 3.9%)',
-      foreground: 'hsl(0 0% 98%)',
-      border: 'hsl(240 3.7% 15.9%)',
+      background: 'hsl(0, 0%, 100%)',
+      foreground: 'hsl(0, 0%, 3.9%)',
     },
   },
 }
@@ -24,6 +23,17 @@ export const font: FontProps = {
 }
 
 export const replyTo = 'ttien56906@gmail.com'
+
+export const hello = (name?: string): string => {
+  const time = new Date().getHours()
+  let greeting = ''
+
+  if (time < 12) greeting = 'Good morning'
+  else if (time < 18) greeting = 'Good afternoon'
+  else greeting = 'Good evening'
+
+  return `${greeting}, ${name}! 👋`
+}
 
 export interface EmailProps {
   preview: string

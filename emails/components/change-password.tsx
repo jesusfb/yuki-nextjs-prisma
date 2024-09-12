@@ -1,6 +1,7 @@
-import { type EmailProps } from '@/emails/config'
+import { Text } from '@react-email/components'
+
 import { EmailLayout } from '@/emails/components/_layout'
-import { Heading, Text } from '@react-email/components'
+import { hello, type EmailProps } from '@/emails/config'
 
 const ChangePassword: React.FC<EmailProps> = ({
   subject = 'Your password has been changed',
@@ -8,7 +9,7 @@ const ChangePassword: React.FC<EmailProps> = ({
   data = { name: 'Yuki' },
 }) => (
   <EmailLayout subject={subject} preview={preview}>
-    <Heading className="text-2xl">Hello, {data.name}! 👋</Heading>
+    <Text>{hello(data.name)}</Text>
     <Text>We just wanted to let you know that your password has been successfully changed.</Text>
     <Text>
       If you did not make this change, please contact us immediately. We will investigate the issue

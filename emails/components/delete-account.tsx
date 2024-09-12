@@ -1,7 +1,7 @@
-import { Heading, Text } from '@react-email/components'
+import { Text } from '@react-email/components'
 
 import { EmailLayout } from '@/emails/components/_layout'
-import { type EmailProps } from '@/emails/config'
+import { hello, type EmailProps } from '@/emails/config'
 
 const DeleteAccount: React.FC<EmailProps> = ({
   subject = 'Account deleted',
@@ -9,7 +9,7 @@ const DeleteAccount: React.FC<EmailProps> = ({
   data = { name: 'Yuki' },
 }) => (
   <EmailLayout preview={preview} subject={subject}>
-    <Heading className="text-2xl">Hello, {data.name}! 👋</Heading>
+    <Text>{hello(data.name)}</Text>
     <Text>
       Your account has been deleted. If you didn&apos;t make this request, please contact us
       immediately. We cant help you recover your account.
