@@ -13,7 +13,7 @@ import { seo } from '@/lib/seo'
 import { auth } from '@/server/auth'
 import { ourFileRouter } from '@/server/uploadthing'
 
-const DashboardLayout: React.FC<Props> = async ({ children, modal }) => {
+const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
   const { cookies } = await import('next/headers')
 
   const session = await auth()
@@ -33,9 +33,6 @@ const DashboardLayout: React.FC<Props> = async ({ children, modal }) => {
             </div>
           </main>
         </SidebarLayout>
-
-        {modal}
-
         <Toaster richColors />
       </TRPCReactProvider>
     </SessionProvider>
@@ -43,11 +40,6 @@ const DashboardLayout: React.FC<Props> = async ({ children, modal }) => {
 }
 
 export default DashboardLayout
-
-interface Props {
-  children: Readonly<React.ReactNode>
-  modal: Readonly<React.ReactNode>
-}
 
 export const metadata = seo({
   title: 'Dashboard',
