@@ -37,6 +37,7 @@ export const DeleteAccountForm: React.FC = () => {
             name="confirm"
             label="To confirm, type 'Delete my account' below"
             placeholder="Delete my account"
+            message={error?.data?.zodError?.confirm?.at(0)}
             disabled={isPending}
           />
           <FormField
@@ -44,6 +45,7 @@ export const DeleteAccountForm: React.FC = () => {
             label="Password"
             type="password"
             placeholder="Enter your password"
+            message={error?.data?.zodError?.password?.at(0)}
             disabled={isPending}
           />
         </card.CardContent>
