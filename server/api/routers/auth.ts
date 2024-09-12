@@ -66,10 +66,14 @@ export const authRouter = createTRPCRouter({
       }
 
       const newPassword = await new Scrypt().hash(input.newPassword)
-      await ctx.db.user.update({
+      const user = await ctx.db.user.update({
         where: { id: ctx.session.user.id },
         data: { password: newPassword },
       })
+      if (!user)
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to update user' })
+
+      if (input.isLogoutAll) await lucia.invalidateUserSessions(ctx.session.user.id)
 
       await sendEmail({
         type: 'ChangePassword',
@@ -122,6 +126,8 @@ export const authRouter = createTRPCRouter({
       where: { id: user.id },
       data: { password: newPassword, resetToken: null },
     })
+
+    await lucia.invalidateUserSessions(user.id)
 
     return true
   }),
