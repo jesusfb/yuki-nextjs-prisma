@@ -74,7 +74,7 @@ const data = {
     { title: 'Back to Site', url: '/', icon: icons.Home },
     { title: 'Account', url: '/dashboard/account', icon: icons.User },
     { title: 'Your Cart', url: '/dashboard/account/cart', icon: icons.ShoppingCart },
-    { title: 'Settings', url: '/dashboard/settings', icon: icons.Settings },
+    { title: 'Settings', url: '/dashboard/account/settings', icon: icons.Settings },
   ],
 
   navSecondary: [
