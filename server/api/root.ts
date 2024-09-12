@@ -1,6 +1,7 @@
 import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc'
 
 import { authRouter } from '@/server/api/routers/auth'
+import { userRouter } from '@/server/api/routers/user'
 import { categoryRouter } from '@/server/api/routers/category'
 
 /**
@@ -10,6 +11,7 @@ import { categoryRouter } from '@/server/api/routers/category'
  */
 export const appRouter = createTRPCRouter({
   auth: authRouter,
+  user: userRouter,
   category: categoryRouter,
 })
 

@@ -2,10 +2,10 @@ import { TRPCError } from '@trpc/server'
 import { Scrypt } from 'lucia'
 
 import { sendEmail } from '@/emails'
+import { getBaseUrl } from '@/lib/utils'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/api/trpc'
 import * as schema from '@/server/api/validators/auth'
 import { lucia } from '@/server/auth/lucia'
-import { getBaseUrl } from '@/lib/utils'
 import { utapi } from '@/server/uploadthing'
 
 export const authRouter = createTRPCRouter({

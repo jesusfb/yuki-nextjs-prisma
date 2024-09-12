@@ -18,6 +18,6 @@ export const AccountSetting: React.FC = () => (
 )
 
 const settings = [
-  { name: 'Information', href: '/settings/information' },
-  { name: 'Change Password', href: '/settings/ChangePassword' },
+  { name: 'Profile', href: '/dashboard/settings/profile' },
+  { name: 'Security', href: '/dashboard/settings/security' },
 ]
