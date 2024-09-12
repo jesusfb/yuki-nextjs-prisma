@@ -15,6 +15,7 @@ export const Shop: React.FC = () => (
       </div>
       <h2 className="text-lg font-bold">Yuki</h2>
     </Link>
+
     <ul className="space-y-2">
       {links.map((link) => (
         <li key={link.title}>
