@@ -4,10 +4,7 @@ export const tailwindConfig: TailwindConfig = {
   darkMode: 'class',
   theme: {
     fontFamily: { sans: ['Inter', 'sans-serif'] },
-    colors: {
-      background: 'hsl(0, 0%, 100%)',
-      foreground: 'hsl(0, 0%, 3.9%)',
-    },
+    colors: { background: 'hsl(0, 0%, 100%)', foreground: 'hsl(0, 0%, 3.9%)' },
   },
 }
 

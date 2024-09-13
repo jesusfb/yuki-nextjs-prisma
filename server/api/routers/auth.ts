@@ -50,6 +50,19 @@ export const authRouter = createTRPCRouter({
     return sessionCookie
   }),
 
+  // [POST] /api/trpc/auth.unlinkDiscord
+  unlinkDiscord: protectedProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.user.update({ where: { id: ctx.session.user.id }, data: { discord: null } })
+    await sendEmail({
+      type: 'UnlinkDiscord',
+      email: ctx.session.user.email,
+      subject: 'You have unlinked your Discord account',
+      preview: 'You have successfully unlinked your Discord account from your Yuki account.',
+      data: { name: ctx.session.user.name },
+    })
+    return true
+  }),
+
   // [POST] /api/trpc/auth.changePassword
   changePassword: protectedProcedure
     .input(schema.changePassword)

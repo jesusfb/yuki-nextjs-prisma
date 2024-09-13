@@ -52,8 +52,15 @@ export const DeleteAccountForm: React.FC = () => {
         </card.CardContent>
 
         <card.CardFooter className="justify-end gap-4">
-          <Button disabled={isPending}>Delete Account</Button>
-          <Button type="button" variant="ghost" onClick={() => router.back()}>
+          <Button variant="destructive" disabled={isPending}>
+            Delete Account
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => router.back()}
+            disabled={isPending}
+          >
             Cancel
           </Button>
         </card.CardFooter>
