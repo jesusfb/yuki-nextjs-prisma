@@ -1,17 +1,17 @@
 import '@/app/globals.css'
 
-import { GeistSans } from 'geist/font/sans'
 import { ThemeProvider } from 'next-themes'
 
 import { Toaster } from '@/components/ui/sonner'
 
+import { fonts } from '@/lib/fonts'
 import { seo } from '@/lib/seo'
 import { TRPCReactProvider } from '@/lib/trpc/react'
 import { cn } from '@/lib/utils'
 
 const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => (
   <html lang="en" suppressHydrationWarning>
-    <body className={cn('flex flex-col font-sans', GeistSans.variable)}>
+    <body className={cn('flex flex-col font-sans', fonts)}>
       <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
         <TRPCReactProvider>{children}</TRPCReactProvider>
         <Toaster richColors />
