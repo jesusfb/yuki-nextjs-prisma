@@ -5,7 +5,7 @@ import { type User } from '@prisma/client'
 import { Discord } from 'arctic'
 import { Lucia } from 'lucia'
 
-import { env } from '@/lib/env'
+import { env } from '@/env'
 import { getBaseUrl } from '@/lib/utils'
 import { db } from '@/server/db'
 
