@@ -5,9 +5,9 @@ import { type User } from '@prisma/client'
 import { Discord } from 'arctic'
 import { Lucia } from 'lucia'
 
-import { db } from '@/server/db'
 import { env } from '@/lib/env'
 import { getBaseUrl } from '@/lib/utils'
+import { db } from '@/server/db'
 
 const adapter = new PrismaAdapter(db.session, db.user)
 

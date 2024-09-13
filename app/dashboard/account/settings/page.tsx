@@ -1,4 +1,4 @@
-import { type NextPage } from 'next'
+import type { NextPage } from 'next'
 
 import { Accordion } from '@/components/ui/accordion'
 import { CardTitle } from '@/components/ui/card'

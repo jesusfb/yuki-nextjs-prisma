@@ -8,7 +8,7 @@ import { CardContent } from '@/components/ui/card'
 
 import { api } from '@/lib/trpc/react'
 
-export interface Props {
+interface Props {
   searchParams: { token: string; email: string }
 }
 

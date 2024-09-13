@@ -1,4 +1,4 @@
-import { type NextPage } from 'next'
+import type { NextPage } from 'next'
 
 import { Button } from '@/components/ui/button'
 import * as card from '@/components/ui/card'

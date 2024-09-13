@@ -1,21 +1,16 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import * as card from '@/components/ui/card'
 
 export const ContactInfo: React.FC = () => (
-  <Card>
-    <CardHeader>
-      <CardTitle>Contact Information</CardTitle>
-      <CardDescription>You can also reach us through the following channels:</CardDescription>
-    </CardHeader>
-    <CardContent className="space-y-6">
+  <card.Card>
+    <card.CardHeader>
+      <card.CardTitle>Contact Information</card.CardTitle>
+      <card.CardDescription>
+        You can also reach us through the following channels:
+      </card.CardDescription>
+    </card.CardHeader>
+    <card.CardContent className="space-y-6">
       <div className="flex items-center space-x-4">
         <MapPin className="h-6 w-6 text-gray-500" />
         <div>
@@ -37,11 +32,11 @@ export const ContactInfo: React.FC = () => (
           <p className="text-sm text-gray-500">support@yuki.com</p>
         </div>
       </div>
-    </CardContent>
-    <CardFooter>
+    </card.CardContent>
+    <card.CardFooter>
       <p className="text-sm text-gray-500">
         Our customer support team is available Monday to Friday, 9am to 5pm EST.
       </p>
-    </CardFooter>
-  </Card>
+    </card.CardFooter>
+  </card.Card>
 )

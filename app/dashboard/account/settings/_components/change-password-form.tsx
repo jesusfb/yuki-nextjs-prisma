@@ -6,8 +6,8 @@ import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 
-import { signOut } from '@/server/actions'
 import { api } from '@/lib/trpc/react'
+import { signOut } from '@/server/actions'
 
 export const ChangePasswordForm: React.FC = () => {
   const { mutate, isPending, error } = api.auth.changePassword.useMutation({

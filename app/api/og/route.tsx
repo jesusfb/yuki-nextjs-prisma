@@ -5,18 +5,14 @@ import { seo } from '@/lib/seo'
 import { getBaseUrl } from '@/lib/utils'
 
 interface Props {
-  params: {
-    title?: string
-    desc?: string
-    image?: string
-  }
+  params: { title?: string; desc?: string; image?: string }
 }
 
 export const runtime = 'edge'
 
 export const GET = async (_: NextRequest, { params }: Props): Promise<ImageResponse> => {
-  const title = params.title ?? seo({}).applicationName!
-  const description = params.desc ?? seo({}).description!
+  const title = params.title ?? seo({}).applicationName
+  const description = params.desc ?? seo({}).description
 
   const style = {
     width: '33.333%',

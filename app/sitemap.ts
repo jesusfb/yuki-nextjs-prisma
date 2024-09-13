@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 
-import { db as _db } from '@/server/db'
 import { getBaseUrl } from '@/lib/utils'
+import { db as _db } from '@/server/db'
 
 interface Route {
   url: string

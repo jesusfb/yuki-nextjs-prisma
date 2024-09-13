@@ -1,9 +1,8 @@
-import { type NextPage } from 'next'
+import type { NextPage } from 'next'
 
 import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ResetPasswordForm } from '@/app/(auth)/_components/reset-password-form'
 
-import type { Props } from '@/app/(auth)/_components/reset-password-form'
 import { seo } from '@/lib/seo'
 
 const Page: NextPage<Props> = ({ searchParams }) => {
@@ -22,6 +21,10 @@ const Page: NextPage<Props> = ({ searchParams }) => {
 }
 
 export default Page
+
+interface Props {
+  searchParams: { token: string; email: string }
+}
 
 export const metadata = seo({
   title: 'Reset Password',

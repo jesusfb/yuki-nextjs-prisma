@@ -5,16 +5,16 @@ import { extractRouterConfig } from 'uploadthing/server'
 import { SidebarLayout, SidebarTrigger } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/app/dashboard/_components/app-sidebar'
 
-import { auth } from '@/server/auth'
-import { ourFileRouter } from '@/server/uploadthing'
 import { SessionProvider } from '@/hooks/use-session'
 import { seo } from '@/lib/seo'
+import { auth } from '@/server/auth'
+import { ourFileRouter } from '@/server/uploadthing'
 
 const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
   const { cookies } = await import('next/headers')
 
   const session = await auth()
-  if (!session || !session.user) redirect('/sign-in')
+  if (!session) redirect('/sign-in')
 
   return (
     <SessionProvider session={session}>

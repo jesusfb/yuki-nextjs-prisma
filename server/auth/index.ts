@@ -1,9 +1,9 @@
 import 'server-only'
 
+import type { Session, User } from '@prisma/client'
 import { cookies } from 'next/headers'
 import { cache } from 'react'
 
-import type { Session, User } from '@prisma/client'
 import { lucia } from '@/server/auth/lucia'
 
 type Auth = null | (Session & { user: User })
@@ -25,7 +25,7 @@ const uncachedAuth = async (): Promise<Auth> => {
     }
   } catch {}
 
-  if (!result.session || !result.user) return null
+  if (!result.session) return null
   return { ...result.session, user: result.user }
 }
 

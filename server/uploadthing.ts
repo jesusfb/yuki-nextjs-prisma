@@ -10,7 +10,7 @@ const middleware = async () => {
   const session = await auth()
 
   // eslint-disable-next-line @typescript-eslint/only-throw-error
-  if (!session || !session.user) throw new UploadThingError('Unauthorized')
+  if (!session) throw new UploadThingError('Unauthorized')
   return { userId: session.user.id }
 }
 

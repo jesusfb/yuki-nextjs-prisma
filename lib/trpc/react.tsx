@@ -1,14 +1,14 @@
 'use client'
 
+import type { QueryClient } from '@tanstack/react-query'
+import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
 import { useState } from 'react'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { loggerLink, unstable_httpBatchStreamLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
-import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server'
 import SuperJSON from 'superjson'
 
-import type { QueryClient } from '@tanstack/react-query'
-import { type AppRouter } from '@/server/api/root'
+import type { AppRouter } from '@/server/api/root'
 import { createQueryClient } from '@/lib/trpc/query-client'
 import { getBaseUrl } from '@/lib/utils'
 
@@ -46,6 +46,7 @@ export const TRPCReactProvider: React.FC<React.PropsWithChildren> = ({ children 
       links: [
         loggerLink({
           enabled: (op) =>
+            // eslint-disable-next-line no-restricted-properties
             process.env.NODE_ENV === 'development' ||
             (op.direction === 'down' && op.result instanceof Error),
         }),

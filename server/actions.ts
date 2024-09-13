@@ -1,6 +1,6 @@
 'use server'
 
-import { type ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies'
+import type { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import { cookies } from 'next/headers'
 
 import { auth } from '@/server/auth'

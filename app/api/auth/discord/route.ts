@@ -3,8 +3,8 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { generateState } from 'arctic'
 
-import { discord } from '@/server/auth/lucia'
 import { env } from '@/lib/env'
+import { discord } from '@/server/auth/lucia'
 
 export const GET = async (req: NextRequest) => {
   const state = generateState()

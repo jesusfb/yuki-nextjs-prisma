@@ -3,7 +3,6 @@ import '@/app/globals.css'
 import { GeistSans } from 'geist/font/sans'
 import { ThemeProvider } from 'next-themes'
 
-/* Lib */
 import { Toaster } from '@/components/ui/sonner'
 
 import { seo } from '@/lib/seo'

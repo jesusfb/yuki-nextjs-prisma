@@ -1,5 +1,5 @@
+import type { NextPage } from 'next'
 import { BadgeCheckIcon, LockIcon } from 'lucide-react'
-import { type NextPage } from 'next'
 
 import { CardTitle } from '@/components/ui/card'
 import { ChangePasswordForm } from '../_components/change-password-form'

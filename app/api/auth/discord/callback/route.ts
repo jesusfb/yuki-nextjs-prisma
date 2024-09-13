@@ -1,12 +1,12 @@
+import type { DiscordUser } from '@prisma/client'
 import type { NextRequest } from 'next/server'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { type DiscordUser } from '@prisma/client'
 import { OAuth2RequestError } from 'arctic'
 
+import { sendEmail } from '@/emails'
 import { discord, lucia } from '@/server/auth/lucia'
 import { db } from '@/server/db'
-import { sendEmail } from '@/emails'
 
 export const GET = async (req: NextRequest) => {
   const url = new URL(req.url)

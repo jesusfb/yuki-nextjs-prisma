@@ -1,26 +1,26 @@
 import { type NextPage } from 'next'
 
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import * as card from '@/components/ui/card'
+import { ContactForm } from './_components/contact-form'
+import { ContactInfo } from './_components/contact-info'
 
 import { seo } from '@/lib/seo'
-import { ContactForm } from './_contact-form'
-import { ContactInfo } from './_contact-info'
 
 const Page: NextPage = () => (
   <main className="container py-8">
     <h1 className="mb-8 text-center text-4xl font-bold">Contact Us</h1>
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-      <Card>
-        <CardHeader>
-          <CardTitle>Send Us a Message</CardTitle>
-          <CardDescription>
+      <card.Card>
+        <card.CardHeader>
+          <card.CardTitle>Send Us a Message</card.CardTitle>
+          <card.CardDescription>
             We&apos;d love to hear from you. Fill out the form below and we&apos;ll get back to you
             as soon as possible.
-          </CardDescription>
-        </CardHeader>
+          </card.CardDescription>
+        </card.CardHeader>
 
         <ContactForm />
-      </Card>
+      </card.Card>
 
       <ContactInfo />
     </div>

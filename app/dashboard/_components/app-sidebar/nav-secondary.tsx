@@ -1,10 +1,10 @@
+import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
-import { type LucideIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
 export const NavSecondary: React.FC<NavSecondaryProps> = ({ className, items }) => {
-  if (!items?.length) return null
+  if (!items.length) return null
 
   return (
     <ul className={cn('grid gap-0.5', className)}>

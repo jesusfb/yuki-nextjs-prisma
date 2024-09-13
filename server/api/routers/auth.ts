@@ -1,12 +1,12 @@
 import { TRPCError } from '@trpc/server'
 import { Scrypt } from 'lucia'
 
+import { sendEmail } from '@/emails'
+import { getBaseUrl } from '@/lib/utils'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/api/trpc'
 import * as schema from '@/server/api/validators/auth'
 import { lucia } from '@/server/auth/lucia'
 import { utapi } from '@/server/uploadthing'
-import { getBaseUrl } from '@/lib/utils'
-import { sendEmail } from '@/emails'
 
 export const authRouter = createTRPCRouter({
   // [POST] /api/trpc/auth.signUp
@@ -21,8 +21,6 @@ export const authRouter = createTRPCRouter({
         password: await new Scrypt().hash(input.password),
       },
     })
-    if (!user)
-      throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to create user' })
 
     await sendEmail({
       type: 'Welcome',
@@ -66,12 +64,10 @@ export const authRouter = createTRPCRouter({
       }
 
       const newPassword = await new Scrypt().hash(input.newPassword)
-      const user = await ctx.db.user.update({
+      await ctx.db.user.update({
         where: { id: ctx.session.user.id },
         data: { password: newPassword },
       })
-      if (!user)
-        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to update user' })
 
       if (input.isLogoutAll) await lucia.invalidateUserSessions(ctx.session.user.id)
 
