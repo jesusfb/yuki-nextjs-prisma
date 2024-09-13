@@ -6,9 +6,8 @@ import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { CardContent, CardFooter } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
-
-import { sendEmail } from '@/emails'
 import { replyTo } from '@/emails/config'
+import { sendEmail } from '@/emails'
 
 export const ContactForm: React.FC = () => {
   const [isPending, startTransition] = useTransition()

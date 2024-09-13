@@ -1,6 +1,7 @@
-import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
+import { ChevronRight } from 'lucide-react'
+
+import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
 export const AccountSetting: React.FC = () => (
   <AccordionItem value="account">

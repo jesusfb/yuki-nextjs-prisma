@@ -1,5 +1,6 @@
-import { ChevronRight, type LucideIcon } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
+import { ChevronRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import * as col from '@/components/ui/collapsible'

@@ -60,7 +60,7 @@ export const metadata = seo({
   images: [
     '/api/og?title=About%20Us&desc=Learn%20more%20about%20Yuki%2C%20the%20ultimate%20e-commerce%20platform.',
   ],
-  url: '/about-us',
+  url: '/home/about-us',
 })
 
 interface TechCardProps {

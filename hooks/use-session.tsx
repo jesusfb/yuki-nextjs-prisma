@@ -1,7 +1,7 @@
 'use client'
 
-import { type Session, type User } from '@prisma/client'
 import * as React from 'react'
+import { type Session, type User } from '@prisma/client'
 
 type SessionContext = null | (Session & { user: User })
 

@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button'
 import { CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { api } from '@/lib/trpc/react'
 import { setCookie } from '@/server/actions'
+import { api } from '@/lib/trpc/react'
 
 export const LoginForm: React.FC = () => {
   const router = useRouter()

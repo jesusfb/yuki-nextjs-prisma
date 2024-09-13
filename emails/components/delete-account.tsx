@@ -1,7 +1,8 @@
 import { Text } from '@react-email/components'
 
+import type { EmailProps } from '@/emails/config'
 import { EmailLayout } from '@/emails/components/_layout'
-import { hello, type EmailProps } from '@/emails/config'
+import { hello } from '@/emails/config'
 
 const DeleteAccount: React.FC<EmailProps> = ({
   subject = 'Account deleted',

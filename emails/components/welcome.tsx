@@ -1,7 +1,8 @@
 import { Text } from '@react-email/components'
 
+import type { EmailProps } from '@/emails/config'
 import { EmailLayout } from '@/emails/components/_layout'
-import { hello, type EmailProps } from '@/emails/config'
+import { hello } from '@/emails/config'
 
 const Welcome: React.FC<EmailProps> = ({
   subject = 'Welcome to our platform!',

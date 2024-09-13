@@ -2,12 +2,12 @@ import 'server-only'
 
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma'
 import { type User } from '@prisma/client'
+import { Discord } from 'arctic'
 import { Lucia } from 'lucia'
 
-import { env } from '@/env'
-import { getBaseUrl } from '@/lib/utils'
 import { db } from '@/server/db'
-import { Discord } from 'arctic'
+import { env } from '@/lib/env'
+import { getBaseUrl } from '@/lib/utils'
 
 const adapter = new PrismaAdapter(db.session, db.user)
 

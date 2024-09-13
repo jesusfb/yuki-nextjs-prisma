@@ -72,5 +72,5 @@ export const metadata = seo({
   images: [
     '/api/og?title=Terms%20of%20Service&desc=Read%20the%20terms%20of%20service%20for%20Yuki%2C%20your%20ultimate%20e-commerce%20platform.',
   ],
-  url: '/terms-of-service',
+  url: '/home/terms-of-service',
 })

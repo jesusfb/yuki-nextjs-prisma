@@ -1,7 +1,8 @@
-import { Heading, Link, Text } from '@react-email/components'
+import { Link, Text } from '@react-email/components'
 
+import type { EmailProps } from '@/emails/config'
 import { EmailLayout } from '@/emails/components/_layout'
-import { hello, type EmailProps } from '@/emails/config'
+import { hello } from '@/emails/config'
 
 const ResetPassword: React.FC<EmailProps> = ({
   subject = 'Reset your password',

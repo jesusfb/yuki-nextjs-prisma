@@ -1,5 +1,5 @@
 export { default as ChangePassword } from './change-password'
 export { default as DeleteAccount } from './delete-account'
-export { default as Feedback } from './feedback'
 export { default as ResetPassword } from './reset-password'
+export { default as Feedback } from './feedback'
 export { default as Welcome } from './welcome'

@@ -2,9 +2,10 @@
 
 import { Resend } from 'resend'
 
+import type { EmailProps } from '@/emails/config'
 import * as email from '@/emails/components'
-import { replyTo, type EmailProps } from '@/emails/config'
-import { env } from '@/env'
+import { replyTo } from '@/emails/config'
+import { env } from '@/lib/env'
 
 const resend = new Resend(env.RESEND_KEY)
 

@@ -1,4 +1,4 @@
-import { Facebook, Github, Twitter, Globe } from 'lucide-react'
+import { Facebook, Github, Globe, Twitter } from 'lucide-react'
 
 export const SocialLinks: React.FC = () => (
   <div className="flex space-x-4">

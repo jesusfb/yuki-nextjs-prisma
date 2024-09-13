@@ -1,6 +1,6 @@
 import { type NextPage } from 'next'
 
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { seo } from '@/lib/seo'
 import * as data from './_data'
 
@@ -99,5 +99,5 @@ export const metadata = seo({
   images: [
     '/api/og?title=Policies&desc=Read%20our%20privacy%2C%20shipping%2C%20returns%2C%20security%2C%20and%20seller%20policies.',
   ],
-  url: '/privacy-policy',
+  url: '/home/privacy-policy',
 })

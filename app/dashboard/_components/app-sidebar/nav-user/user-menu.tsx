@@ -1,7 +1,7 @@
+import Link from 'next/link'
 import { BadgeCheck, ShoppingCart } from 'lucide-react'
 
 import { DropdownMenuGroup, DropdownMenuItem } from '@/components/ui/dropdown-menu'
-import Link from 'next/link'
 
 export const UserMenu: React.FC = () => (
   <DropdownMenuGroup>

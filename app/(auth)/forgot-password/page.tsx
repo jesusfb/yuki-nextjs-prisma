@@ -1,9 +1,8 @@
 import { type NextPage } from 'next'
 
 import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ForgotPasswordForm } from '../_components/forgot-password-form'
-
 import { seo } from '@/lib/seo'
+import { ForgotPasswordForm } from '@/app/(auth)/_components/forgot-password-form'
 
 const Page: NextPage = () => (
   <>

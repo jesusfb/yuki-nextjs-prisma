@@ -1,9 +1,9 @@
 import { type NextPage } from 'next'
 
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { seo } from '@/lib/seo'
 import { ContactForm } from './_contact-form'
 import { ContactInfo } from './_contact-info'
-import { seo } from '@/lib/seo'
 
 const Page: NextPage = () => (
   <main className="container py-8">
@@ -35,5 +35,5 @@ export const metadata = seo({
   images: [
     '/api/og?title=Contact%20Us&desc=We%27d%20love%20to%20hear%20from%20you.%20Fill%20out%20the%20form%20below%20and%20we%27ll%20get%20back%20to%20you%20as%20soon%20as%20possible.',
   ],
-  url: '/contact-us',
+  url: '/home/contact-us',
 })

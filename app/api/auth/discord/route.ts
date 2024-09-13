@@ -1,9 +1,10 @@
-import { generateState } from 'arctic'
+import type { NextRequest } from 'next/server'
 import { cookies } from 'next/headers'
-import { NextResponse, type NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
+import { generateState } from 'arctic'
 
-import { env } from '@/env'
 import { discord } from '@/server/auth/lucia'
+import { env } from '@/lib/env'
 
 export const GET = async (req: NextRequest) => {
   const state = generateState()
