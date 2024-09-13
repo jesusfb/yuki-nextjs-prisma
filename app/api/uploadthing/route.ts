@@ -1,6 +1,6 @@
 import { createRouteHandler } from 'uploadthing/next'
 
-import { env } from '@/lib/env'
+import { env } from '@/env'
 import { ourFileRouter } from '@/server/uploadthing'
 
 export const { GET, POST } = createRouteHandler({

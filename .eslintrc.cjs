@@ -25,7 +25,7 @@ const config = {
       {
         object: 'process',
         property: 'env',
-        message: "Use `import { env } from '@/lib/env'` instead to ensure validated types.",
+        message: "Use `import { env } from '@/env'` instead to ensure validated types.",
       },
     ],
     'no-restricted-imports': [
@@ -33,7 +33,7 @@ const config = {
       {
         name: 'process',
         importNames: ['env'],
-        message: "Use `import { env } from '@/lib/env'` instead to ensure validated types.",
+        message: "Use `import { env } from '@/env'` instead to ensure validated types.",
       },
     ],
   },
