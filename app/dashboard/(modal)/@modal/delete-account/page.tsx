@@ -1,4 +1,4 @@
-import { DeleteAccountForm } from '../../_components/delete-account-form'
+import { DeleteAccountForm } from '@/app/dashboard/_components/delete-account-form'
 
 const Page = () => <DeleteAccountForm />
 

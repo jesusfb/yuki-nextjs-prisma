@@ -25,6 +25,7 @@ const config = {
     '<TYPES>^[.|..|@]',
     '^@/server/',
     '^@/emails/',
+    '^@/hooks/',
     '^@/lib/',
     '^@/',
     '^[../]',
