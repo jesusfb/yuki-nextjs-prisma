@@ -49,8 +49,14 @@ export const UpdateProfileForm: React.FC<Props> = ({ name, avatar }) => {
             setIsUploading(false)
             if (!res[0]) return
             setImageUrl(res[0].url)
+            toast.success('Avatar uploaded')
+          }}
+          onUploadError={(e) => {
+            setIsUploading(false)
+            toast.error(e.message)
           }}
         />
+
         <Button className="w-full" disabled={isPending || isUploading}>
           Save Changes
         </Button>

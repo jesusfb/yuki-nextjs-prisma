@@ -75,31 +75,4 @@
   ::-webkit-scrollbar-thumb {
     @apply rounded-full bg-ring;
   }
-
-  /* Uploadthing */
-  .upload-btn {
-    background-color: none;
-  }
-
-  /* applied to button */
-  .upload-btn > *[data-ut-element='button'] {
-    color: hsl(var(--primary-foreground));
-    background-color: hsl(var(--primary));
-  }
-  /* applied to button when uploading */
-  .upload-btn > *[data-ut-element='button'][data-state='readying'] {
-    background-color: hsl(var(--muted), 0.5);
-    color: hsl(var(--muted-foreground));
-    cursor: not-allowed;
-  }
-  /* applied to the button when uploading */
-  .upload-btn > *[data-ut-element='button'][data-state='uploading'] {
-    background-color: hsl(var(--muted));
-    color: hsl(var(--muted-foreground));
-    cursor: not-allowed;
-  }
-  /* applied to the upload indicator when uploading */
-  .upload-btn > *[data-ut-element='button'][data-state='uploading']::after {
-    background-color: hsl(var(--primary));
-  }
 }
