@@ -2,6 +2,7 @@ import { type NextPage } from 'next'
 
 import { Button } from '@/components/ui/button'
 import * as card from '@/components/ui/card'
+
 import { seo } from '@/lib/seo'
 import { techStacks } from './_data'
 

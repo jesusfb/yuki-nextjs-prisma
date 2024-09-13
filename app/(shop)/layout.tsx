@@ -1,5 +1,6 @@
 import { Footer } from '@/components/layouts/footer'
 import { Header } from '@/components/layouts/header'
+
 import { auth } from '@/server/auth'
 import { SessionProvider } from '@/hooks/use-session'
 

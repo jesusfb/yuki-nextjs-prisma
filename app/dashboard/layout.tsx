@@ -3,11 +3,12 @@ import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
 import { extractRouterConfig } from 'uploadthing/server'
 
 import { SidebarLayout, SidebarTrigger } from '@/components/ui/sidebar'
+import { AppSidebar } from './_components/app-sidebar'
+
 import { auth } from '@/server/auth'
 import { ourFileRouter } from '@/server/uploadthing'
 import { seo } from '@/lib/seo'
 import { SessionProvider } from '@/hooks/use-session'
-import { AppSidebar } from './_components/app-sidebar'
 
 const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
   const { cookies } = await import('next/headers')

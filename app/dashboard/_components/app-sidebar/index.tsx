@@ -4,6 +4,7 @@ import { type User } from '@prisma/client'
 import * as icons from 'lucide-react'
 
 import * as sidebar from '@/components/ui/sidebar'
+
 import { NavMain } from './nav-main'
 import { NavSecondary } from './nav-secondary'
 import { NavUser } from './nav-user'

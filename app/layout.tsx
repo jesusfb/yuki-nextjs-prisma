@@ -5,6 +5,7 @@ import { ThemeProvider } from 'next-themes'
 
 /* Lib */
 import { Toaster } from '@/components/ui/sonner'
+
 import { seo } from '@/lib/seo'
 import { TRPCReactProvider } from '@/lib/trpc/react'
 import { cn } from '@/lib/utils'

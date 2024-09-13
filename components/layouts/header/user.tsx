@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+
 import { auth } from '@/server/auth'
 
 export const User: React.FC = async () => {

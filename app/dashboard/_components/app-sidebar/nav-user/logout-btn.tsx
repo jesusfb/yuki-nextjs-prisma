@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { LogOut } from 'lucide-react'
 
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
+
 import { signOut } from '@/server/actions'
 
 export const LogoutBtn: React.FC = () => {

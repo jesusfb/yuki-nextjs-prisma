@@ -1,6 +1,7 @@
 import { type NextPage } from 'next'
 
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+
 import { seo } from '@/lib/seo'
 import { ContactForm } from './_contact-form'
 import { ContactInfo } from './_contact-info'

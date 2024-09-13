@@ -2,6 +2,7 @@ import { MenuIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from '@/components/ui/sheet'
+
 import { Brand } from './brand'
 import { Category } from './category'
 import { Search } from './search'

@@ -1,6 +1,7 @@
 import { type NextPage } from 'next'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
 import { seo } from '@/lib/seo'
 import { terms } from './_data'
 

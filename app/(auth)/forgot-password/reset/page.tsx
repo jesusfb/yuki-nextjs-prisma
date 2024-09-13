@@ -1,9 +1,10 @@
 import { type NextPage } from 'next'
 
-import type { Props } from '@/app/(auth)/_components/reset-password-form'
 import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { seo } from '@/lib/seo'
 import { ResetPasswordForm } from '@/app/(auth)/_components/reset-password-form'
+
+import type { Props } from '@/app/(auth)/_components/reset-password-form'
+import { seo } from '@/lib/seo'
 
 const Page: NextPage<Props> = ({ searchParams }) => {
   return (

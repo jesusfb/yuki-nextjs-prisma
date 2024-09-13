@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
 import { UploadDropzone } from '@/components/uploadthing'
+
 import { api } from '@/lib/trpc/react'
 
 export const UpdateProfileForm: React.FC<Props> = ({ name, avatar }) => {
