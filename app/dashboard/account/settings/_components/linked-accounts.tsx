@@ -18,31 +18,34 @@ export const LinkedAccounts: React.FC = async () => {
         </span>
 
         {session.user.discord ? (
-          <div className="flex gap-2 items-center">
-            <p className="text-lg text-muted-foreground">
-              {session.user.discord.username} ({session.user.discord.id})
-            </p>
-            <Button variant="secondary" size="sm" asChild>
-              <Link href="/dashboard/unlink-discord">Unlink</Link>
-            </Button>
-          </div>
+          <Link href="/dashboard/unlink-discord" className="text-lg text-muted-foreground">
+            {session.user.discord.username} ({session.user.discord.id})
+          </Link>
         ) : (
-          <Button size="sm" asChild>
-            <Link href="/api/auth/discord">Link your Discord account</Link>
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/api/auth/discord">Link now</Link>
           </Button>
         )}
       </li>
 
       <li className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-xl font-semibold">
-          <FacebookIcon className="size-5" /> Facebook (soon)
-        </div>
+        <span className="flex items-center gap-2 text-xl font-semibold">
+          <GithubIcon className="size-5" /> GitHub (coming soon)
+        </span>
+
+        <Button variant="outline" size="sm" asChild>
+          <Link href="https://youtu.be/dQw4w9WgXcQ">Link now</Link>
+        </Button>
       </li>
 
       <li className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-xl font-semibold">
-          <GithubIcon className="size-5" /> GitHub (soon)
-        </div>
+        <span className="flex items-center gap-2 text-xl font-semibold">
+          <FacebookIcon className="size-5" /> Facebook (coming soon)
+        </span>
+
+        <Button variant="outline" size="sm" asChild>
+          <Link href="https://youtu.be/UIp6_0kct_U">Link now</Link>
+        </Button>
       </li>
     </ul>
   )
