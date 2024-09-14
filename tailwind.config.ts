@@ -9,10 +9,7 @@ const config = {
   theme: {
     extend: {
       container: { center: true, padding: '2rem', screens: { '2xl': '1400px' } },
-      fontFamily: {
-        sans: ['var(--font-geist-sans)', ...fontFamily.sans],
-        mono: ['var(--font-geist-mono)', ...fontFamily.mono],
-      },
+      fontFamily: { sans: ['var(--font-geist-sans)', ...fontFamily.sans] },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
