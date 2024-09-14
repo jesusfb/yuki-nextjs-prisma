@@ -3,7 +3,7 @@ import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
 import { extractRouterConfig } from 'uploadthing/server'
 
 import { SidebarLayout, SidebarTrigger } from '@/components/ui/sidebar'
-import { AppSidebar } from '@/app/dashboard/_components/app-sidebar'
+import { AppSidebar } from '@/app/(dashboard)/_components/app-sidebar'
 
 import { SessionProvider } from '@/hooks/use-session'
 import { seo } from '@/lib/seo'

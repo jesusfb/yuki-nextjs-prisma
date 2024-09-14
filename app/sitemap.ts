@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next'
 
 import { getBaseUrl } from '@/lib/utils'
-import { db as _db } from '@/server/db'
 
 interface Route {
   url: string
@@ -12,10 +11,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch static routes
   const routesMap: Route[] = [
     '',
-    'about-us',
-    'contact-us',
-    'privacy-policy',
-    'terms-of-service',
+    'home',
+    'home/about-us',
+    'home/contact-us',
+    'home/privacy-policy',
+    'home/terms-of-service',
   ].map((route) => ({
     url: `${getBaseUrl()}/${route}`,
     lastModified: new Date().toISOString(),

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 
-import { UpdateProfileForm } from '../_components/update-profile-form'
+import { UpdateProfileForm } from '@/app/(dashboard)/_components/settings/update-profile-form'
 
 import { auth } from '@/server/auth'
 

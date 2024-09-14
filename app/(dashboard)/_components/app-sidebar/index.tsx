@@ -4,9 +4,9 @@ import Link from 'next/link'
 import * as icons from 'lucide-react'
 
 import * as sidebar from '@/components/ui/sidebar'
-import { NavMain } from '@/app/dashboard/_components/app-sidebar/nav-main'
-import { NavSecondary } from '@/app/dashboard/_components/app-sidebar/nav-secondary'
-import { NavUser } from '@/app/dashboard/_components/app-sidebar/nav-user'
+import { NavMain } from '@/app/(dashboard)/_components/app-sidebar/nav-main'
+import { NavSecondary } from '@/app/(dashboard)/_components/app-sidebar/nav-secondary'
+import { NavUser } from '@/app/(dashboard)/_components/app-sidebar/nav-user'
 
 export const AppSidebar: React.FC<{ user: User }> = ({ user }) => (
   <sidebar.Sidebar>

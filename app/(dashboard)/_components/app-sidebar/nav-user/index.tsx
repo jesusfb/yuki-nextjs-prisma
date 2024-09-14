@@ -1,9 +1,9 @@
 import { type User } from '@prisma/client'
 
 import * as dm from '@/components/ui/dropdown-menu'
-import { LogoutBtn } from '@/app/dashboard/_components/app-sidebar/nav-user/logout-btn'
-import { UserCard } from '@/app/dashboard/_components/app-sidebar/nav-user/user-card'
-import { UserMenu } from '@/app/dashboard/_components/app-sidebar/nav-user/user-menu'
+import { LogoutBtn } from '@/app/(dashboard)/_components/app-sidebar/nav-user/logout-btn'
+import { UserCard } from '@/app/(dashboard)/_components/app-sidebar/nav-user/user-card'
+import { UserMenu } from '@/app/(dashboard)/_components/app-sidebar/nav-user/user-menu'
 
 export const NavUser: React.FC<{ user: User }> = ({ user }) => (
   <dm.DropdownMenu>
