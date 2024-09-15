@@ -52,6 +52,7 @@ export const CreateCategoryForm: React.FC = () => {
       <div className="grid gap-2 place-items-center">
         <UploadDropzone
           endpoint="categoryUploader"
+          config={{ mode: 'auto' }}
           disabled={isDisabled}
           onUploadBegin={() => setUpload({ loading: true })}
           onClientUploadComplete={(e) => {
