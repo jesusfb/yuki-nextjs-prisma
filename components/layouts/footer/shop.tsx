@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const Shop: React.FC = () => (
   <div>
-    <Link href="/" className="mb-4 flex items-center gap-2">
+    <Link href="/home" className="mb-4 flex items-center gap-2">
       <div className="rounded-lg border border-primary/60 p-1">
         <Image
           src="/logo.svg"
