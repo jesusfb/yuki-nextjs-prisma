@@ -33,10 +33,10 @@ export const CustomersList: React.FC<Query> = ({ q, page, limit }) => {
               <table.Cell>{customer.createdAt.toDateString()}</table.Cell>
               <table.Cell className="flex gap-2">
                 <Button size="sm" asChild>
-                  <Link href={`/dashboard/edit-user/${customer.id}`}>Edit</Link>
+                  <Link href={`/dashboard/user/${customer.id}/edit`}>Edit</Link>
                 </Button>
                 <Button variant="destructive" size="sm" asChild>
-                  <Link href={`/dashboard/delete-user/${customer.id}`}>Delete</Link>
+                  <Link href={`/dashboard/user/${customer.id}/delete`}>Delete</Link>
                 </Button>
               </table.Cell>
             </table.Row>

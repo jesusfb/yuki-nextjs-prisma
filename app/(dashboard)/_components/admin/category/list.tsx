@@ -8,8 +8,8 @@ import * as table from '@/components/ui/table'
 import type { Query } from '@/server/api/validators/utils'
 import { api } from '@/lib/trpc/react'
 
-export const ProductList: React.FC<Query> = (props) => {
-  const { data, isLoading } = api.product.getAll.useQuery(props)
+export const CategoryList: React.FC<Query> = (props) => {
+  const { data, isLoading } = api.category.getAll.useQuery(props)
 
   return (
     <table.Root>
@@ -27,17 +27,14 @@ export const ProductList: React.FC<Query> = (props) => {
             <table.Row key={product.id}>
               <table.Cell>{product.id}</table.Cell>
               <table.Cell>{product.name}</table.Cell>
-              <table.Cell>{product.category.name}</table.Cell>
-              <table.Cell>{product.price}</table.Cell>
-              <table.Cell>{product.stock}</table.Cell>
-              <table.Cell>{product.owner.name}</table.Cell>
+              <table.Cell>{product._count.products}</table.Cell>
               <table.Cell>{product.createdAt.toDateString()}</table.Cell>
               <table.Cell className="flex gap-2">
                 <Button size="sm" asChild>
-                  <Link href={`/dashboard/product/${product.id}/edit`}>Edit</Link>
+                  <Link href={`/dashboard/category/${product.id}/edit`}>Edit</Link>
                 </Button>
                 <Button variant="destructive" size="sm" asChild>
-                  <Link href={`/dashboard/product/${product.id}/delete`}>Delete</Link>
+                  <Link href={`/dashboard/category/${product.id}/delete`}>Delete</Link>
                 </Button>
               </table.Cell>
             </table.Row>
@@ -54,4 +51,4 @@ export const ProductList: React.FC<Query> = (props) => {
   )
 }
 
-const headers = ['ID', 'Name', 'Category', 'Price', 'Stock', 'Owner', 'Created At', 'Actions']
+const headers = ['ID', 'Name', 'Products', 'Created At', 'Actions']
