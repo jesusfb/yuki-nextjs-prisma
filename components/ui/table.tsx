@@ -93,7 +93,7 @@ export {
   TableHeader as Header,
   TableBody as Body,
   TableFooter,
-  TableHead,
+  TableHead as Head,
   TableRow as Row,
   TableCell as Cell,
   TableCaption,

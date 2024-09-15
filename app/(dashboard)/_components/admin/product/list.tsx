@@ -7,10 +7,9 @@ import * as table from '@/components/ui/table'
 
 import type { Query } from '@/server/api/validators/utils'
 import { api } from '@/lib/trpc/react'
-import { UpdateRole } from './update-role'
 
-export const CustomersList: React.FC<Query> = ({ q, page, limit }) => {
-  const { data, isLoading } = api.user.getAll.useQuery({ q, page, limit })
+export const ProductList: React.FC<Query> = (props) => {
+  const { data, isLoading } = api.product.getAll.useQuery(props)
 
   return (
     <table.Root>
@@ -24,19 +23,21 @@ export const CustomersList: React.FC<Query> = ({ q, page, limit }) => {
 
       <table.Body>
         {!isLoading && data ? (
-          data.map((customer) => (
-            <table.Row key={customer.id}>
-              <table.Cell>{customer.id}</table.Cell>
-              <table.Cell>{customer.name}</table.Cell>
-              <table.Cell>{customer.email}</table.Cell>
-              <UpdateRole userId={customer.id} currentRole={customer.role} />
-              <table.Cell>{customer.createdAt.toDateString()}</table.Cell>
+          data.map((product) => (
+            <table.Row key={product.id}>
+              <table.Cell>{product.id}</table.Cell>
+              <table.Cell>{product.name}</table.Cell>
+              <table.Cell>{product.category.name}</table.Cell>
+              <table.Cell>{product.price}</table.Cell>
+              <table.Cell>{product.stock}</table.Cell>
+              <table.Cell>{product.owner.name}</table.Cell>
+              <table.Cell>{product.createdAt.toDateString()}</table.Cell>
               <table.Cell className="flex gap-2">
                 <Button size="sm" asChild>
-                  <Link href={`/dashboard/edit-user/${customer.id}`}>Edit</Link>
+                  <Link href={`/dashboard/edit-product/${product.id}`}>Edit</Link>
                 </Button>
                 <Button variant="destructive" size="sm" asChild>
-                  <Link href={`/dashboard/delete-user/${customer.id}`}>Delete</Link>
+                  <Link href={`/dashboard/delete-product/${product.id}`}>Delete</Link>
                 </Button>
               </table.Cell>
             </table.Row>
@@ -53,4 +54,4 @@ export const CustomersList: React.FC<Query> = ({ q, page, limit }) => {
   )
 }
 
-const headers = ['ID', 'Name', 'Email', 'Role', 'Created At', 'Actions']
+const headers = ['ID', 'Name', 'Category', 'Price', 'Stock', 'Owner', 'Created At', 'Actions']

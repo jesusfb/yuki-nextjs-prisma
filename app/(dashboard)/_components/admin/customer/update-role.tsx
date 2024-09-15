@@ -23,7 +23,7 @@ export const UpdateRole: React.FC<Props> = ({ userId, currentRole }) => {
         }}
       >
         <select.Trigger>
-          <select.SelectValue placeholder="Select role" />
+          <select.Value placeholder="Select role" />
         </select.Trigger>
 
         <select.Content>
