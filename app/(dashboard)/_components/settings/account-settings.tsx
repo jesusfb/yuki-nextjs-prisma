@@ -19,6 +19,6 @@ export const AccountSetting: React.FC = () => (
 )
 
 const settings = [
-  { name: 'Profile', href: '/dashboard/account/settings/profile' },
-  { name: 'Security', href: '/dashboard/account/settings/security' },
+  { name: 'Profile', href: '/dashboard/settings/profile' },
+  { name: 'Security', href: '/dashboard/settings/security' },
 ]
