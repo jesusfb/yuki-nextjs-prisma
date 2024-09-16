@@ -3,8 +3,8 @@ import type { NextPage } from 'next'
 import { Button } from '@/components/ui/button'
 import * as card from '@/components/ui/card'
 
+import { techStacks } from '@/app/(landing)/_data/abouts'
 import { seo } from '@/lib/seo'
-import { techStacks } from './_data'
 
 const Page: NextPage = () => (
   <main className="container py-8">
@@ -68,15 +68,15 @@ interface TechCardProps {
   title: string
   href: string
   description: string
-  icon: React.ReactNode
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
 }
 
-const TechCard: React.FC<TechCardProps> = ({ href, title, description, icon }) => (
+const TechCard: React.FC<TechCardProps> = ({ href, title, description, Icon }) => (
   <card.Card isPressable asChild>
     <a href={href} target="_blank" rel="noopener noreferrer">
       <card.CardHeader>
         <card.CardTitle className="flex items-center gap-2">
-          {icon}
+          <Icon className="h-6 w-6" />
           {title}
         </card.CardTitle>
       </card.CardHeader>

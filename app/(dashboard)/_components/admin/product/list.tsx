@@ -1,57 +1,45 @@
-'use client'
-
+import type { Product } from '@prisma/client'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import * as table from '@/components/ui/table'
 
-import type { Query } from '@/server/api/validators/utils'
-import { api } from '@/lib/trpc/react'
+export const ProductList: React.FC<Props> = ({ products }) => (
+  <table.Table>
+    <table.TableHeader>
+      <table.TableRow>
+        {headers.map((header) => (
+          <table.TableHead key={header}>{header}</table.TableHead>
+        ))}
+      </table.TableRow>
+    </table.TableHeader>
 
-export const ProductList: React.FC<Query> = (props) => {
-  const { data, isLoading } = api.product.getAll.useQuery(props)
-
-  return (
-    <table.Root>
-      <table.Header>
-        <table.Row>
-          {headers.map((header) => (
-            <table.Head key={header}>{header}</table.Head>
-          ))}
-        </table.Row>
-      </table.Header>
-
-      <table.Body>
-        {!isLoading && data ? (
-          data.map((product) => (
-            <table.Row key={product.id}>
-              <table.Cell>{product.id}</table.Cell>
-              <table.Cell>{product.name}</table.Cell>
-              <table.Cell>{product.category.name}</table.Cell>
-              <table.Cell>{product.price}</table.Cell>
-              <table.Cell>{product.stock}</table.Cell>
-              <table.Cell>{product.owner.name}</table.Cell>
-              <table.Cell>{product.createdAt.toDateString()}</table.Cell>
-              <table.Cell className="flex gap-2">
-                <Button size="sm" asChild>
-                  <Link href={`/dashboard/product/${product.id}/edit`}>Edit</Link>
-                </Button>
-                <Button variant="destructive" size="sm" asChild>
-                  <Link href={`/dashboard/product/${product.id}/delete`}>Delete</Link>
-                </Button>
-              </table.Cell>
-            </table.Row>
-          ))
-        ) : (
-          <table.Row>
-            <table.Cell colSpan={headers.length} className="text-center text-muted-foreground">
-              Loading...
-            </table.Cell>
-          </table.Row>
-        )}
-      </table.Body>
-    </table.Root>
-  )
-}
+    <table.TableBody>
+      {products.map((product) => (
+        <table.TableRow key={product.id}>
+          <table.TableCell>{product.id}</table.TableCell>
+          <table.TableCell>{product.name}</table.TableCell>
+          <table.TableCell>{product.category.name}</table.TableCell>
+          <table.TableCell>{product.price}</table.TableCell>
+          <table.TableCell>{product.stock}</table.TableCell>
+          <table.TableCell>{product.owner.name}</table.TableCell>
+          <table.TableCell>{product.createdAt.toDateString()}</table.TableCell>
+          <table.TableCell className="flex gap-2">
+            <Button size="sm" asChild>
+              <Link href={`/dashboard/product/${product.id}/edit`}>Edit</Link>
+            </Button>
+            <Button variant="destructive" size="sm" asChild>
+              <Link href={`/dashboard/product/${product.id}/delete`}>Delete</Link>
+            </Button>
+          </table.TableCell>
+        </table.TableRow>
+      ))}
+    </table.TableBody>
+  </table.Table>
+)
 
 const headers = ['ID', 'Name', 'Category', 'Price', 'Stock', 'Owner', 'Created At', 'Actions']
+
+interface Props {
+  products: Array<Product & { category: { name: string }; owner: { name: string } }>
+}

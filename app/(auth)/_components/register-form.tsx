@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
-import { CardContent } from '@/components/ui/card'
 
 import { api } from '@/lib/trpc/react'
 
@@ -23,31 +22,29 @@ export const RegisterForm: React.FC = () => {
   }
 
   return (
-    <CardContent asChild>
-      <form className="grid gap-4" action={action}>
-        {fields.map((field) => (
-          <FormField
-            key={field.name}
-            {...field}
-            disabled={isPending}
-            message={error?.data?.zodError?.[field.name]?.at(0)}
-          />
-        ))}
+    <form className="grid gap-4" action={action}>
+      {fields.map((field) => (
+        <FormField
+          key={field.name}
+          {...field}
+          disabled={isPending}
+          message={error?.data?.zodError?.[field.name]?.at(0)}
+        />
+      ))}
 
-        {!error?.data?.zodError && <small className="text-destructive">{error?.message}</small>}
+      {!error?.data?.zodError && <small className="text-destructive">{error?.message}</small>}
 
-        <Button className="w-full" disabled={isPending}>
-          Register
-        </Button>
+      <Button className="w-full" disabled={isPending}>
+        Register
+      </Button>
 
-        <div className="text-center text-sm">
-          Already have an account?{' '}
-          <button type="button" onClick={() => router.push('sign-in')} className="underline">
-            Sign in
-          </button>
-        </div>
-      </form>
-    </CardContent>
+      <div className="text-center text-sm">
+        Already have an account?{' '}
+        <button type="button" onClick={() => router.push('sign-in')} className="underline">
+          Sign in
+        </button>
+      </div>
+    </form>
   )
 }
 

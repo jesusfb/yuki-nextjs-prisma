@@ -1,18 +1,20 @@
 import type { NextPage } from 'next'
 
-import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import * as card from '@/components/ui/card'
 import { RegisterForm } from '@/app/(auth)/_components/register-form'
 
 import { seo } from '@/lib/seo'
 
 const Page: NextPage = () => (
   <>
-    <CardHeader>
-      <CardTitle className="text-2xl">Register</CardTitle>
-      <CardDescription>Enter your email below to register for an account</CardDescription>
-    </CardHeader>
+    <card.CardHeader>
+      <card.CardTitle className="text-2xl">Register</card.CardTitle>
+      <card.CardDescription>Enter your email below to register for an account</card.CardDescription>
+    </card.CardHeader>
 
-    <RegisterForm />
+    <card.CardContent asChild>
+      <RegisterForm />
+    </card.CardContent>
   </>
 )
 

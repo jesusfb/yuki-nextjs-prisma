@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 
-import { getBaseUrl } from '@/lib/utils'
+import { getBaseUrl, slugify } from '@/lib/utils'
+import { db } from '@/server/db'
 
 interface Route {
   url: string
@@ -21,19 +22,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date().toISOString(),
   }))
 
-  // const userRoutes: Route[] = await db.user
-  //   .findMany({ select: { id: true, name: true, updatedAt: true } })
-  //   .then((users) =>
-  //     users.map((user) => ({
-  //       url: `${getBaseUrl()}/u/${createSlug({ str: user.name, suffix: user.id })}`,
-  //       lastModified: user.updatedAt.toISOString(),
-  //     })),
-  //   )
+  const productsRoutes: Route[] = await db.product
+    .findMany({ select: { id: true, name: true, createdAt: true } })
+    .then((users) =>
+      users.map((p) => ({
+        url: `${getBaseUrl()}/p/${slugify(p.name, p.id)}`,
+        lastModified: p.createdAt.toISOString(),
+      })),
+    )
 
   // Fetch dynamic routes
   let fetchedRoutes: Route[] = []
   try {
-    fetchedRoutes = (await Promise.all([])).flat()
+    fetchedRoutes = (await Promise.all([productsRoutes])).flat()
   } catch (error) {
     if (error instanceof Error) throw new Error(`Error fetching dynamic routes: ${error.message}`)
   }

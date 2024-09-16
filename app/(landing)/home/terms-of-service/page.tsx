@@ -1,17 +1,17 @@
 import { type NextPage } from 'next'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import * as card from '@/components/ui/card'
 
+import { terms } from '@/app/(landing)/_data/terms'
 import { seo } from '@/lib/seo'
-import { terms } from './_data'
 
 const Page: NextPage = () => (
   <main className="container py-8">
-    <Card className="container">
-      <CardHeader>
-        <CardTitle className="text-center text-3xl font-bold">Terms of Service</CardTitle>
-      </CardHeader>
-      <CardContent className="prose max-w-none">
+    <card.Card className="container">
+      <card.CardHeader>
+        <card.CardTitle className="text-center text-3xl font-bold">Terms of Service</card.CardTitle>
+      </card.CardHeader>
+      <card.CardContent className="prose max-w-none">
         <p className="mb-6 text-muted-foreground">
           Last updated: {new Date().toLocaleDateString()}
         </p>
@@ -60,8 +60,8 @@ const Page: NextPage = () => (
             </a>
           </p>
         </div>
-      </CardContent>
-    </Card>
+      </card.CardContent>
+    </card.Card>
   </main>
 )
 

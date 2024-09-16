@@ -1,7 +1,7 @@
 import { Role } from '@prisma/client'
 
 import * as select from '@/components/ui/select'
-import { Cell } from '@/components/ui/table'
+import { TableCell } from '@/components/ui/table'
 
 import { api } from '@/lib/trpc/react'
 
@@ -14,23 +14,23 @@ export const UpdateRole: React.FC<Props> = ({ userId, currentRole }) => {
   const { mutate, isPending, data } = api.user.updateRole.useMutation()
 
   return (
-    <Cell>
-      <select.Root
+    <TableCell>
+      <select.Select
         disabled={isPending}
         defaultValue={String(data ?? currentRole)}
         onValueChange={(role: Role) => {
           mutate({ userId, role })
         }}
       >
-        <select.Trigger>
-          <select.Value placeholder="Select role" />
-        </select.Trigger>
+        <select.SelectTrigger>
+          <select.SelectValue placeholder="Select role" />
+        </select.SelectTrigger>
 
-        <select.Content>
-          <select.Item value={Role.USER}>User</select.Item>
-          <select.Item value={Role.ADMIN}>Admin</select.Item>
-        </select.Content>
-      </select.Root>
-    </Cell>
+        <select.SelectContent>
+          <select.SelectItem value={Role.USER}>User</select.SelectItem>
+          <select.SelectItem value={Role.ADMIN}>Admin</select.SelectItem>
+        </select.SelectContent>
+      </select.Select>
+    </TableCell>
   )
 }

@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
-import { CardContent } from '@/components/ui/card'
 
 import { api } from '@/lib/trpc/react'
 
@@ -23,24 +22,22 @@ export const ResetPasswordForm: React.FC<Props> = ({ searchParams }) => {
     mutate({ ...Object.fromEntries(formData), ...searchParams })
   }
   return (
-    <CardContent asChild>
-      <form className="space-y-4" action={action}>
-        {fields.map((field) => (
-          <FormField
-            key={field.name}
-            {...field}
-            disabled={isPending}
-            message={error?.data?.zodError?.[field.name]?.at(0)}
-          />
-        ))}
+    <form className="space-y-4" action={action}>
+      {fields.map((field) => (
+        <FormField
+          key={field.name}
+          {...field}
+          disabled={isPending}
+          message={error?.data?.zodError?.[field.name]?.at(0)}
+        />
+      ))}
 
-        {!error?.data?.zodError && <small className="text-destructive">{error?.message}</small>}
+      {!error?.data?.zodError && <small className="text-destructive">{error?.message}</small>}
 
-        <Button className="w-full" disabled={isPending}>
-          Reset Password
-        </Button>
-      </form>
-    </CardContent>
+      <Button className="w-full" disabled={isPending}>
+        Reset Password
+      </Button>
+    </form>
   )
 }
 

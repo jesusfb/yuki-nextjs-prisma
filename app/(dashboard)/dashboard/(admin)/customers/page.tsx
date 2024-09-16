@@ -3,16 +3,12 @@ import type { NextPage } from 'next'
 import { CustomersList } from '@/app/(dashboard)/_components/admin/customer/list'
 
 import type { Query } from '@/server/api/validators/utils'
-import { api, HydrateClient } from '@/lib/trpc/server'
+import { api } from '@/lib/trpc/server'
 
-const Page: NextPage<Query> = async (props) => {
-  void api.user.getAll.prefetch(props)
+const Page: NextPage<{ searchParams: Query }> = async ({ searchParams }) => {
+  const customers = await api.user.getAll(searchParams)
 
-  return (
-    <HydrateClient>
-      <CustomersList {...props} />
-    </HydrateClient>
-  )
+  return <CustomersList customers={customers} />
 }
 
 export default Page

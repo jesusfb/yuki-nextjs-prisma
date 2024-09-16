@@ -1,18 +1,18 @@
 import { type NextPage } from 'next'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import * as card from '@/components/ui/card'
 
+import * as data from '@/app/(landing)/_data/policies'
 import { seo } from '@/lib/seo'
-import * as data from './_data'
 
 const Page: NextPage = () => (
   <main className="container mx-auto px-4 py-8">
-    <Card className="container">
-      <CardHeader>
-        <CardTitle className="text-center text-3xl font-bold">Yuki Policies</CardTitle>
-      </CardHeader>
+    <card.Card className="container">
+      <card.CardHeader>
+        <card.CardTitle className="text-center text-3xl font-bold">Yuki Policies</card.CardTitle>
+      </card.CardHeader>
 
-      <CardContent>
+      <card.CardContent>
         <p className="mb-6 text-muted-foreground">
           Last updated: {new Date().toLocaleDateString()}
         </p>
@@ -87,8 +87,8 @@ const Page: NextPage = () => (
           For any questions or concerns regarding our policies, please contact our customer support
           team at support@tiesen.id.vn or call us at (123) 456-7890.
         </p>
-      </CardContent>
-    </Card>
+      </card.CardContent>
+    </card.Card>
   </main>
 )
 

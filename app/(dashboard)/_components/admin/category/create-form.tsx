@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
@@ -11,10 +12,15 @@ import { UploadDropzone } from '@/components/uploadthing'
 import { api } from '@/lib/trpc/react'
 
 export const CreateCategoryForm: React.FC = () => {
+  const router = useRouter()
   const [upload, setUpload] = useState<{ url?: string; loading: boolean }>({ loading: false })
 
   const { mutate, isPending, error } = api.category.create.useMutation({
-    onSuccess: () => toast.success('Category created'),
+    onSuccess: async () => {
+      toast.success('Category created')
+      router.push('/dashboard/categories')
+      router.refresh()
+    },
     onError: (e) => !e.data?.zodError && toast.error(e.message),
   })
 

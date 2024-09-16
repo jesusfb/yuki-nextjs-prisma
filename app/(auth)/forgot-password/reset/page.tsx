@@ -1,24 +1,24 @@
 import type { NextPage } from 'next'
 
-import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import * as card from '@/components/ui/card'
 import { ResetPasswordForm } from '@/app/(auth)/_components/reset-password-form'
 
 import { seo } from '@/lib/seo'
 
-const Page: NextPage<Props> = ({ searchParams }) => {
-  return (
-    <>
-      <CardHeader>
-        <CardTitle className="text-2xl">Reset Password</CardTitle>
-        <CardDescription>
-          Enter your new password below to reset your password and login
-        </CardDescription>
-      </CardHeader>
+const Page: NextPage<Props> = ({ searchParams }) => (
+  <>
+    <card.CardHeader>
+      <card.CardTitle className="text-2xl">Reset Password</card.CardTitle>
+      <card.CardDescription>
+        Enter your new password below to reset your password and login
+      </card.CardDescription>
+    </card.CardHeader>
 
+    <card.CardContent asChild>
       <ResetPasswordForm searchParams={searchParams} />
-    </>
-  )
-}
+    </card.CardContent>
+  </>
+)
 
 export default Page
 

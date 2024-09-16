@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { BadgeCheckIcon, LockIcon } from 'lucide-react'
 
-import { CardTitle } from '@/components/ui/card'
+import * as card from '@/components/ui/card'
 import { ChangePasswordForm } from '@/app/(dashboard)/_components/settings/change-password-form'
 import { LinkedAccounts } from '@/app/(dashboard)/_components/settings/linked-accounts'
 
@@ -11,18 +11,18 @@ const Page: NextPage = () => (
       Account Security
     </h2>
 
-    <CardTitle className="mb-4 flex items-center gap-2">
+    <card.CardTitle className="mb-4 flex items-center gap-2">
       <LockIcon />
       Change password
-    </CardTitle>
+    </card.CardTitle>
     <ChangePasswordForm />
 
     <hr className="my-8" />
 
-    <CardTitle className="mb-4 flex items-center gap-2">
+    <card.CardTitle className="mb-4 flex items-center gap-2">
       <BadgeCheckIcon />
       Linked accounts
-    </CardTitle>
+    </card.CardTitle>
 
     <LinkedAccounts />
   </>

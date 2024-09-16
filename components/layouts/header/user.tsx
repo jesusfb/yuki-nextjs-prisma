@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import * as avatar from '@/components/ui/avatar'
 
 import { auth } from '@/server/auth'
 
@@ -9,14 +9,14 @@ export const User: React.FC = async () => {
   if (!session) return <Link href="/sign-in">Login</Link>
 
   return (
-    <Avatar className="size-8 ring-2 hover:ring-ring" asChild>
+    <avatar.Avatar className="size-8 ring-2 hover:ring-ring" asChild>
       <Link href="/dashboard">
-        <AvatarImage
+        <avatar.AvatarImage
           src={session.user.avatar ?? session.user.discord?.avatar}
           alt={session.user.name}
         />
-        <AvatarFallback>{session.user.name.slice(0, 2)}</AvatarFallback>
+        <avatar.AvatarFallback>{session.user.name.slice(0, 2)}</avatar.AvatarFallback>
       </Link>
-    </Avatar>
+    </avatar.Avatar>
   )
 }

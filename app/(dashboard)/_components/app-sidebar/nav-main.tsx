@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import * as col from '@/components/ui/collapsible'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 
 import { cn } from '@/lib/utils'
 
 export const NavMain: React.FC<NavMainProps> = ({ className, items }) => (
   <ul className={cn('grid gap-0.5', className)}>
     {items.map((item) => (
-      <col.Collapsible key={item.title} asChild defaultOpen={item.isActive}>
+      <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
         <li>
           <div className="relative flex items-center">
             <Link
@@ -23,7 +23,7 @@ export const NavMain: React.FC<NavMainProps> = ({ className, items }) => (
               </div>
             </Link>
             {item.items && (
-              <col.CollapsibleTrigger asChild>
+              <CollapsibleTrigger asChild>
                 <Button
                   variant="ghost"
                   className="absolute right-1 h-6 w-6 rounded-md p-0 ring-ring transition-all focus-visible:ring-2 data-[state=open]:rotate-90"
@@ -31,11 +31,11 @@ export const NavMain: React.FC<NavMainProps> = ({ className, items }) => (
                   <ChevronRight className="h-4 w-4 text-muted-foreground" />
                   <span className="sr-only">Toggle</span>
                 </Button>
-              </col.CollapsibleTrigger>
+              </CollapsibleTrigger>
             )}
           </div>
 
-          <col.CollapsibleContent className="px-4 py-0.5">
+          <CollapsibleContent className="px-4 py-0.5">
             <ul className="grid border-l px-2">
               {item.items?.map((subItem) => (
                 <li key={subItem.title}>
@@ -51,9 +51,9 @@ export const NavMain: React.FC<NavMainProps> = ({ className, items }) => (
                 </li>
               ))}
             </ul>
-          </col.CollapsibleContent>
+          </CollapsibleContent>
         </li>
-      </col.Collapsible>
+      </Collapsible>
     ))}
   </ul>
 )

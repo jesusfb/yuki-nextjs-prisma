@@ -1,56 +1,41 @@
-'use client'
-
+import type { User } from '@prisma/client'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import * as table from '@/components/ui/table'
 
-import type { Query } from '@/server/api/validators/utils'
-import { api } from '@/lib/trpc/react'
 import { UpdateRole } from './update-role'
 
-export const CustomersList: React.FC<Query> = ({ q, page, limit }) => {
-  const { data, isLoading } = api.user.getAll.useQuery({ q, page, limit })
+export const CustomersList: React.FC<{ customers: User[] }> = ({ customers }) => (
+  <table.Table>
+    <table.TableHeader>
+      <table.TableRow>
+        {headers.map((header) => (
+          <table.TableHead key={header}>{header}</table.TableHead>
+        ))}
+      </table.TableRow>
+    </table.TableHeader>
 
-  return (
-    <table.Root>
-      <table.Header>
-        <table.Row>
-          {headers.map((header) => (
-            <table.Head key={header}>{header}</table.Head>
-          ))}
-        </table.Row>
-      </table.Header>
-
-      <table.Body>
-        {!isLoading && data ? (
-          data.map((customer) => (
-            <table.Row key={customer.id}>
-              <table.Cell>{customer.id}</table.Cell>
-              <table.Cell>{customer.name}</table.Cell>
-              <table.Cell>{customer.email}</table.Cell>
-              <UpdateRole userId={customer.id} currentRole={customer.role} />
-              <table.Cell>{customer.createdAt.toDateString()}</table.Cell>
-              <table.Cell className="flex gap-2">
-                <Button size="sm" asChild>
-                  <Link href={`/dashboard/user/${customer.id}/edit`}>Edit</Link>
-                </Button>
-                <Button variant="destructive" size="sm" asChild>
-                  <Link href={`/dashboard/user/${customer.id}/delete`}>Delete</Link>
-                </Button>
-              </table.Cell>
-            </table.Row>
-          ))
-        ) : (
-          <table.Row>
-            <table.Cell colSpan={headers.length} className="text-center text-muted-foreground">
-              Loading...
-            </table.Cell>
-          </table.Row>
-        )}
-      </table.Body>
-    </table.Root>
-  )
-}
+    <table.TableBody>
+      {customers.map((customer) => (
+        <table.TableRow key={customer.id}>
+          <table.TableCell>{customer.id}</table.TableCell>
+          <table.TableCell>{customer.name}</table.TableCell>
+          <table.TableCell>{customer.email}</table.TableCell>
+          <UpdateRole userId={customer.id} currentRole={customer.role} />
+          <table.TableCell>{customer.createdAt.toDateString()}</table.TableCell>
+          <table.TableCell className="flex gap-2">
+            <Button size="sm" asChild>
+              <Link href={`/dashboard/user/${customer.id}/edit`}>Edit</Link>
+            </Button>
+            <Button variant="destructive" size="sm" asChild>
+              <Link href={`/dashboard/user/${customer.id}/delete`}>Delete</Link>
+            </Button>
+          </table.TableCell>
+        </table.TableRow>
+      ))}
+    </table.TableBody>
+  </table.Table>
+)
 
 const headers = ['ID', 'Name', 'Email', 'Role', 'Created At', 'Actions']

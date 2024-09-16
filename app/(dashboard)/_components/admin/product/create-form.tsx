@@ -15,7 +15,6 @@ import { api } from '@/lib/trpc/react'
 
 export const CreateProductForm: React.FC<Props> = ({ categories }) => {
   const router = useRouter()
-  const utils = api.useUtils()
   const [upload, setUpload] = useState<{ url?: string; loading: boolean }>({ loading: false })
 
   const { mutate, isPending, error } = api.product.create.useMutation({
@@ -23,7 +22,7 @@ export const CreateProductForm: React.FC<Props> = ({ categories }) => {
     onSuccess: async () => {
       toast.success('Product created')
       router.push('/dashboard/products')
-      await utils.product.getAll.invalidate()
+      router.refresh()
     },
   })
 
@@ -58,19 +57,19 @@ export const CreateProductForm: React.FC<Props> = ({ categories }) => {
         </FormField>
 
         <FormField label="Category" name="category" disabled={isPending} asChild>
-          <select.Root>
-            <select.Trigger>
-              <select.Value placeholder="Select Category" />
-            </select.Trigger>
+          <select.Select>
+            <select.SelectTrigger>
+              <select.SelectValue placeholder="Select Category" />
+            </select.SelectTrigger>
 
-            <select.Content>
+            <select.SelectContent>
               {categories.map((category) => (
-                <select.Item key={category.id} value={category.id}>
+                <select.SelectItem key={category.id} value={category.id}>
                   {category.name}
-                </select.Item>
+                </select.SelectItem>
               ))}
-            </select.Content>
-          </select.Root>
+            </select.SelectContent>
+          </select.Select>
         </FormField>
 
         <FormField

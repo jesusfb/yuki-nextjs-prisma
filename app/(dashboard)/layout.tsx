@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
 import { extractRouterConfig } from 'uploadthing/server'
 
-import { SidebarLayout, SidebarTrigger } from '@/components/ui/sidebar'
+import * as sidebar from '@/components/ui/sidebar'
 import { AppSidebar } from '@/app/(dashboard)/_components/app-sidebar'
 
 import { SessionProvider } from '@/hooks/use-session'
@@ -20,15 +20,15 @@ const DashboardLayout: React.FC<React.PropsWithChildren> = async ({ children }) 
     <SessionProvider session={session}>
       <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
 
-      <SidebarLayout defaultOpen={cookies().get('sidebar:state')?.value === 'true'}>
+      <sidebar.SidebarLayout defaultOpen={cookies().get('sidebar:state')?.value === 'true'}>
         <AppSidebar user={session.user} />
         <main className="flex flex-1 flex-col p-2 transition-all duration-300 ease-in-out">
           <div className="h-full overflow-y-auto rounded-md border-dashed px-4 py-2 md:border-2">
-            <SidebarTrigger />
+            <sidebar.SidebarTrigger />
             <section>{children}</section>
           </div>
         </main>
-      </SidebarLayout>
+      </sidebar.SidebarLayout>
     </SessionProvider>
   )
 }

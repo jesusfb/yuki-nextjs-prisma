@@ -1,24 +1,24 @@
 import { MenuIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from '@/components/ui/sheet'
+import * as sheet from '@/components/ui/sheet'
 
 import { Brand } from './brand'
 import { Category } from './category'
 import { Search } from './search'
 
 export const MobileSidebar: React.FC = () => (
-  <Sheet>
-    <SheetTrigger className="md:hidden" asChild>
+  <sheet.Sheet>
+    <sheet.SheetTrigger className="md:hidden" asChild>
       <Button variant="outline" size="icon">
         <MenuIcon />
       </Button>
-    </SheetTrigger>
+    </sheet.SheetTrigger>
 
-    <SheetContent side="left" className="flex flex-col gap-4">
-      <SheetHeader>
+    <sheet.SheetContent side="left" className="flex flex-col gap-4">
+      <sheet.SheetHeader>
         <Brand className="not-sr-only text-3xl" />
-      </SheetHeader>
+      </sheet.SheetHeader>
 
       <Search />
 
@@ -27,7 +27,9 @@ export const MobileSidebar: React.FC = () => (
         itemClassName="rounded-lg px-3 py-2 hover:bg-accent hover:text-accent-foreground"
       />
 
-      <SheetFooter>&copy; {new Date().getFullYear()} Yuki. All rights reserved.</SheetFooter>
-    </SheetContent>
-  </Sheet>
+      <sheet.SheetFooter>
+        &copy; {new Date().getFullYear()} Yuki. All rights reserved.
+      </sheet.SheetFooter>
+    </sheet.SheetContent>
+  </sheet.Sheet>
 )

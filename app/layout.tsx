@@ -11,12 +11,7 @@ import { cn } from '@/lib/utils'
 
 const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => (
   <html lang="en" suppressHydrationWarning>
-    <body
-      className={cn(
-        'flex flex-col min-h-dvh bg-background text-foreground antialiased font-sans',
-        GeistSans.variable,
-      )}
-    >
+    <body className={cn('flex flex-col min-h-dvh antialiased font-sans', GeistSans.variable)}>
       <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
         <TRPCReactProvider>{children}</TRPCReactProvider>
         <Toaster richColors />

@@ -2,6 +2,7 @@ import type { FileRouter } from 'uploadthing/next'
 import { createUploadthing } from 'uploadthing/next'
 import { UploadThingError, UTApi } from 'uploadthing/server'
 
+import { env } from '@/env'
 import { auth } from '@/server/auth'
 
 const f = createUploadthing()
@@ -40,4 +41,4 @@ export const ourFileRouter = {
 
 export type OurFileRouter = typeof ourFileRouter
 
-export const utapi = new UTApi()
+export const utapi = new UTApi({ token: env.UPLOADTHING_TOKEN })

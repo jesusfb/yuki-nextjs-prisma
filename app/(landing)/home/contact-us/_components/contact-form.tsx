@@ -1,10 +1,11 @@
 'use client'
 
 import { useRef, useTransition } from 'react'
+import { toast } from 'sonner'
 
 import { FormField } from '@/components/form-field'
 import { Button } from '@/components/ui/button'
-import { CardContent, CardFooter } from '@/components/ui/card'
+import * as card from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
 
 import { sendEmail } from '@/emails'
@@ -31,13 +32,15 @@ export const ContactForm: React.FC = () => {
       })
       formRef.current.reset()
 
-      if (res.error) return alert(res.error)
-      alert(res.message)
+      if (res.error) {
+        toast.error(res.error)
+      }
+      toast.success('Message sent!')
     })
 
   return (
     <form action={action} ref={formRef}>
-      <CardContent className="grid w-full items-center gap-4">
+      <card.CardContent className="grid w-full items-center gap-4">
         <FormField
           type="email"
           name="email"
@@ -57,11 +60,11 @@ export const ContactForm: React.FC = () => {
         <FormField name="message" label="Message" disabled={isPending} asChild>
           <Textarea placeholder="Write your message here" required />
         </FormField>
-      </CardContent>
+      </card.CardContent>
 
-      <CardFooter className="flex justify-between">
+      <card.CardFooter className="flex justify-between">
         <Button disabled={isPending}>Send Message</Button>
-      </CardFooter>
+      </card.CardFooter>
     </form>
   )
 }
