@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import * as table from '@/components/ui/table'
 
-import { UpdateRole } from './update-role'
-
 export const CustomersList: React.FC<{ customers: User[] }> = ({ customers }) => (
   <table.Table>
     <table.TableHeader>
@@ -22,7 +20,7 @@ export const CustomersList: React.FC<{ customers: User[] }> = ({ customers }) =>
           <table.TableCell>{customer.id}</table.TableCell>
           <table.TableCell>{customer.name}</table.TableCell>
           <table.TableCell>{customer.email}</table.TableCell>
-          <UpdateRole userId={customer.id} currentRole={customer.role} />
+          <table.TableCell>{customer.role}</table.TableCell>
           <table.TableCell>{customer.createdAt.toDateString()}</table.TableCell>
           <table.TableCell className="flex gap-2">
             <Button size="sm" asChild>
