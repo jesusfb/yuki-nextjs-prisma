@@ -22,10 +22,15 @@ export const seo = (params: Params): Metadata => {
     metadataBase: new URL(getBaseUrl()),
     title,
     description,
+    creator: 'tiesen243',
+    category: 'e-commerce',
+    applicationName: 'Yuki',
     alternates: { canonical: url },
-    applicationName: 'Create Yuki Turbo',
-    twitter: { card: 'summary_large_image' },
+    facebook: { appId: '523462826928110' },
+    authors: { name: 'tiesen243', url: 'https://tiesen.id.vn' },
     openGraph: { url, images, type: 'website', siteName: 'Yuki' },
-    icons: { icon: '/favicon.ico' },
+    twitter: { card: 'summary_large_image', creatorId: '@tiesen243' },
+    keywords: ['e-commerce', 'turborepo', 'next.js', 'tailwindcss', 'prisma', 'trpc'],
+    icons: { icon: '/favicon.ico', shortcut: '/favicon-16x16.png', apple: '/apple-touch-icon.png' },
   }
 }

@@ -23,7 +23,7 @@ export const seo = (params: Params): Metadata => {
     title,
     description,
     alternates: { canonical: url },
-    applicationName: 'Create Yuki Turbo',
+    applicationName: 'Yuki',
     twitter: { card: 'summary_large_image' },
     openGraph: { url, images, type: 'website', siteName: 'Yuki' },
     icons: { icon: '/favicon.ico' },
