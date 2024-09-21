@@ -7,7 +7,6 @@ import { Button } from '@yuki/ui/button'
 import { Typography } from '@yuki/ui/typography'
 
 import { signOut } from '@/lib/actions'
-import { getBaseUrl } from '@/lib/utils'
 
 const Page: NextPage = async () => {
   const session = await auth()
@@ -42,8 +41,6 @@ const Page: NextPage = async () => {
           <icons.Github /> Github
         </a>
       </Button>
-
-      {String(new URL(getBaseUrl()).hostname)}
 
       <div className="flex items-center gap-2">
         {session && <span>Logged in as {session.user.name}</span>}

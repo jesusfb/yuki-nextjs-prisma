@@ -45,6 +45,7 @@ export const GET = async (req: NextRequest) => {
       const sessionCookie = lucia.createSessionCookie(session.id)
       cookies().set(sessionCookie.name, sessionCookie.value, {
         ...sessionCookie.attributes,
+        domain: new URL(getBaseUrl()).hostname.replace(/^.*?\.(.*)/, '$1'),
       })
 
       return NextResponse.redirect(new URL('/', req.url))
@@ -56,7 +57,10 @@ export const GET = async (req: NextRequest) => {
 
     const session = await lucia.createSession(newUser.id, {})
     const sessionCookie = lucia.createSessionCookie(session.id)
-    cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+    cookies().set(sessionCookie.name, sessionCookie.value, {
+      ...sessionCookie.attributes,
+      domain: new URL(getBaseUrl()).hostname.replace(/^.*?\.(.*)/, '$1'),
+    })
 
     return NextResponse.redirect(new URL('/', req.url))
   } catch (e) {
