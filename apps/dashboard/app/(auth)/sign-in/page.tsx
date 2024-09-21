@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 
-import * as card from '@yuki/ui/card'
+import { CardContent, CardDescription, CardHeader, CardTitle } from '@yuki/ui/card'
 
 import type { Props } from '@/app/(auth)/_components/login-form'
 import { LoginForm } from '@/app/(auth)/_components/login-form'
@@ -9,14 +9,14 @@ import { getBaseUrl } from '@/lib/utils'
 
 const Page: NextPage<Props> = (props) => (
   <>
-    <card.CardHeader>
-      <card.CardTitle className="text-2xl">Login</card.CardTitle>
-      <card.CardDescription>Enter your email below to login to your account</card.CardDescription>
-    </card.CardHeader>
+    <CardHeader>
+      <CardTitle className="text-2xl">Login</CardTitle>
+      <CardDescription>Enter your email below to login to your account</CardDescription>
+    </CardHeader>
 
-    <card.CardContent className="space-y-4" asChild>
+    <CardContent>
       <LoginForm {...props} setCookies={setCookies} />
-    </card.CardContent>
+    </CardContent>
   </>
 )
 

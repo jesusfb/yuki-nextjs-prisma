@@ -5,15 +5,20 @@ import { cn } from '@yuki/ui'
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean
+  isPressable?: boolean
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({ className, isPressable = false, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'div'
     return (
       <Comp
         ref={ref}
-        className={cn('rounded-lg border bg-card text-card-foreground shadow-sm', className)}
+        className={cn(
+          'rounded-lg border bg-card text-card-foreground shadow-sm transition-colors ease-linear',
+          isPressable && 'hover:bg-secondary hover:text-secondary-foreground',
+          className,
+        )}
         {...props}
       />
     )
@@ -21,11 +26,10 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 )
 Card.displayName = 'Card'
 
-const CardHeader = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'div'
-    return <Comp ref={ref} className={cn('flex flex-col space-y-1.5 p-6', className)} {...props} />
-  },
+const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn('flex flex-col space-y-1.5 p-6', className)} {...props} />
+  ),
 )
 CardHeader.displayName = 'CardHeader'
 
@@ -56,11 +60,10 @@ const CardContent = React.forwardRef<HTMLDivElement, CardProps>(
 )
 CardContent.displayName = 'CardContent'
 
-const CardFooter = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'div'
-    return <Comp ref={ref} className={cn('flex items-center p-6 pt-0', className)} {...props} />
-  },
+const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn('flex items-center p-6 pt-0', className)} {...props} />
+  ),
 )
 CardFooter.displayName = 'CardFooter'
 

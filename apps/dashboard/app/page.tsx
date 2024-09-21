@@ -45,12 +45,8 @@ const Page: NextPage = async () => {
       <div className="flex items-center gap-2">
         {session && <span>Logged in as {session.user.name}</span>}
         {session ? (
-          <form
-            action={async () => {
-              'use server'
-              await signOut(session.id)
-            }}
-          >
+          <form action={signOut}>
+            <input type="hidden" name="sessionId" value={session.id} />
             <Button variant="ghost" size="sm">
               Sign Out
             </Button>

@@ -19,6 +19,7 @@ export const LoginForm: React.FC<Props> = ({ searchParams, setCookies }) => {
 
   const { mutate, isPending, error } = api.auth.signIn.useMutation({
     onSuccess: async ({ sessionCookie }) => {
+      toast.success('Logged in successfully')
       await setCookies?.(sessionCookie)
       router.push(searchParams.redirect ?? '/')
     },
@@ -31,7 +32,7 @@ export const LoginForm: React.FC<Props> = ({ searchParams, setCookies }) => {
   }
 
   return (
-    <form action={action}>
+    <form className="space-y-4" action={action}>
       <fieldset className="space-y-2" disabled={isPending}>
         <Label htmlFor="email">Email</Label>
         <Input name="email" type="email" placeholder="yuki@example.com" />
@@ -53,15 +54,13 @@ export const LoginForm: React.FC<Props> = ({ searchParams, setCookies }) => {
         <small className="text-xs text-destructive">{error?.data?.zodError?.password}</small>
       </fieldset>
 
-      {!error?.data?.zodError && <small className="text-destructive">{error?.message}</small>}
-
       <Button className="w-full" disabled={isPending}>
         Login
       </Button>
 
       <div className="text-center text-sm">
         Don&apos;t have an account?{' '}
-        <button type="button" onClick={() => router.push('sign-up')} className="underline">
+        <button type="button" onClick={() => router.push('/sign-up')} className="underline">
           Sign up
         </button>
       </div>

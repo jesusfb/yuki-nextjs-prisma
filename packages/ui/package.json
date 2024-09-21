@@ -18,8 +18,8 @@
     "./tailwind.css": "./styles/tailwind.css"
   },
   "scripts": {
+    "dev": "tsc",
     "build": "tsc",
-    "dev": "tsc -w",
     "ui-add": "bunx --bun shadcn@latest add && prettier src --write --list-different",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "format": "prettier --check . --ignore-path ../../.gitignore",

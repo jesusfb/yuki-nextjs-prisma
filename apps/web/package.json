@@ -20,6 +20,7 @@
     "@trpc/react-query": "^11.0.0-rc.502",
     "@trpc/server": "^11.0.0-rc.502",
     "@yuki/ui": "workspace:*",
+    "@yuki/auth": "workspace:*",
     "next": "^14.2.13",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

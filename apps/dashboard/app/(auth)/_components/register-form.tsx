@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 
 import { Button } from '@yuki/ui/button'
 import { FormField } from '@yuki/ui/form-field'
+import { toast } from '@yuki/ui/sonner'
 
 import { api } from '@/lib/trpc/react'
 
@@ -13,7 +14,9 @@ export const RegisterForm: React.FC = () => {
   const { mutate, isPending, error } = api.auth.signUp.useMutation({
     onSuccess: () => {
       router.push('/sign-in')
+      toast.success('Account created successfully')
     },
+    onError: (e) => !e.data?.zodError && toast.error(e.message),
   })
 
   const action = (formData: FormData) => {
@@ -22,7 +25,7 @@ export const RegisterForm: React.FC = () => {
   }
 
   return (
-    <form action={action}>
+    <form className="space-y-4" action={action}>
       {fields.map((field) => (
         <FormField
           key={field.name}
@@ -31,8 +34,6 @@ export const RegisterForm: React.FC = () => {
           message={error?.data?.zodError?.[field.name]?.at(0)}
         />
       ))}
-
-      {!error?.data?.zodError && <small className="text-destructive">{error?.message}</small>}
 
       <Button className="w-full" disabled={isPending}>
         Register
