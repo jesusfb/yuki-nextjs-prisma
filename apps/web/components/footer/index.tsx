@@ -54,7 +54,7 @@ export const Footer: React.FC = () => (
 const links = [
   {
     title: (
-      <Link href="/" className="flex items-center gap-2">
+      <Link href="/home" className="flex items-center gap-2">
         <div className="rounded-lg border border-primary p-1">
           <Image
             src="/assets/logo.svg"
