@@ -7,7 +7,9 @@ import { seo } from '@/lib/seo'
 
 const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => (
   <html lang="en" suppressHydrationWarning>
-    <body className={cn('min-h-dvh font-sans', GeistSans.variable, GeistMono.variable)}>
+    <body
+      className={cn('flex min-h-dvh flex-col font-sans', GeistSans.variable, GeistMono.variable)}
+    >
       <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
         {children}
         <Footer />

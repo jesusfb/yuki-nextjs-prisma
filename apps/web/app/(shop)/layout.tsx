@@ -7,7 +7,11 @@ const ShopLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
   const session = await auth()
   if (!session) redirect('/home')
 
-  return <SessionProvider session={session}>{children}</SessionProvider>
+  return (
+    <SessionProvider session={session}>
+      <main className="container flex-1 py-4">{children}</main>
+    </SessionProvider>
+  )
 }
 
 export default ShopLayout

@@ -2,25 +2,24 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export const Shop: React.FC = () => (
-  <div>
-    <Link href="/home" className="mb-4 flex items-center gap-2">
-      <div className="rounded-lg border border-primary/60 p-1">
+  <div className="space-y-4">
+    <Link href="/" className="flex items-center gap-2">
+      <div className="rounded-lg border border-primary p-1">
         <Image
           src="/assets/logo.svg"
-          alt="Logo"
+          alt="Yuki"
           width={24}
           height={24}
           className="object-cover dark:invert"
         />
       </div>
-      <h2 className="text-lg font-bold">Yuki</h2>
+      <h3 className="text-lg font-semibold text-foreground">Yuki</h3>
     </Link>
-
     <ul className="space-y-2">
-      {links.map((link) => (
-        <li key={link.title}>
-          <Link href={link.url} className="transition-colors hover:text-muted-foreground">
-            {link.title}
+      {links.map(({ title, href }) => (
+        <li key={title}>
+          <Link href={href} className="transition-colors hover:text-foreground">
+            {title}
           </Link>
         </li>
       ))}
@@ -29,8 +28,8 @@ export const Shop: React.FC = () => (
 )
 
 const links = [
-  { title: 'New Arrivals', url: '/' },
-  { title: 'Best Sellers', url: '/' },
-  { title: 'Sale', url: '/' },
-  { title: 'Collections', url: '/' },
+  { title: 'All Products', href: '/' },
+  { title: 'Featured', href: '/' },
+  { title: 'New Arrivals', href: '/' },
+  { title: 'Sale', href: '/' },
 ]
