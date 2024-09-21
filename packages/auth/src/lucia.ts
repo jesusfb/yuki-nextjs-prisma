@@ -18,7 +18,7 @@ export const lucia = new Lucia(adapter, {
   getUserAttributes: (attributes) => attributes,
 })
 
-export { Discord, OAuth2RequestError, generateState } from 'arctic'
+export { Discord, generateState, OAuth2RequestError } from 'arctic'
 
 declare module 'lucia' {
   interface Register {

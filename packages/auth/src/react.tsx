@@ -18,5 +18,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ session, child
 
 export const useSession = () => {
   const context = React.useContext(sessionContext)
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (context === undefined) throw new Error('useSession must be used within a SessionProvider')
   return context
 }

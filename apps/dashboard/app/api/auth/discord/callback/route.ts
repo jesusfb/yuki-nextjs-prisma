@@ -6,6 +6,7 @@ import { lucia, OAuth2RequestError } from '@yuki/auth/lucia'
 import { db } from '@yuki/db'
 
 import { discord } from '@/app/api/auth/discord/config'
+import { getBaseUrl } from '@/lib/utils'
 
 export const GET = async (req: NextRequest) => {
   const url = new URL(req.url)
@@ -22,35 +23,35 @@ export const GET = async (req: NextRequest) => {
     const discordUserRes = await fetch('https://discord.com/api/users/@me', {
       headers: { Authorization: `Bearer ${tokens.accessToken}` },
     })
-    const discordUser = (await discordUserRes.json()) as DiscordUser & {
+    const discordRes = (await discordUserRes.json()) as DiscordUser & {
       email: string
       global_name: string
     }
-    const discord_ = {
-      username: discordUser.username,
-      name: discordUser.global_name,
-      email: discordUser.email,
-      avatar: `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`,
+
+    const discordUser = {
+      id: discordRes.id,
+      username: discordRes.username,
+      avatar: `https://cdn.discordapp.com/avatars/${discordRes.id}/${discordRes.avatar}.png`,
     }
 
     // check if user exists in database
     const existedUser = await db.user.findFirst({
-      where: {
-        OR: [{ discordId: discordUser.id }, { email: discordUser.email }],
-      },
+      where: { OR: [{ discord: { is: { id: discordUser.id } } }, { email: discordRes.email }] },
     })
     if (existedUser) {
-      await db.user.update({ where: { id: existedUser.id }, data: discord_ })
+      await db.user.update({ where: { id: existedUser.id }, data: { discord: discordUser } })
 
       const session = await lucia.createSession(existedUser.id, {})
       const sessionCookie = lucia.createSessionCookie(session.id)
-      cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+      cookies().set(sessionCookie.name, sessionCookie.value, {
+        ...sessionCookie.attributes,
+      })
 
       return NextResponse.redirect(new URL('/', req.url))
     }
 
     const newUser = await db.user.create({
-      data: { ...discord_, discordId: discordUser.id },
+      data: { discord: discordUser, email: discordRes.email, name: discordRes.global_name },
     })
 
     const session = await lucia.createSession(newUser.id, {})
