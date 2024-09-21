@@ -3,9 +3,10 @@ import { vercel } from '@t3-oss/env-nextjs/presets'
 import { z } from 'zod'
 
 import { authEnv } from '@yuki/auth/env'
+import { emailEnv } from '@yuki/email/env'
 
 export const env = createEnv({
-  extends: [vercel(), authEnv],
+  extends: [vercel(), authEnv, emailEnv],
   shared: {
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   },
