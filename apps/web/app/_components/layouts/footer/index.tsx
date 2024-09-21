@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Facebook, Github, Twitter, Youtube } from 'lucide-react'
+import { Facebook, Github, Globe, Twitter, Youtube } from 'lucide-react'
 
 import { Button } from '@yuki/ui/button'
 import { Input } from '@yuki/ui/input'
@@ -96,23 +96,23 @@ const links = [
 
 const socials = [
   {
+    title: 'Website',
+    icon: Globe,
+    url: 'https://tiesen.id.vn',
+  },
+  {
     title: 'Facebook',
     icon: Facebook,
-    url: 'https://facebook.com',
+    url: 'https://facebook.com/tiesen243.tsx',
   },
   {
     title: 'Github',
     icon: Github,
-    url: 'https://github.com',
+    url: 'https://github.com/tiesen243',
   },
   {
     title: 'Twitter',
     icon: Twitter,
-    url: 'https://twitter.com',
-  },
-  {
-    title: 'Youtube',
-    icon: Youtube,
-    url: 'https://youtube.com',
+    url: 'https://twitter.com/tiesen243',
   },
 ]
