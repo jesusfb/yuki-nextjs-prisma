@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
+import { auth } from '@yuki/auth'
 import { Button } from '@yuki/ui/button'
 import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@yuki/ui/card'
 import { DiscordIcon } from '@yuki/ui/icons'
@@ -10,26 +12,31 @@ import { LoginForm } from '@/app/(auth)/_components/login-form'
 import { seo } from '@/lib/seo'
 import { getBaseUrl } from '@/lib/utils'
 
-const Page: NextPage<Props> = async (props) => (
-  <>
-    <CardHeader>
-      <CardTitle className="text-2xl">Login</CardTitle>
-      <CardDescription>Enter your email below to login to your account</CardDescription>
-    </CardHeader>
+const Page: NextPage<Props> = async (props) => {
+  const session = await auth()
+  if (session) redirect(props.searchParams.redirect ?? '/')
 
-    <CardContent>
-      <LoginForm {...props} setCookies={setCookies} />
-    </CardContent>
+  return (
+    <>
+      <CardHeader>
+        <CardTitle className="text-2xl">Login</CardTitle>
+        <CardDescription>Enter your email below to login to your account</CardDescription>
+      </CardHeader>
 
-    <CardFooter className="flex-col">
-      <Button variant="outline" className="w-full" asChild>
-        <Link href={`/api/auth/discord?redirect=${props.searchParams.redirect ?? '/'}`}>
-          <DiscordIcon className="mr-4 size-6" /> Login with Discord
-        </Link>
-      </Button>
-    </CardFooter>
-  </>
-)
+      <CardContent>
+        <LoginForm {...props} setCookies={setCookies} />
+      </CardContent>
+
+      <CardFooter className="flex-col">
+        <Button variant="outline" className="w-full" asChild>
+          <Link href={`/api/auth/discord?redirect=${props.searchParams.redirect ?? '/'}`}>
+            <DiscordIcon className="mr-4 size-6" /> Login with Discord
+          </Link>
+        </Button>
+      </CardFooter>
+    </>
+  )
+}
 
 export default Page
 
