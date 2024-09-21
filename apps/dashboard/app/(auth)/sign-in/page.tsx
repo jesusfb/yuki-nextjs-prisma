@@ -1,13 +1,16 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 
-import { CardContent, CardDescription, CardHeader, CardTitle } from '@yuki/ui/card'
+import { Button } from '@yuki/ui/button'
+import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@yuki/ui/card'
+import { DiscordIcon } from '@yuki/ui/icons'
 
 import type { Props } from '@/app/(auth)/_components/login-form'
 import { LoginForm } from '@/app/(auth)/_components/login-form'
 import { seo } from '@/lib/seo'
 import { getBaseUrl } from '@/lib/utils'
 
-const Page: NextPage<Props> = (props) => (
+const Page: NextPage<Props> = async (props) => (
   <>
     <CardHeader>
       <CardTitle className="text-2xl">Login</CardTitle>
@@ -17,6 +20,14 @@ const Page: NextPage<Props> = (props) => (
     <CardContent>
       <LoginForm {...props} setCookies={setCookies} />
     </CardContent>
+
+    <CardFooter className="flex-col">
+      <Button variant="outline" className="w-full" asChild>
+        <Link href={`/api/auth/discord?redirect=${props.searchParams.redirect ?? '/'}`}>
+          <DiscordIcon className="mr-4 size-6" /> Login with Discord
+        </Link>
+      </Button>
+    </CardFooter>
   </>
 )
 

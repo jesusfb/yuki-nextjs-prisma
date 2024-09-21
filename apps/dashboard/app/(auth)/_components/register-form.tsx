@@ -13,8 +13,8 @@ export const RegisterForm: React.FC = () => {
 
   const { mutate, isPending, error } = api.auth.signUp.useMutation({
     onSuccess: () => {
-      router.push('/sign-in')
       toast.success('Account created successfully')
+      router.back()
     },
     onError: (e) => !e.data?.zodError && toast.error(e.message),
   })

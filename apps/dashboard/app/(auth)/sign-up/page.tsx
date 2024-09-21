@@ -1,6 +1,9 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 
-import { CardContent, CardDescription, CardHeader, CardTitle } from '@yuki/ui/card'
+import { Button } from '@yuki/ui/button'
+import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@yuki/ui/card'
+import { DiscordIcon } from '@yuki/ui/icons'
 
 import { RegisterForm } from '@/app/(auth)/_components/register-form'
 import { seo } from '@/lib/seo'
@@ -15,6 +18,14 @@ const Page: NextPage = () => (
     <CardContent>
       <RegisterForm />
     </CardContent>
+
+    <CardFooter className="flex-col">
+      <Button variant="outline" className="w-full" asChild>
+        <Link href={`/api/auth/discord`}>
+          <DiscordIcon className="mr-4 size-6" /> Login with Discord
+        </Link>
+      </Button>
+    </CardFooter>
   </>
 )
 
