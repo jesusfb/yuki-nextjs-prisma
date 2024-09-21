@@ -2,6 +2,7 @@ import '@yuki/ui/tailwind.css'
 
 import { cn, GeistMono, GeistSans, ThemeProvider } from '@yuki/ui'
 
+import { Footer } from '@/components/footer'
 import { seo } from '@/lib/seo'
 
 const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => (
@@ -9,6 +10,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => (
     <body className={cn('min-h-dvh font-sans', GeistSans.variable, GeistMono.variable)}>
       <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
         {children}
+        <Footer />
       </ThemeProvider>
     </body>
   </html>
