@@ -79,7 +79,7 @@ const links = [
     links: [
       { title: 'Contact Us', href: '/home/contact-us' },
       { title: 'Shipping & Returns', href: '/home/shipping' },
-      { title: 'FAQ', href: '/faq' },
+      { title: 'FAQs', href: '/faqs' },
       { title: 'Size Guide', href: '/home/size-guide' },
     ],
   },
