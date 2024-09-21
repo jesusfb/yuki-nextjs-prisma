@@ -6,8 +6,7 @@ import { lucia } from '@yuki/auth/lucia'
 
 import { getBaseUrl } from '@/lib/utils'
 
-export const signOut = async (formData: FormData) => {
-  const sessionId = String(formData.get('sessionId'))
+export const signOut = async (sessionId: string) => {
   await lucia.invalidateSession(sessionId)
   const sessionCookie = lucia.createBlankSessionCookie()
   cookies().set(sessionCookie.name, sessionCookie.value, {

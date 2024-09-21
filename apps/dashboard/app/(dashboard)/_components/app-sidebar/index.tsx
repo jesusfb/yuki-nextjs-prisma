@@ -1,8 +1,8 @@
-import type { User } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 import * as icons from 'lucide-react'
 
+import type { Session, User } from '@yuki/db'
 import {
   Sidebar,
   SidebarContent,
@@ -17,7 +17,7 @@ import { NavSecondary } from '@/app/(dashboard)/_components/app-sidebar/nav-seco
 import { NavUser } from '@/app/(dashboard)/_components/app-sidebar/nav-user'
 import { getClientUrl } from '@/lib/utils'
 
-export const AppSidebar: React.FC<{ user: User }> = ({ user }) => (
+export const AppSidebar: React.FC<{ session: Session & { user: User } }> = ({ session }) => (
   <Sidebar>
     <Link href="/dashboard" passHref>
       <SidebarHeader className="flex items-center gap-4">
@@ -33,7 +33,7 @@ export const AppSidebar: React.FC<{ user: User }> = ({ user }) => (
     </Link>
 
     <SidebarContent>
-      {user.role === 'ADMIN' && (
+      {session.user.role === 'ADMIN' && (
         <SidebarItem>
           <SidebarLabel>Admin</SidebarLabel>
           <NavMain items={data.adminNav} />
@@ -50,7 +50,7 @@ export const AppSidebar: React.FC<{ user: User }> = ({ user }) => (
     </SidebarContent>
 
     <SidebarFooter>
-      <NavUser user={user} />
+      <NavUser session={session} />
     </SidebarFooter>
   </Sidebar>
 )

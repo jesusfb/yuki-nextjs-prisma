@@ -31,3 +31,8 @@ type RouterOutputs = inferRouterOutputs<AppRouter>
 
 export { createTRPCContext, appRouter, createCaller }
 export type { AppRouter, RouterInputs, RouterOutputs }
+
+export * from './validators/category'
+export * from './validators/product'
+export * from './validators/auth'
+export * from './validators/utils'

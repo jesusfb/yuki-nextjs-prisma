@@ -18,6 +18,7 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
+    "@yuki/uploader": "workspace:*",
     "@yuki/auth": "workspace:*",
     "@yuki/db": "workspace:*",
     "@trpc/server": "^11.0.0-rc.522",

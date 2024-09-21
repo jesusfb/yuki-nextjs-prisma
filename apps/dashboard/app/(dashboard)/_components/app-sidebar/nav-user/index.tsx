@@ -1,4 +1,4 @@
-import type { User } from '@yuki/db'
+import type { Session, User } from '@yuki/db'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,15 +11,15 @@ import { LogoutBtn } from '@/app/(dashboard)/_components/app-sidebar/nav-user/lo
 import { UserCard } from '@/app/(dashboard)/_components/app-sidebar/nav-user/user-card'
 import { UserMenu } from '@/app/(dashboard)/_components/app-sidebar/nav-user/user-menu'
 
-export const NavUser: React.FC<{ user: User }> = ({ user }) => (
+export const NavUser: React.FC<{ session: Session & { user: User } }> = ({ session }) => (
   <DropdownMenu>
     <DropdownMenuTrigger className="w-full rounded-md outline-none ring-ring hover:bg-accent focus-visible:ring-2 data-[state=open]:bg-accent">
-      <UserCard user={user} icon />
+      <UserCard user={session.user} icon />
     </DropdownMenuTrigger>
 
     <DropdownMenuContent className="w-56" align="end" side="right" sideOffset={4}>
       <DropdownMenuLabel className="p-0 font-normal">
-        <UserCard user={user} />
+        <UserCard user={session.user} />
       </DropdownMenuLabel>
 
       <DropdownMenuSeparator />
@@ -28,7 +28,7 @@ export const NavUser: React.FC<{ user: User }> = ({ user }) => (
 
       <DropdownMenuSeparator />
 
-      <LogoutBtn />
+      <LogoutBtn sessionId={session.id} />
     </DropdownMenuContent>
   </DropdownMenu>
 )

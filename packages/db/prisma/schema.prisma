@@ -56,7 +56,7 @@ model Category {
 
   name        String  @unique @db.String
   description String? @db.String
-  image       String  @default("/logo.svg")
+  image       String  @default("/assets/logo.svg")
 
   products Product[]
 
@@ -68,7 +68,7 @@ model Product {
 
   name        String  @db.String
   description String? @db.String
-  image       String  @default("/logo.svg")
+  image       String  @default("/assets/logo.svg")
   price       Float   @db.Double
   stock       Int     @db.Int
 

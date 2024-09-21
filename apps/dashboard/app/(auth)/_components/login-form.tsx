@@ -18,7 +18,7 @@ export const LoginForm: React.FC<Props> = ({ searchParams, setCookies }) => {
   const router = useRouter()
 
   const { mutate, isPending, error } = api.auth.signIn.useMutation({
-    onSuccess: async ({ sessionCookie }) => {
+    onSuccess: async (sessionCookie) => {
       toast.success('Logged in successfully')
       await setCookies?.(sessionCookie)
       router.push(searchParams.redirect ?? '/')
