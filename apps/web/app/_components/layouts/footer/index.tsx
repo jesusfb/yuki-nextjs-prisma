@@ -10,7 +10,7 @@ import { Links, SocialLinks } from './links'
 
 export const Footer: React.FC = () => (
   <footer className="bg-secondary text-secondary-foreground">
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="container py-12">
       <section className="grid grid-cols-1 gap-8 md:grid-cols-4">
         {links.map(({ title, links }, idx) => (
           <Links key={idx} title={title} links={links} />
@@ -36,7 +36,7 @@ export const Footer: React.FC = () => (
         </section>
       </section>
 
-      <div className="mt-12 flex flex-col items-center justify-between border-t border-gray-800 pt-8 md:flex-row">
+      <div className="mt-12 flex flex-col items-center justify-between border-t border-primary pt-8 md:flex-row">
         <p>&copy; {new Date().getFullYear()} Your Ecommerce Store. All rights reserved.</p>
         <div className="mt-4 flex space-x-6 md:mt-0">
           <Link href="/home/privacy-policy" className="transition-colors hover:text-white">
