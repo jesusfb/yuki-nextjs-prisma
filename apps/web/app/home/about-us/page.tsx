@@ -1,29 +1,30 @@
 import type { NextPage } from 'next'
 
 import { Button } from '@yuki/ui/button'
-import * as card from '@yuki/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@yuki/ui/card'
 
 import { seo } from '@/lib/seo'
 import { techStacks } from './_data'
+import { TechCard } from './_tech-card'
 
 const Page: NextPage = () => (
   <main className="container py-8">
     <h1 className="mb-8 text-center text-4xl font-bold">About Yuki</h1>
 
     <div className="mx-auto space-y-8">
-      <card.Card>
-        <card.CardHeader>
-          <card.CardTitle>Welcome to Yuki</card.CardTitle>
-          <card.CardDescription>Your Ultimate E-Commerce Experience</card.CardDescription>
-        </card.CardHeader>
-        <card.CardContent>
+      <Card>
+        <CardHeader>
+          <CardTitle>Welcome to Yuki</CardTitle>
+          <CardDescription>Your Ultimate E-Commerce Experience</CardDescription>
+        </CardHeader>
+        <CardContent>
           <p className="text-muted-foreground">
             Yuki is a cutting-edge, full-stack e-commerce platform designed to provide a seamless
             shopping experience. Built with the latest technologies, Yuki offers robust features,
             lightning-fast performance, and top-notch security.
           </p>
-        </card.CardContent>
-      </card.Card>
+        </CardContent>
+      </Card>
 
       <h2 className="mb-4 mt-8 text-2xl font-semibold">Our Tech Stack</h2>
 
@@ -33,11 +34,11 @@ const Page: NextPage = () => (
         ))}
       </div>
 
-      <card.Card className="mt-8">
-        <card.CardHeader>
-          <card.CardTitle>Join the Yuki Community</card.CardTitle>
-        </card.CardHeader>
-        <card.CardContent>
+      <Card className="mt-8">
+        <CardHeader>
+          <CardTitle>Join the Yuki Community</CardTitle>
+        </CardHeader>
+        <CardContent>
           <p className="mb-4 text-muted-foreground">
             We&apos;re always looking to improve and expand Yuki. Whether you&apos;re a shopper,
             seller, or developer, we&apos;d love to hear from you!
@@ -47,8 +48,8 @@ const Page: NextPage = () => (
               Get in Touch
             </a>
           </Button>
-        </card.CardContent>
-      </card.Card>
+        </CardContent>
+      </Card>
     </div>
   </main>
 )
@@ -63,26 +64,3 @@ export const metadata = seo({
   ],
   url: '/home/about-us',
 })
-
-interface TechCardProps {
-  title: string
-  href: string
-  description: string
-  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
-}
-
-const TechCard: React.FC<TechCardProps> = ({ href, title, description, Icon }) => (
-  <card.Card isPressable asChild>
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      <card.CardHeader>
-        <card.CardTitle className="flex items-center gap-2">
-          <Icon className="h-6 w-6" />
-          {title}
-        </card.CardTitle>
-      </card.CardHeader>
-      <card.CardContent>
-        <p className="text-sm text-muted-foreground">{description}</p>
-      </card.CardContent>
-    </a>
-  </card.Card>
-)

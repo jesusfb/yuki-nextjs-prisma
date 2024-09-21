@@ -11,6 +11,7 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@yuki/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@yuki/ui/tabs'
 
+import { seo } from '@/lib/seo'
 import { data, htm } from './_data'
 
 const Page: NextPage = () => (
@@ -110,3 +111,12 @@ const Page: NextPage = () => (
 )
 
 export default Page
+
+export const metadata = seo({
+  title: 'Size Guide',
+  description: 'Find the perfect fit with our size guide.',
+  images: [
+    '/api/og?title=Size%20Guide&description=Find%20the%20perfect%20fit%20with%20our%20size%20guide.',
+  ],
+  url: '/home/size-guide',
+})

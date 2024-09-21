@@ -77,7 +77,7 @@ const links = [
   {
     title: <Typography level="h4">Customer Service</Typography>,
     links: [
-      { title: 'Contact Us', href: '/home/contact' },
+      { title: 'Contact Us', href: '/home/contact-us' },
       { title: 'Shipping & Returns', href: '/home/shipping' },
       { title: 'FAQ', href: '/faq' },
       { title: 'Size Guide', href: '/home/size-guide' },
