@@ -19,10 +19,10 @@ import { getClientUrl } from '@/lib/utils'
 
 export const AppSidebar: React.FC<{ session: Session & { user: User } }> = ({ session }) => (
   <Sidebar>
-    <Link href="/dashboard" passHref>
+    <Link href="/" passHref>
       <SidebarHeader className="flex items-center gap-4">
         <Image
-          src="/logo.svg"
+          src="/assets/logo.svg"
           alt="Yuki"
           width={24}
           height={24}
@@ -62,8 +62,8 @@ const data = {
       url: '#',
       icon: icons.Package,
       items: [
-        { title: 'All Products', url: '/dashboard/products', icon: icons.List },
-        { title: 'Create Product', url: '/dashboard/products/create', icon: icons.Plus },
+        { title: 'All Products', url: '/products', icon: icons.List },
+        { title: 'Create Product', url: '/products/create', icon: icons.Plus },
       ],
     },
     {
@@ -71,19 +71,19 @@ const data = {
       url: '#',
       icon: icons.Grid,
       items: [
-        { title: 'All Categories', url: '/dashboard/categories', icon: icons.List },
-        { title: 'Create Category', url: '/dashboard/categories/create', icon: icons.Plus },
+        { title: 'All Categories', url: '/categories', icon: icons.List },
+        { title: 'Create Category', url: '/categories/create', icon: icons.Plus },
       ],
     },
-    { title: 'Orders', url: '/dashboard/orders', icon: icons.ShoppingBag },
-    { title: 'Customers', url: '/dashboard/customers', icon: icons.Users },
+    { title: 'Orders', url: '/orders', icon: icons.ShoppingBag },
+    { title: 'Customers', url: '/customers', icon: icons.Users },
   ],
 
   userNav: [
     { title: 'Back to Site', url: getClientUrl(), icon: icons.Home },
-    { title: 'Account', url: '/dashboard/account', icon: icons.User },
-    { title: 'Your Cart', url: '/dashboard/account/cart', icon: icons.ShoppingCart },
-    { title: 'Settings', url: '/dashboard/settings', icon: icons.Settings },
+    { title: 'Account', url: '/account', icon: icons.User },
+    { title: 'Your Cart', url: '/account/cart', icon: icons.ShoppingCart },
+    { title: 'Settings', url: '/settings', icon: icons.Settings },
   ],
 
   navSecondary: [
