@@ -1,68 +1,82 @@
-# Yuki
+# Create Yuki Turbo
 
-Yuki is a full-stack e-commerce platform built with Next.js, Prisma, and tRPC. It is a modern, fast, and secure platform that allows you to create your own e-commerce store with ease. Yuki is built with the latest technologies and best practices to ensure that your store is fast, secure, and scalable.
+Clean and typesafe starter monorepo using Turborepo along with Next.js and tRPC.
 
-## Tech Stack
+## About
 
-- [Next.js](https://nextjs.org)
-- [Lucia auth](https://lucia-auth.com)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-- [Uploadthing](https://uploadthing.com)
-- [Resend](https://resend.io)
+This is a template for creating a new application with monorepo structure using [Turborepo](https://turborepo.org) and contains:
 
-## Getting Started
-
-First, clone the repository:
-
-```bash
-git clone git@github.com:tiesen243/yuki.git
+```text
+apps
+  ├─ web
+  |   ├─ Next.js 14
+  |   ├─ React 18
+  |   ├─ Tailwind CSS
+  |   └─ E2E Typesafe API Server & Client
+  └─ docs
+      ├─ Next.js 14
+      ├─ React 18
+      └─ Tailwind CSS
+packages
+  ├─ api
+  |   └─ tRPC v11 router definition
+  ├─ auth
+  |   └─ Authentication using Lucia & Arctic
+  ├─ db
+  |   └─ Typesafe db calls using Prisma
+  └─ ui
+      └─ Start of a UI package for the webapp using shadcn-ui
+tooling
+  ├─ eslint
+  |   └─ shared, fine-grained, eslint presets
+  ├─ prettier
+  |   └─ shared prettier configuration
+  ├─ tailwind
+  |   └─ shared tailwind configuration
+  └─ typescript
+      └─ shared tsconfig you can extend from
 ```
 
-Then, install the dependencies:
+> In this template, we use `@yuki` as a placeholder for package names. As a user, you might want to replace it with your own organization or project name. You can use find-and-replace to change all the instances of `@yuki` to something like `@my-company` or `@project-name`.
+
+## Installation
 
 ```bash
-# Using NPM
-npm install
+npx create-turbo@latest -e https://github.com/tiesen243/create-yuki-turbo
+```
 
-# Using Yarn
-yarn install
+## Quick Start
 
-# Using PNPM
-pnpm install
+1. Setup the project:
 
-# Using Bun
+```bash
+# Install dependencies
 bun install
-```
 
-Then, add a `.env` file:
-
-```bash
+# Configure environment variables
 cp .env.example .env
 ```
 
-Then, run the development server:
+2. When you want to add a new UI component:
+
+Run the ui-add script to add a new UI component using the interactive shadcn/ui CLI:
 
 ```bash
-# Using NPM
-npm run db:push
-
-# Using Yarn
-yarn db:push
-yarn dev
-
-# Using PNPM
-pnpm db:push
-pnpm dev
-
-# Using Bun
-bun db:push
-bun dev
+bun ui-add
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. When you want to add a new package:
+
+Run the following command to add a new package:
+
+```bash
+bun turbo gen init
+```
+
+The generator sets up the package.json, tsconfig.json and a index.ts, as well as configures all the necessary configurations for tooling around your package such as formatting, linting and typechecking. When the package is created, you're ready to go build out the package.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+<img src="./.github/yuki.gif" alt="yuki" width="100%" />

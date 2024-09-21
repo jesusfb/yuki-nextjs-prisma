@@ -1,0 +1,35 @@
+{
+  "name": "@yuki/db",
+  "version": "0.6.9",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "tsc",
+    "build": "tsc",
+    "push": "bun with-env prisma db push",
+    "studio": "bun with-env prisma studio",
+    "db:generate": "prisma generate",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "format": "prisma format && prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "with-env": "dotenv -e ../../.env --"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.19.1"
+  },
+  "devDependencies": {
+    "@yuki/prettier-config": "workspace:*",
+    "@yuki/eslint-config": "workspace:*",
+    "@yuki/tsconfig": "workspace:*",
+    "prisma": "^5.19.1",
+    "dotenv-cli": "^7.4.2",
+    "typescript": "latest",
+    "prettier": "latest",
+    "eslint": "latest"
+  },
+  "prettier": "@yuki/prettier-config"
+}
