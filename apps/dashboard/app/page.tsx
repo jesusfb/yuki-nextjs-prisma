@@ -2,8 +2,8 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 
 import { auth } from '@yuki/auth'
-import { icons } from '@yuki/ui'
 import { Button } from '@yuki/ui/button'
+import { Github } from '@yuki/ui/icons'
 import { Typography } from '@yuki/ui/typography'
 
 import { signOut } from '@/lib/actions'
@@ -38,7 +38,7 @@ const Page: NextPage = async () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <icons.Github /> Github
+          <Github /> Github
         </a>
       </Button>
 

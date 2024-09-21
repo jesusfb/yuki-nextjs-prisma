@@ -3,6 +3,7 @@ import { Resend } from 'resend'
 import type { EmailProps } from './config'
 import { emailEnv } from '../env'
 import * as email from './components'
+import { replyTo } from './config'
 
 const resend = new Resend(emailEnv.RESEND_KEY)
 

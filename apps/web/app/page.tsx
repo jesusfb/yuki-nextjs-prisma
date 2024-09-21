@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 
-import { icons } from '@yuki/ui'
 import { Button } from '@yuki/ui/button'
+import { Github } from '@yuki/ui/icons'
 import { Typography } from '@yuki/ui/typography'
 
 const Page: NextPage = () => (
@@ -32,7 +32,7 @@ const Page: NextPage = () => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        <icons.Github /> Github
+        <Github /> Github
       </a>
     </Button>
   </main>

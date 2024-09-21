@@ -3,6 +3,7 @@ import '@yuki/ui/tailwind.css'
 import { auth } from '@yuki/auth'
 import { SessionProvider } from '@yuki/auth/react'
 import { cn, GeistMono, GeistSans, ThemeProvider } from '@yuki/ui'
+import { Toaster } from '@yuki/ui/sonner'
 
 import { seo } from '@/lib/seo'
 import { TRPCReactProvider } from '@/lib/trpc/react'
@@ -17,6 +18,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
           <SessionProvider session={session}>
             <TRPCReactProvider>{children}</TRPCReactProvider>
           </SessionProvider>
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>

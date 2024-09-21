@@ -19,6 +19,7 @@ export const lucia = new Lucia(adapter, {
 })
 
 export { Discord, generateState, OAuth2RequestError } from 'arctic'
+export { Scrypt } from 'lucia'
 
 declare module 'lucia' {
   interface Register {
