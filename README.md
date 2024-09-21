@@ -27,6 +27,8 @@ packages
   |   └─ Typesafe db calls using Prisma
   ├─ email
   |   └─ Email sending using Resend
+  ├─ uploader
+  |   └─ File uploading using Uploadthing
   └─ ui
       └─ Start of a UI package for the webapp using shadcn-ui
 tooling
@@ -40,12 +42,10 @@ tooling
       └─ shared tsconfig you can extend from
 ```
 
-> In this template, we use `@yuki` as a placeholder for package names. As a user, you might want to replace it with your own organization or project name. You can use find-and-replace to change all the instances of `@yuki` to something like `@my-company` or `@project-name`.
-
 ## Installation
 
 ```bash
-npx create-turbo@latest -e https://github.com/tiesen243/create-yuki-turbo
+npx create-turbo@latest -e https://github.com/tiesen243/yuki
 ```
 
 ## Quick Start
