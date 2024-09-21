@@ -39,7 +39,7 @@ const Page: NextPage = () => (
         <Typography className="text-lg">
           It is a modern, fast, and secure platform that allows you to create your own e-commerce
           store with ease. Yuki is built with the latest technologies and best practices to ensure
-          that your store is fast, secure, and scalable.
+          that your store is fast, secure, and scalable.{' '}
         </Typography>
       </article>
 

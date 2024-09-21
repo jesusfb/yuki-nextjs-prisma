@@ -1,24 +1,23 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { Facebook, Github, Twitter, Youtube } from 'lucide-react'
 
 import { Button } from '@yuki/ui/button'
 import { Input } from '@yuki/ui/input'
+import { Typography } from '@yuki/ui/typography'
 
 import { Links, SocialLinks } from './links'
-import { Shop } from './shop'
 
 export const Footer: React.FC = () => (
   <footer className="bg-secondary text-secondary-foreground">
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <section className="grid grid-cols-1 gap-8 md:grid-cols-4">
-        <Shop />
-
-        {links.map(({ title, links }) => (
-          <Links key={title} title={title} links={links} />
+        {links.map(({ title, links }, idx) => (
+          <Links key={idx} title={title} links={links} />
         ))}
 
         <section className="space-y-4">
-          <h3 className="text-lg font-semibold text-white">Stay Connected</h3>
+          <Typography level="h4">Stay Connected</Typography>
           <p>Subscribe to our newsletter for exclusive offers and updates.</p>
           <form className="flex space-x-2">
             <Input
@@ -54,7 +53,29 @@ export const Footer: React.FC = () => (
 
 const links = [
   {
-    title: 'Customer Service',
+    title: (
+      <Link href="/" className="flex items-center gap-2">
+        <div className="rounded-lg border border-primary p-1">
+          <Image
+            src="/assets/logo.svg"
+            alt="Yuki"
+            width={24}
+            height={24}
+            className="object-cover dark:invert"
+          />
+        </div>
+        <Typography level="h3">Yuki</Typography>
+      </Link>
+    ),
+    links: [
+      { title: 'All Products', href: '/' },
+      { title: 'Featured', href: '/' },
+      { title: 'New Arrivals', href: '/' },
+      { title: 'Sale', href: '/' },
+    ],
+  },
+  {
+    title: <Typography level="h4">Customer Service</Typography>,
     links: [
       { title: 'Contact Us', href: '/home/contact' },
       { title: 'Shipping & Returns', href: '/home/shipping' },
@@ -63,12 +84,12 @@ const links = [
     ],
   },
   {
-    title: 'About Us',
+    title: <Typography level="h4">Company</Typography>,
     links: [
+      { title: 'About Us', href: '/home/about-us' },
       { title: 'Our Story', href: '/home/our-story' },
       { title: 'Careers', href: '/home/careers' },
       { title: 'Sustainability', href: '/home/sustainability' },
-      { title: 'Press', href: '/home/press' },
     ],
   },
 ]

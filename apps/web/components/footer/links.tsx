@@ -1,19 +1,19 @@
 import Link from 'next/link'
 
-import { LucideIcon } from '@yuki/ui/icons'
+import type { LucideIcon } from '@yuki/ui/icons'
 
 interface Props {
-  title: string
+  title: React.ReactNode
   links: { title: string; href: string }[]
 }
 
 export const Links: React.FC<Props> = ({ title, links }) => (
   <div className="space-y-4">
-    <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+    {title}
     <ul className="space-y-2">
       {links.map(({ title, href }) => (
         <li key={title}>
-          <Link href={href} className="transition-colors hover:text-foreground">
+          <Link href={href} className="hover:underline">
             {title}
           </Link>
         </li>

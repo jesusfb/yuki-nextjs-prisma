@@ -1,6 +1,7 @@
 import '@yuki/ui/tailwind.css'
 
 import { cn, GeistMono, GeistSans, ThemeProvider } from '@yuki/ui'
+import { Toaster } from '@yuki/ui/sonner'
 
 import { Footer } from '@/components/footer'
 import { seo } from '@/lib/seo'
@@ -13,6 +14,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => (
       <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
         {children}
         <Footer />
+        <Toaster richColors />
       </ThemeProvider>
     </body>
   </html>
