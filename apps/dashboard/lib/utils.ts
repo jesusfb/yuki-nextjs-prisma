@@ -7,3 +7,8 @@ export function getBaseUrl() {
   // eslint-disable-next-line no-restricted-properties
   return `http://localhost:${process.env.PORT ?? 3000}`
 }
+
+export function getClientUrl() {
+  if (env.NODE_ENV === 'production') return getBaseUrl().replace('dashboard.', '')
+  return 'http://localhost:3000'
+}

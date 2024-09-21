@@ -7,3 +7,8 @@ export function getBaseUrl() {
   // eslint-disable-next-line no-restricted-properties
   return `http://localhost:${process.env.PORT ?? 3000}`
 }
+
+export function getDashboardUrl() {
+  if (env.NODE_ENV === 'production') return `https://dashboard.${env.VERCEL_PROJECT_PRODUCTION_URL}`
+  return 'http://localhost:3001'
+}
