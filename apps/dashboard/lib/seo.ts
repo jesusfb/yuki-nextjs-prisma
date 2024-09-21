@@ -13,7 +13,8 @@ interface Params {
 export const seo = (params: Params): Metadata => {
   const title = params.title ? `${params.title} | Yuki` : 'Dashboard | Yuki'
   const description =
-    params.description ?? 'Clean and typesafe starter monorepo using Turborepo along with Next.js'
+    params.description ??
+    'A full-stack e-commerce platform built with Turborepo, Next.js, TailwindCSS, Prisma, and tRPC. It is a modern, fast, and secure platform that allows you to create your own e-commerce store with ease. Yuki is built with the latest technologies and best practices to ensure that your store is fast, secure, and scalable.'
   const images = params.images ?? ['/api/og']
   const url = params.url ? `${getBaseUrl()}/${params.url}` : getBaseUrl()
 
