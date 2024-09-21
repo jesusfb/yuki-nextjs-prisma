@@ -1,0 +1,37 @@
+{
+  "name": "@yuki/email",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./env": "./env.js"
+  },
+  "scripts": {
+    "dev": "email dev -d ./src/components -p 3002",
+    "build": "email build -d ./src/components -p 3002",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.8",
+    "@yuki/eslint-config": "workspace:*",
+    "@yuki/prettier-config": "workspace:*",
+    "@yuki/tsconfig": "workspace:*",
+    "eslint": "latest",
+    "prettier": "latest",
+    "react": "^18.3.1",
+    "react-email": "^3.0.1",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "@react-email/components": "^0.0.25",
+    "@t3-oss/env-nextjs": "^0.11.1",
+    "resend": "^4.0.0",
+    "sharp": "^0.33.5",
+    "zod": "^3.23.8"
+  },
+  "prettier": "@yuki/prettier-config"
+}
