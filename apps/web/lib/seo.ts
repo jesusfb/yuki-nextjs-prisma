@@ -11,7 +11,7 @@ interface Params {
 }
 
 export const seo = (params: Params): Metadata => {
-  const title = params.title ? `${params.title} | Create Yuki Turbo` : 'Create Yuki Turbo'
+  const title = params.title ? `${params.title} | Yuki` : 'Yuki'
   const description =
     params.description ?? 'Clean and typesafe starter monorepo using Turborepo along with Next.js'
   const images = params.images ?? ['/api/og']
