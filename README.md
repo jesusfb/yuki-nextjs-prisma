@@ -1,6 +1,6 @@
-# Create Yuki Turbo
+# Yuki
 
-Clean and typesafe starter monorepo using Turborepo along with Next.js and tRPC.
+A full-stack e-commerce platform built with Turborepo, Next.js, TailwindCSS, Prisma, and tRPC. It is a modern, fast, and secure platform that allows you to create your own e-commerce store with ease. Yuki is built with the latest technologies and best practices to ensure that your store is fast, secure, and scalable.
 
 ## About
 
@@ -13,10 +13,11 @@ apps
   |   ├─ React 18
   |   ├─ Tailwind CSS
   |   └─ E2E Typesafe API Server & Client
-  └─ docs
+  └─ dashboard
       ├─ Next.js 14
       ├─ React 18
-      └─ Tailwind CSS
+      ├─ Tailwind CSS
+      └─ E2E Typesafe API Server & Client
 packages
   ├─ api
   |   └─ tRPC v11 router definition
@@ -24,6 +25,8 @@ packages
   |   └─ Authentication using Lucia & Arctic
   ├─ db
   |   └─ Typesafe db calls using Prisma
+  ├─ email
+  |   └─ Email sending using Resend
   └─ ui
       └─ Start of a UI package for the webapp using shadcn-ui
 tooling

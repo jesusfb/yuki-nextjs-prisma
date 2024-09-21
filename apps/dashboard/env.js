@@ -4,9 +4,10 @@ import { z } from 'zod'
 
 import { authEnv } from '@yuki/auth/env'
 import { emailEnv } from '@yuki/email/env'
+import { uploaderEnv } from '@yuki/uploader/env'
 
 export const env = createEnv({
-  extends: [vercel(), authEnv, emailEnv],
+  extends: [vercel(), authEnv, emailEnv, uploaderEnv],
   shared: {
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   },

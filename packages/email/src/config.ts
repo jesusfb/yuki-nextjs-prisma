@@ -1,4 +1,4 @@
-import type {FontProps, TailwindConfig} from '@react-email/components';
+import type { FontProps, TailwindConfig } from '@react-email/components'
 
 export const tailwindConfig: TailwindConfig = {
   darkMode: 'class',
